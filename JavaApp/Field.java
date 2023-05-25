@@ -113,4 +113,16 @@ public class Field {
         playerCards[2]      = new Card(); 
         playerCards[3]      = null;
     }
+
+    public void enemyPreSummon(Card card, int i) {
+    }
+
+    public void enemyAttack(int i) {
+    }
+
+    public void enemySummon(int i) {
+    }
+
+    public void playerAttack(int i) {
+    }
 }

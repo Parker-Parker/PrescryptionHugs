@@ -30,6 +30,9 @@ public class Card implements iCard {
     }
 
     public void onSummon(Field field) {
+    }
+
+    public void doAttack() {
     } 
     
 }
