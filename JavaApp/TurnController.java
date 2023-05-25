@@ -5,11 +5,23 @@ public class TurnController {
     Card[] nextMove = {null, null, null, null};
     //make a "move" object called nextMove that holds what leshy will play to the back next
     //make a "script/itinerary" object that holds or fetches multiple "moves", and coordinates nextMove
+
+    public TurnController(Field inField){
+        this.field = inField;
+        this.state = TurnState.playerDeal;
+    }
+
+    public Field getField(){
+        return this.field;
+    }
+
     public void setState(TurnState newState){
         // check event list for interrupts
         //if no interrupt
         this.state = newState;
     }
+
+    
 
     public void executeState() {
         System.out.println("Exectuting state: "+ this.state.name());
