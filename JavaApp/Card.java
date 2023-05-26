@@ -33,6 +33,26 @@ public class Card implements iCard {
     }
 
     public void doAttack() {
+    }
+
+    public int[] getAttacks(int i) {
+        return null;
+    }
+
+    public int getBuff(int i) {
+        return 0;
+    }
+
+    public boolean checkSigil(Sigils waterborne) {
+        return false;
+    }
+
+    public int takeDamage(int damage, Card card) {
+        return 0;
+    }
+
+    public int getBaseAttack() {
+        return 0;
     } 
     
 }
