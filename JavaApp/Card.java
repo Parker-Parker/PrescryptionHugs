@@ -15,11 +15,17 @@ public class Card implements iCard {
 
 
     public Card() {
+        for(Sigils key : Sigils.values()) {
+            sigils.put(key, false);
+        }
         title = title + id;
         id++;
     }
     
     public Card(String input) {
+        for(Sigils key : Sigils.values()) {
+            sigils.put(key, false);
+        }
         title = input;
     }
 

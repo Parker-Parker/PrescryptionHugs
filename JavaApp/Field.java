@@ -4,6 +4,7 @@ public class Field {
     Card[] enemyCards = {null, null, null, null};
     Card[] playerCards = {null, null, null, null};
     int scale = 0;
+    private NullCard nullCard = new NullCard(this);
     
 
     public Card[] getPlayerCards(){
@@ -29,7 +30,6 @@ public class Field {
     
     String blank = "          ";
     String horiz = "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+";
-    private Card nullCard;
     private String makeLineTitle(Card[] rowCards) {
         String outputString = "|";
         int i;
@@ -129,10 +129,16 @@ public class Field {
         int[] targets = playerCards[i].getAttacks(i);//(get pos based debuff/buff too)asks each card(slot) who it wants to attack, then does the attack(flight/jump/nope sigils)//must call attackee's takedamage function(handle death,overflow dmg, reflect)
         for(int t : targets){
             if (t>=0 && t<=3) {//only attack if the attacker is looking for a valid target slot
+                // //get buffs
+                // int left  = playerCards[i-1]== null ? 0 : (i>1  ? playerCards[i-1].getBuff(-1)  : 0);     // come back and add null handling
+                // int up    = enemyCards[i]   == null ? 0 : (true ? enemyCards[i].getBuff(0)    : 0);     // come back and add null handling
+                // int right = playerCards[i+1]== null ? 0 : (i<3  ? playerCards[i+1].getBuff(1) : 0);     // come back and add null handlinge
+                
                 //get buffs
-                int left  = playerCards[i-1]== null ? 0 : (i>1  ? playerCards[i-1].getBuff(-1)  : 0);     // come back and add null handling
-                int up    = enemyCards[i]   == null ? 0 : (true ? enemyCards[i].getBuff(0)    : 0);     // come back and add null handling
-                int right = playerCards[i+1]== null ? 0 : (i<3  ? playerCards[i+1].getBuff(1) : 0);     // come back and add null handlinge
+                int left  = i>0  ? (playerCards[i-1]== null ? 0 :  playerCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                int up    = true ? (enemyCards[i]   == null ? 0 :  enemyCards[i].getBuff(0)   ) : 0;     // come back and add null handling
+                int right = i<3  ? (playerCards[i+1]== null ? 0 :  playerCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                
                 int buff  = left + up + right;
                 //this.cardAttack(dmg,source, target)
                 int damage = playerCards[i].getBaseAttack()+buff;
