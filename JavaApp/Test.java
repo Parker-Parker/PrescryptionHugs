@@ -18,6 +18,14 @@ public class Test
         // Card card = new Card();
         // System.out.println(card.getTitle());
         
+        System.out.println("Test 2 begins...");
+        TurnController game = new TurnController(testField);
+        for(int i = 0;i<50;i++){
+            //update other controllers
+            game.executeState();
+            game.getField().printField();
+        }
+        
 
     }
 };
