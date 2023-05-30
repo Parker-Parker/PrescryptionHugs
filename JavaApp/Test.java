@@ -20,7 +20,20 @@ public class Test
         testField.printField();
         // System.out.println("generating test card");
         // Card card = new Card();
-        // System.out.println(card.getTitle());
+        // System.out.println(card.getTitle());F
+        testField.enemyCards[0].giveSigil(Sigils.Airborne);
+        testField.playerCards[1].giveSigil(Sigils.SharpQuills);
+        testField.enemyCardsBack[3] = new Card(4, 4, "MONGO");
+        testField.enemyCardsBack[3].setField(testField);
+        testField.enemyCardsBack[3].giveSigil(Sigils.SharpQuills);
+        testField.enemyCardsBack[3].giveSigil(Sigils.Airborne);
+        testField.enemyCardsBack[3].giveSigil(Sigils.MightyLeap);
+        testField.enemyCardsBack[3].giveSigil(Sigils.TrifurcatedStrike); 
+        testField.enemyCardsBack[3].giveSigil(Sigils.WorthySacrifice);
+        testField.enemyCardsBack[3].giveSigil(Sigils.DeathTouch);// quill combo does not yet work
+
+        
+        
         String kek = "poop";
         System.out.println("Test 2 begins...");
         TurnController game = new TurnController(testField);

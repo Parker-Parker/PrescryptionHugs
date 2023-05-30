@@ -63,7 +63,6 @@ public class TurnController {
             case playerAttack:
                 for(int i = 0; i<4; i++){
                     field.playerAttack(i);//(get pos based debuff/buff too)asks each card(slot) who it wants to attack, then does the attack(flight/jump/nope sigils)//must call attackee's takedamage function(handle death,overflow dmg, reflect)
-                    //field.getPlayerCards()[i].playerAttack();//asks each card who it wants to attack, then does the attack
                 }
                 this.setState(TurnState.leshyBegin);
                 break;

@@ -124,5 +124,9 @@ public class Card implements iCard {
     public void setField(Field field){
         this.field = field;
     }
+
+    public void giveSigil(Sigils s) {
+        this.sigils.put(s,true);
+    }
 }
 

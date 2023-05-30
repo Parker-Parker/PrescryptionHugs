@@ -1,9 +1,13 @@
+import java.util.LinkedList;
+
 public class Field {
     Card[] nullCards = {null, null, null, null};
     Card[] enemyCardsBack = {null, null, null, null};
     Card[] enemyCards = {null, null, null, null};
     Card[] playerCards = {null, null, null, null};
     Card[][] rows = {playerCards,enemyCards,enemyCardsBack};
+    LinkedList<Card> deck = new LinkedList<Card>(); 
+    LinkedList<Card> hand = new LinkedList<Card>(); 
     int scale = 0;
     private NullCard nullCard = new NullCard(this);
     
@@ -77,6 +81,143 @@ public class Field {
         }
         return outputString;
     }
+    private String makeLineSigils(Card[] rowCards) {
+        String outputString = "|";
+        int i;
+        for(i = 0; i<4; i++) {
+            Card card = rowCards[i];
+            if(card == null){
+                outputString = outputString + blank + "|";
+            }
+
+            else {
+                String title = "";
+                for (Sigils s : Sigils.values()){
+                    if(card.checkSigil(s)){
+                        if(title.length()<blank.length()){
+                            switch(s) {
+                                case Rabbit:
+                                    title = title +"";
+                                    break;
+                                case Bees:
+                                    title = title +"B";
+                                    break;
+                                case Sprinter:
+                                    title = title +">";
+                                    break;
+                                case DeathTouch:
+                                    title = title +"&";
+                                    break;
+                                case Fledgling:
+                                    title = title +"";
+                                    break;
+                                case Dam:
+                                    title = title +"";
+                                    break;
+                                case Hoarder:
+                                    title = title +"";
+                                    break;
+                                case Burrower:
+                                    title = title +"v";
+                                    break;
+                                case Fecundity:
+                                    title = title +"";
+                                    break;
+                                case LooseTail:
+                                    title = title +"T";
+                                    break;
+                                case CorpseEater:
+                                    title = title +"";
+                                    break;
+                                case BoneKing:
+                                    title = title +"=";
+                                    break;
+                                case Waterborne:
+                                    title = title +"S";
+                                    break;
+                                case Unkillable:
+                                    title = title +"R";
+                                    break;
+                                case SharpQuills:
+                                    title = title +"#";
+                                    break;
+                                case Hefty:
+                                    title = title +"H";
+                                    break;
+                                case AntSpawner:
+                                    title = title +"A";
+                                    break;
+                                case Guardian:
+                                    title = title +"G";
+                                    break;
+                                case Airborne:
+                                    title = title +"F";
+                                    break;
+                                case ManyLives:
+                                    title = title +"C";
+                                    break;
+                                case Repulsive:
+                                    title = title +"!";
+                                    break;
+                                case WorthySacrifice:
+                                    title = title +"$";
+                                    break;
+                                case MightyLeap:
+                                    title = title +"@";
+                                    break;
+                                case BifurcatedStrike:
+                                    title = title +"2";
+                                    break;
+                                case TrifurcatedStrike:
+                                    title = title +"3";
+                                    break;
+                                case FrozenAway:
+                                    title = title +"";
+                                    break;
+                                case TrinketBearer:
+                                    title = title +"";
+                                    break;
+                                case SteelTrap:
+                                    title = title +"";
+                                    break;
+                                case Amorphous:
+                                    title = title +"";
+                                    break;
+                                case TidalLock:
+                                    title = title +"";
+                                    break;
+                                case OmniStrike:
+                                    title = title +"";
+                                    break;
+                                case Leader:
+                                    title = title +"~";
+                                    break;
+                                case Bellist:
+                                    title = title +"";
+                                    break;
+                                case Stinky:
+                                    title = title +"-";
+                                    break;                
+                            }            
+                            
+                        }
+                        else if(title.length()==blank.length()){
+                            title = title.substring(0,blank.length()-2) +"+";
+                        }
+                    }
+                }
+                while (title.length()<blank.length()) {
+                    title =title +" ";
+                    if (title.length()<blank.length()) {
+                        title =" "+title;
+                    }
+                }
+                outputString = outputString + title + "|";
+        
+            }
+        }
+        return outputString;
+    }
     public void printField() {
         System.out.println(horiz);
         System.out.println(makeLineTitle(enemyCardsBack));
@@ -87,6 +228,7 @@ public class Field {
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
+        System.out.println(makeLineSigils(enemyCardsBack));
         System.out.println(makeLineStats(enemyCardsBack));
         System.out.println(horiz);
         System.out.println(makeLineTitle(enemyCards));
@@ -97,6 +239,7 @@ public class Field {
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
+        System.out.println(makeLineSigils(enemyCards));
         System.out.println(makeLineStats(enemyCards));
         System.out.println(horiz);
         System.out.println("+   "+blank+blank+blank+blank+"+");
@@ -109,6 +252,7 @@ public class Field {
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
+        System.out.println(makeLineSigils(playerCards));
         System.out.println(makeLineStats(playerCards));
         System.out.println(horiz);
     }
@@ -153,7 +297,7 @@ public class Field {
             
             int[] targets = enemyCards[i].getAttacks(i);//(get pos based debuff/buff too)asks each card(slot) who it wants to attack, then does the attack(flight/jump/nope sigils)//must call attackee's takedamage function(handle death,overflow dmg, reflect)
             for(int t : targets){
-                if (t>=0 && t<=3) {//only attack if the attacker is looking for a valid target slot
+                if (((i+t)>=0) && ((i+t)<=3)) {//only attack if the attacker is looking for a valid target slot
                     // //get buffs
                     // int left  = playerCards[i-1]== null ? 0 : (i>1  ? playerCards[i-1].getBuff(-1)  : 0);     // come back and add null handling
                     // int up    = enemyCards[i]   == null ? 0 : (true ? enemyCards[i].getBuff(0)    : 0);     // come back and add null handling
@@ -223,7 +367,7 @@ public class Field {
         
             int[] targets = playerCards[i].getAttacks(i);//(get pos based debuff/buff too)asks each card(slot) who it wants to attack, then does the attack(flight/jump/nope sigils)//must call attackee's takedamage function(handle death,overflow dmg, reflect)
             for(int t : targets){
-                if (t>=0 && t<=3) {//only attack if the attacker is looking for a valid target slot
+                if (((i+t)>=0) && ((i+t)<=3)) {//only attack if the attacker is looking for a valid target slot
                     // //get buffs
                     // int left  = playerCards[i-1]== null ? 0 : (i>1  ? playerCards[i-1].getBuff(-1)  : 0);     // come back and add null handling
                     // int up    = enemyCards[i]   == null ? 0 : (true ? enemyCards[i].getBuff(0)    : 0);     // come back and add null handling
