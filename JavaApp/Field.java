@@ -150,7 +150,11 @@ public class Field {
     public void enemyAttack(int i) {
     }
 
-    public void enemySummon(int i) {
+    public void enemySummon(int i) { 
+        if(enemyCards[i]==null){
+            enemyCards[i]=enemyCardsBack[i];
+            enemyCardsBack[i]=null;
+        }
     }
 
     public void playerAttack(int i) {
