@@ -40,6 +40,13 @@ public class TurnController {
                 break;
             case playerDraw:
                 //collect respond to player input
+                boolean draw = true;
+                if(draw){
+                    field.popMainDeck();
+                }
+                else {
+                    field.popSideDeck();
+                }
                 this.setState(TurnState.playerReady); //if player attempts summon of 0 cost
                 break;
             case playerReady:
