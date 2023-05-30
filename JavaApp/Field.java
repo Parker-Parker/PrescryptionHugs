@@ -3,6 +3,7 @@ public class Field {
     Card[] enemyCardsBack = {null, null, null, null};
     Card[] enemyCards = {null, null, null, null};
     Card[] playerCards = {null, null, null, null};
+    Card[][] rows = {playerCards,enemyCards,enemyCardsBack};
     int scale = 0;
     private NullCard nullCard = new NullCard(this);
     
@@ -53,7 +54,29 @@ public class Field {
         }
         return outputString;
     }
+    private String makeLineStats(Card[] rowCards) {
+        String outputString = "|";
+        int i;
+        for(i = 0; i<4; i++) {
+            Card card = rowCards[i];
+            if(card == null){
+                outputString = outputString + blank + "|";
+            }
 
+            else {
+                String title = card.attack +"    "+ card.health;
+                while (title.length()<blank.length()) {
+                    title =title +" ";
+                    if (title.length()<blank.length()) {
+                        title =" "+title;
+                    }
+                }
+                outputString = outputString + title + "|";
+        
+            }
+        }
+        return outputString;
+    }
     public void printField() {
         System.out.println(horiz);
         System.out.println(makeLineTitle(enemyCardsBack));
@@ -64,7 +87,7 @@ public class Field {
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
-        System.out.println(makeLineTitle(nullCards));
+        System.out.println(makeLineStats(enemyCardsBack));
         System.out.println(horiz);
         System.out.println(makeLineTitle(enemyCards));
         System.out.println(makeLineTitle(nullCards));
@@ -74,7 +97,7 @@ public class Field {
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
-        System.out.println(makeLineTitle(nullCards));
+        System.out.println(makeLineStats(enemyCards));
         System.out.println(horiz);
         System.out.println("+   "+blank+blank+blank+blank+"+");
         System.out.println(horiz);
@@ -86,7 +109,7 @@ public class Field {
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
         System.out.println(makeLineTitle(nullCards));
-        System.out.println(makeLineTitle(nullCards));
+        System.out.println(makeLineStats(playerCards));
         System.out.println(horiz);
     }
 
@@ -103,16 +126,22 @@ public class Field {
     public void bulkInit() {
         enemyCardsBack[0]   = null;
         enemyCardsBack[1]   = new Card();
-        enemyCardsBack[2]   = new Card(); 
+        enemyCardsBack[2]   = new Card(1,3,"fart"); 
         enemyCardsBack[3]   = null;
         enemyCards[0]       = new Card();
-        enemyCards[1]       = new Card("test 2");
-        enemyCards[2]       = null;
+        enemyCards[1]       = new Card(3,2,"wolf");
+        enemyCards[2]       = new Card();
         enemyCards[3]       = null; 
         playerCards[0]      = null;
-        playerCards[1]      = null; 
-        playerCards[2]      = new Card(); 
-        playerCards[3]      = null;
+        playerCards[1]      = new Card(1,1,"stoat");
+        playerCards[2]      = new Card(2,8,"moose"); 
+        playerCards[3]      = new Card(1,1,"bort");
+        for (Card[] r :rows){
+            for(Card c: r) {
+                if (c != null) {c.setField(this);}
+            }
+        }
+        
     }
 
     public void enemyPreSummon(Card card, int i) {
@@ -155,7 +184,7 @@ public class Field {
                 //              1               x       1       0       hit
                 //              0               x       0       0       
                 //sigils: atk~ airborne def~repulsive leap waterborne // repulsive(prevent attack) should be checked on takeDamage(int,card), i think; only actually takes damage if sourcecard is null, since that would be revenge damagefrom spikes 
-                
+        
                 
                 if(target.checkSigil(Sigils.Waterborne)){// if waterborne, automatic miss(direct HP damage)
                     target = this.nullCard;
@@ -175,10 +204,26 @@ public class Field {
                 }
                 //this is only for the main case, on hit
                 int overflow = target.takeDamage(damage, playerCards[i]);//the damage source is passed in so the spike sigil can be tested  in takeDamage and directly call the revenge target's .takeDamage(1,null); 
-                if(overflow>0){
+            
+                if((overflow>0) && (enemyCardsBack[i+t]!=null)){
                     enemyCardsBack[i+t].takeDamage(overflow, playerCards[i]);
                 }
             }
+        }
+    }
+
+    public void purgeDead() {
+        for(int i = 0; i<4; i++){
+            this.enemyCardsBack[i]  = (this.enemyCardsBack[i]==null)?   null:(this.enemyCardsBack[i].checkDead() ? null : this.enemyCardsBack[i]);
+            this.enemyCards[i]      = (this.enemyCards[i]==null)    ?   null:(this.enemyCards[i].checkDead()     ? null : this.enemyCards[i]);
+            this.playerCards[i]     = (this.playerCards[i]==null)   ?   null:(this.playerCards[i].checkDead()    ? null : this.playerCards[i]);
+        }
+    }
+    public void purge(Card card) {
+        for(int i = 0; i<4; i++){
+            if(this.enemyCardsBack[i]==card) {this.enemyCardsBack[i]=null;} 
+            if(this.enemyCards[i]    ==card) {this.enemyCards[i]    =null;}
+            if(this.playerCards[i]   ==card) {this.playerCards[i]   =null;}
         }
     }    
 }

@@ -10,6 +10,8 @@ public class Card implements iCard {
     int baseHealth = 1;
     int attack = 0;
     int health = 1;
+    boolean dead = false;
+    Field field = null;
 
     int[][] attackLists= {{0}, {-1,1}, {-1,0,1}, {-2,-1,0,1,2} };
 
@@ -28,6 +30,14 @@ public class Card implements iCard {
         }
         title = input;
     }
+    public Card(int atk, int def, String name) {
+        for(Sigils key : Sigils.values()) {
+            sigils.put(key, false);
+        }
+        title = name;
+        attack = baseAttack = atk;
+        health = baseHealth = def;
+    }
 
     public void setTitle(String input) {
         title = input;
@@ -38,6 +48,7 @@ public class Card implements iCard {
     }
 
     public void onSummon(Field field) {
+        this.field = field;
     }
 
 
@@ -77,6 +88,7 @@ public class Card implements iCard {
         if(damage>0){
 
             this.health = this.health - damage;
+            if(this.health <= 0){this.die();}
             if(checkSigil(Sigils.SharpQuills)){
                 if(!(card == null)){
                     card.takeDamage(1, null);//realistically, if i wanted this to be robust, I would always pass the dmg src, and add a list of damage tags(poison, quill, etc). oh well
@@ -94,7 +106,23 @@ public class Card implements iCard {
 
     public int getBaseAttack() {
         return baseAttack;
+    }
+
+    public int getHealth() {
+        return 0;
     } 
-    
+    public boolean checkDead(){
+        return dead;
+    }
+    public void die(){
+        //do ouroboros
+        this.dead = true;
+        //field.purgeDead();//we can try a field.purgeThis(Card) too
+        System.out.println(title+" has perished");
+        field.purge(this);
+    }
+    public void setField(Field field){
+        this.field = field;
+    }
 }
 
