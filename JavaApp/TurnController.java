@@ -28,6 +28,11 @@ public class TurnController {
 
         switch(this.state) {
             case playerDeal:
+                //set field
+                for(int i=0; i<5; i++){
+                    field.popMainDeck(); //add 5 cards to hand
+                }// leshy should prompt player to draw
+                field.popSideDeck();//add a squirrel to hand
                 this.setState(TurnState.playerDraw);
                 break;
             case playerBegin:

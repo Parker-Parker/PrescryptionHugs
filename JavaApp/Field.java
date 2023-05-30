@@ -6,15 +6,35 @@ public class Field {
     Card[] enemyCards = {null, null, null, null};
     Card[] playerCards = {null, null, null, null};
     Card[][] rows = {playerCards,enemyCards,enemyCardsBack};
-    LinkedList<Card> deck = new LinkedList<Card>(); 
+    LinkedList<Card> mainDeck = new LinkedList<Card>();
+    LinkedList<Card> sideDeck = new LinkedList<Card>();
     LinkedList<Card> hand = new LinkedList<Card>(); 
+
     int scale = 0;
     private NullCard nullCard = new NullCard(this);
     
 
+    public void initMainDeck() {
+        for(int i = 0; i<25;i++){
+            mainDeck.add(new Card(i%3,i%7,"Card D"+i));
+        }
+    }
+    public void initMainDeck(LinkedList<Card> deck) {
+        for(Card c : deck){
+            mainDeck.add(c.makeCopy());
+        }
+    }
+    public void initSideDeck() {
+        for(int i = 0; i<25; i++){
+            sideDeck.add(new Squirrel());
+        }
+    }
+
     public Card[] getPlayerCards(){
         return playerCards;
     }
+
+    
 
     public Boolean playCard(Card card, int slot) { //return true if successful, expect prev container to remove from its list
         if(playerCards[slot] == null){
@@ -268,6 +288,8 @@ public class Field {
     }
 
     public void bulkInit() {
+        initMainDeck();
+        initSideDeck();
         enemyCardsBack[0]   = null;
         enemyCardsBack[1]   = new Card();
         enemyCardsBack[2]   = new Card(1,3,"fart"); 
@@ -436,5 +458,33 @@ public class Field {
             if(this.enemyCards[i]    ==card) {this.enemyCards[i]    =null;}
             if(this.playerCards[i]   ==card) {this.playerCards[i]   =null;}
         }
+    }
+
+
+
+    public void popMainDeck() {
+        if (mainDeck.peek()!=null) {
+            hand.add(mainDeck.pop());
+            System.out.println("drew card");
+        }
+        else {
+            System.out.println("tried to draw card, but none left");
+            //do end of deck thing
+        }
+        
+    }
+
+
+
+    public void popSideDeck() {
+        if (sideDeck.peek()!=null) {
+            hand.add(sideDeck.pop());
+            System.out.println("drew Squirrel");
+        }
+        else {
+            System.out.println("tried to draw Squirrel, but none left");
+            //do end of deck thing
+        }
+        
     }    
 }

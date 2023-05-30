@@ -128,5 +128,9 @@ public class Card implements iCard {
     public void giveSigil(Sigils s) {
         this.sigils.put(s,true);
     }
+
+    public Card makeCopy() {
+        return new Card();//TODO
+    }
 }
 
