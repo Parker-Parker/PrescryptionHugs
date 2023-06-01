@@ -3,6 +3,7 @@ public class TurnController {
     TurnState state;
     Field field;
     Card[] nextMove = {null, null, null, null};
+    UserInputHandler user;
     //make a "move" object called nextMove that holds what leshy will play to the back next
     //make a "script/itinerary" object that holds or fetches multiple "moves", and coordinates nextMove
 

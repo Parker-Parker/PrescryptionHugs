@@ -31,6 +31,7 @@ public class Test
         testField.enemyCardsBack[3].giveSigil(Sigils.TrifurcatedStrike); 
         testField.enemyCardsBack[3].giveSigil(Sigils.WorthySacrifice);
         testField.enemyCardsBack[3].giveSigil(Sigils.DeathTouch);// quill combo does not yet work
+        
 
         
         
