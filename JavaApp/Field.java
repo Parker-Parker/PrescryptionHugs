@@ -8,7 +8,13 @@ public class Field {
     Card[][] rows = {playerCards,enemyCards,enemyCardsBack};
     LinkedList<Card> mainDeck = new LinkedList<Card>();
     LinkedList<Card> sideDeck = new LinkedList<Card>();
-    LinkedList<Card> hand = new LinkedList<Card>(); 
+    LinkedList<Card> hand = new LinkedList<Card>();
+
+    //for sacrifices
+    LinkedList<Card> sacrifices = new LinkedList<Card>(); 
+    Card current = null;
+
+
 
     int scale = 0;
     private NullCard nullCard = new NullCard(this);
@@ -486,5 +492,23 @@ public class Field {
             //do end of deck thing
         }
         
+    }
+    public boolean playCard(int i, int slot) {
+        return false;
+    }
+    public boolean checkRoom() {
+        return false;
+    }
+    public int executeSacrifices() {
+        return 0;
+    }
+    public void addSacrifice(int i) {
+    }
+    public void clearSacrifices() {
+    }
+    public boolean checkSacrifices() {
+        return false;
+    }
+    public void prepPlayCard(int i) {
     }    
 }

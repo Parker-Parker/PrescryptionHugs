@@ -4,6 +4,7 @@ import java.util.LinkedList;
 public class UserInputHandler {
     LinkedList<iUserInput> userInputs = new LinkedList<iUserInput>();
     TurnController game;
+    int[] play_args;
 
     public void register(iUserInput input) {
         userInputs.add(input);
@@ -35,7 +36,28 @@ public class UserInputHandler {
             }
         }
     }
+    public void parseCMD(String s){
+
+    }
 
 
+
+
+
+    public int[] getDrawInput() {
+        return null;
+    }
+
+    public int[] getSummonInput() {
+        return null;
+    }
+
+    public int[] getSacrificeInput() {
+        return null;
+    }
+
+    public int[] getPlayerReadyInput() {
+        return null;
+    }
 
 }

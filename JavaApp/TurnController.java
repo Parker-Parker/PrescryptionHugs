@@ -41,34 +41,110 @@ public class TurnController {
                 break;
             case playerDraw:
                 //collect respond to player input
-                boolean draw = true;
-                if(draw){
+                int[] cmdDraw = user.getDrawInput();//this should never be null, block if you cant return int[1]// return (deck)
+                                                                                                            // 1: Main  
+                                                                                                            // 0: Squirrel
+                //boolean draw = true;
+                if(cmdDraw[0]==1){
                     field.popMainDeck();
                 }
                 else {
                     field.popSideDeck();
                 }
-                this.setState(TurnState.playerReady); //if player attempts summon of 0 cost
+                this.setState(TurnState.playerReady);
                 break;
             case playerReady:
+                
                 //collect respond to player input
+                int[] cmdReady = user.getPlayerReadyInput();//never null, block if you cant return int[3]
+                // return (action, card, slot)  
+                //action:                   //card:                 //slot:           
+                // 0: Bell                  // x                    //x                                                            
+                // 1: SummonDirect          // 0-n: index in hand   //0-3 index on field                                                                              
+                // 2: SummonSacrifice       // 0-n: index in hand   //x
+                if(cmdReady[0]==0){
+                    this.setState(TurnState.playerEnd); //if player ends turn    
+                } 
+                else if(cmdReady[0]==1){ //if player attempts summon of 0 cost
+                    
+                    field.playCard(cmdReady[1], cmdReady[2]);  // check if sacrifices are sufficient, 
+                                                                //if no, just report angry leshy to anim queue
+                                                                //if yes, add card to field at slot, run card.whenPlayed() then purge from hand
+                    this.setState(TurnState.playerReady);       //no more work needed, ready to play new card
+                    //may want to add something that waits for bad card cleared. may want field.playCard() to return true/false to facilitate this 
+                }
+                else if(cmdReady[0]==2){
+                    field.clearSacrifices();
+                    field.prepPlayCard(cmdReady[1]); // confirm there is enough blood on the field nvm //maybe do pop>put_first? nvm 
+                                                //if no bounce back wait for card clear then bounce back to ready 
+                                                //confirm not 0 cost
+                    field.clearSacrifices();
+                    this.setState(TurnState.playerSacrifice);
+                    
+
+                }
+
+                
+                
                 //this.setState(TurnState.playerSummon); //if player attempts summon of 0 cost
                 //this.setState(TurnState.playerSacrifice); //if player attempts summon of 1+ cost
-                this.setState(TurnState.playerEnd); //if player ends turn
+                //this.setState(TurnState.playerEnd); //if player ends turn
                 
                 break;
             case playerSacrifice:
-                //collect respond to player input
-                this.setState(TurnState.playerSummon); //if summon cost satisfied //call sacrifice method on all cards in list
+                
+                if(field.checkSacrifices()){//sacrifices are satisfactory
+                    this.setState(TurnState.playerSummon); //if summon cost satisfied //call sacrifice method on all cards in list
+                } 
+                else    {
+                    //collect respond to player input
+                    int[] cmdSac = user.getSacrificeInput();//never null, block if you cant return int[2]
+                    // return (action, card, slot)  
+                    //action:                   //card:                          
+                    // 0: cancel                // x                                                                          
+                    // 1: Sacrifice             //0-3 index on field                                                                              
+                    if(cmdSac[0]==0){
+                        field.clearSacrifices();
+                        this.setState(TurnState.playerReady); //if player cancels sacrifices before cost is reached    
+                    } 
+                    else if(cmdSac[0]==1){ //if player adds a sacrifice
+                        field.addSacrifice(cmdSac[1]);//should check if card at index is worth>0
+                        this.setState(TurnState.playerSacrifice);     
+                    }
+                }
+                
+                // this.setState(TurnState.playerSummon); //if summon cost satisfied //call sacrifice method on all cards in list
                 //this.setState(TurnState.playerSacrifice); //if summon cost not satisfied
                 //this.setState(TurnState.playerReady); //if summon canceled
                 
                 break;
             case playerSummon:
-                //collect and respond to player input
-                this.setState(TurnState.playerReady); //if summon successful
-                //this.setState(TurnState.playerReady); //if summon unsuccessful and there was no sacrifice
-                //this.setState(TurnState.playerSummon);//if summon unsuccessful but sacrifice succeeded
+                int cost = field.executeSacrifices();//should return total cost. if cost > 0 cannot cancel
+                if(field.checkRoom()){
+                    boolean summoned = false;
+                    while(summoned==false) {
+                        int[] cmdSummon = user.getSummonInput();//never null, block if you cant return int[1]
+                        // return (slot)  
+                        //card:                          
+                        // x                                                                          
+                        //0-3 index on field                                                                              
+                        summoned = field.playCard(0, cmdSummon[0]);
+                        this.setState(TurnState.playerReady); //if summon successful    
+                
+                        if(summoned){
+                            this.setState(TurnState.playerReady); //if summon successful    
+                        }
+                        else{
+                            this.setState(TurnState.playerSummon); //if summon successful    
+                
+                            //leshy yell at player
+                        }
+                    }
+                }
+                else{//there is no room(all sacrifices likely unkillable)
+                    this.setState(TurnState.playerReady); //if summon successful    
+                }
+                
                 break;
             case playerEnd:
             this.setState(TurnState.playerAttack);
