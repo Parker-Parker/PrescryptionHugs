@@ -12,4 +12,6 @@ public interface iUserInput {
 
     void request(TurnState type, LinkedList<String> choices);
 
+    int[] popParsed(TurnState type);
+
 }

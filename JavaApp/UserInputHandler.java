@@ -53,7 +53,7 @@ public class UserInputHandler {
                 for (iUserInput in : userInputs){
 
                     // String message = in.checkAvailable() ? "Accepted command from "+in.peek().getName();
-                    cmd = in.checkAvailable() ? in.pop() : cmd;// not sure if I should add type to these
+                    cmd = (cmd == null) ? in.popParsed(type) : null;// not sure if I should add type to these
                 }
             }
             for (iUserInput in : userInputs){       
