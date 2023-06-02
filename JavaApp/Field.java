@@ -510,5 +510,8 @@ public class Field {
         return false;
     }
     public void prepPlayCard(int i) {
+    }
+    public LinkedList<Card> getHand() {
+        return hand;
     }    
 }

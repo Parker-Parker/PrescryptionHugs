@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class TurnController {
     int turnNo = 0;
     TurnState state;
@@ -27,6 +29,8 @@ public class TurnController {
     public void executeState() {
         System.out.println("Exectuting state: "+ this.state.name());
 
+        LinkedList<String> choices =  new LinkedList<String>();
+
         switch(this.state) {
             case playerDeal:
                 //set field
@@ -40,8 +44,11 @@ public class TurnController {
                 this.setState(TurnState.playerDraw);
                 break;
             case playerDraw:
+                choices.add("Main");
+                choices.add("Side");
                 //collect respond to player input
-                int[] cmdDraw = user.getDrawInput();//this should never be null, block if you cant return int[1]// return (deck)
+                // int[] cmdDraw = user.getDrawInput();//this should never be null, block if you cant return int[1]// return (deck)
+                int[] cmdDraw = user.getUserInput(this.state, choices);//this should never be null, block if you cant return int[1]// return (deck)
                                                                                                             // 1: Main  
                                                                                                             // 0: Squirrel
                 //boolean draw = true;
@@ -54,9 +61,13 @@ public class TurnController {
                 this.setState(TurnState.playerReady);
                 break;
             case playerReady:
-                
+                for(Card c : field.getHand()){
+                    choices.add(c.getTitle());
+                }
+
                 //collect respond to player input
-                int[] cmdReady = user.getPlayerReadyInput();//never null, block if you cant return int[3]
+                // int[] cmdReady = user.getPlayerReadyInput();//never null, block if you cant return int[3]
+                int[] cmdReady = user.getUserInput(this.state, choices);//never null, block if you cant return int[3]
                 // return (action, card, slot)  
                 //action:                   //card:                 //slot:           
                 // 0: Bell                  // x                    //x                                                            
@@ -96,9 +107,14 @@ public class TurnController {
                 if(field.checkSacrifices()){//sacrifices are satisfactory
                     this.setState(TurnState.playerSummon); //if summon cost satisfied //call sacrifice method on all cards in list
                 } 
-                else    {
+                else    
+                {
+                    for(Card c : field.getPlayerCards()){
+                        choices.add(c.getTitle());
+                    }
                     //collect respond to player input
-                    int[] cmdSac = user.getSacrificeInput();//never null, block if you cant return int[2]
+                    // int[] cmdSac = user.getSacrificeInput();//never null, block if you cant return int[2]
+                    int[] cmdSac = user.getUserInput(this.state, choices);//never null, block if you cant return int[2]
                     // return (action, card, slot)  
                     //action:                   //card:                          
                     // 0: cancel                // x                                                                          
@@ -123,7 +139,12 @@ public class TurnController {
                 if(field.checkRoom()){
                     boolean summoned = false;
                     while(summoned==false) {
-                        int[] cmdSummon = user.getSummonInput();//never null, block if you cant return int[1]
+                        // int[] cmdSummon = user.getSummonInput();//never null, block if you cant return int[1]
+                        choices.add("0");
+                        choices.add("1");
+                        choices.add("2");
+                        choices.add("3");
+                        int[] cmdSummon = user.getUserInput(this.state, choices);//never null, block if you cant return int[1]
                         // return (slot)  
                         //card:                          
                         // x                                                                          

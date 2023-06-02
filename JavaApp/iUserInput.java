@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 
 public interface iUserInput {
 
@@ -9,6 +10,6 @@ public interface iUserInput {
 
     void cancelRequest();
 
-    void request(TurnState type, String[] options);
+    void request(TurnState type, LinkedList<String> choices);
 
 }

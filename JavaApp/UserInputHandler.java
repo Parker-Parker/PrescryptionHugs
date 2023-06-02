@@ -38,7 +38,7 @@ public class UserInputHandler {
     // }
 
 
-    public int[] getUserInput(TurnState type, String[] options){
+    public int[] getUserInput(TurnState type, LinkedList<String> choices){
         if(userInputs.peek()==null){
             //no interfaces exist, skip turn 
             return defaultCommand(type);
@@ -46,7 +46,7 @@ public class UserInputHandler {
         else {//block until input
             for (iUserInput in : userInputs){       
                 // in.request(type);
-                in.request(type, options);
+                in.request(type, choices);
             }
             int[] cmd = null;//should really make a command class, that holds cmd, arg1, arg2...
             while (cmd==null){
@@ -94,6 +94,11 @@ public class UserInputHandler {
                 cmd[1] = 0;
                 cmd[2] = 0;
                 cmd[3] = 0;
+            // case default:
+            //     cmd[0] = 0;//idk
+            //     cmd[1] = 0;
+            //     cmd[2] = 0;
+            //     cmd[3] = 0;
         }
         return cmd;
     }
