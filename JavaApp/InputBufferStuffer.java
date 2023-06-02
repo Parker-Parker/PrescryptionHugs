@@ -52,6 +52,13 @@ public class InputBufferStuffer extends Thread { //this is a buffer class to all
         }
         return next;
     }
+
+
+    public Object peek() {
+        return null;
+    }
+
+
         
 
 
