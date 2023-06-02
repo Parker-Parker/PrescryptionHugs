@@ -8,7 +8,7 @@ public class UserInputHandler {
 
     public void register(iUserInput input) {
         userInputs.add(input);
-        userInputs.sort(null);
+        // userInputs.sort(null);
     }
 
     public void requestInputBroadcast(){//TurnState,hand/cardlist) {
@@ -61,6 +61,7 @@ public class UserInputHandler {
                 // in.cancelRequest(type, message);
                 in.cancelRequest();
             }
+            printCMD(type, cmd);
             return cmd;
             
         }
@@ -71,42 +72,54 @@ public class UserInputHandler {
     int rando = 0;
     private int[] defaultCommand(TurnState type) {
         
-        int[] cmd = new int[4];
+        int[] cmd = new int[]{0,0,0,0};
         switch(type){
             case playerDraw:
                 cmd[0] = 1; //main deck
                 cmd[1] = 0;
                 cmd[2] = 0;
                 cmd[3] = 0;
+                break;
             case playerReady:
                 cmd[0] = 0; //bell
                 cmd[1] = 0; //  x
                 cmd[2] = 0; //  x
-                cmd[3] = 0; 
+                cmd[3] = 0;
+                break; 
             case playerSacrifice:
                 cmd[0] = 0; //cancel
                 cmd[1] = 0;
                 cmd[2] = 0;
                 cmd[3] = 0;
+                break;
             case playerSummon:
                 rando = (rando+1)%4;
                 cmd[0] = rando;//idk
                 cmd[1] = 0;
                 cmd[2] = 0;
                 cmd[3] = 0;
-            // case default:
-            //     cmd[0] = 0;//idk
-            //     cmd[1] = 0;
-            //     cmd[2] = 0;
-            //     cmd[3] = 0;
+                break;
+            default:
+                cmd[0] = 0;//idk
+                cmd[1] = 0;
+                cmd[2] = 0;
+                cmd[3] = 0;
         }
+        System.out.println("default user input");
+        printCMD(type, cmd);
         return cmd;
     }
 
     public void parseCMD(String s){
 
     }
-
+    public void printCMD(TurnState type, int[] cmd){
+        String out = "CMD "+type.name()+": " ;
+        for(int i : cmd){
+            out = out+" "+i;
+        }
+        System.out.println(out);
+    }
 
 
 

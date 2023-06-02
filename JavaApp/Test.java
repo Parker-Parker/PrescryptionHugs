@@ -21,10 +21,11 @@ public class Test
         System.out.println("beginning input test");
         InputBufferStuffer buff = new InputBufferStuffer(new Scanner(System.in));
         buff.start();
-        for(int i=0; i<500;i++){
-            try{TimeUnit.SECONDS.sleep(1); }
+        for(int i=0; i<8000;i++){
+            try{TimeUnit.MILLISECONDS.sleep(1); }
                 catch (Exception e){System.out.println(e);}
-            System.out.println("Time = +" +i);    
+            if(i%200==0){    
+                System.out.println("Time = +" +i);}    
             if(buff.checkAvailable()){
                 System.out.println("Received: <"+buff.readLine()+">");
             }
@@ -67,12 +68,12 @@ public class Test
         System.out.println("Test 2 begins...");
         TurnController game = new TurnController(testField);
         Scanner cmdIn = new Scanner(System.in);
-        for(int i = 0;i<350;i++){
+        for(int i = 0;i<45;i++){
             //update other controllers
             game.executeState();
             game.getField().printField();
             if(true){
-                System.out.println("Hit enter to continue...");
+                System.out.println("Hit enter to continue...  "+ i);
                 kek = cmdIn.nextLine();
             }
         }

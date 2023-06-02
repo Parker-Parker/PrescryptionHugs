@@ -12,6 +12,7 @@ public class TurnController {
     public TurnController(Field inField){
         this.field = inField;
         this.state = TurnState.playerDeal;
+        this.user = new UserInputHandler();
     }
 
     public Field getField(){
@@ -20,7 +21,8 @@ public class TurnController {
 
     public void setState(TurnState newState){
         // check event list for interrupts
-        //if no interrupt
+        //if no interrup
+        System.out.println("next state shall be: "+newState.name());
         this.state = newState;
     }
 
