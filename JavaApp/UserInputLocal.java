@@ -82,8 +82,8 @@ public class UserInputLocal implements iUserInput {
 
     @Override
     public void cancelRequest() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelRequest'");
+        System.out.println(this.mode.name()+" request closed");
+        this.mode = null;
     }
 
     public int[] parse(String text){
