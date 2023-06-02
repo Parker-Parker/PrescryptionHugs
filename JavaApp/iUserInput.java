@@ -3,8 +3,12 @@ public interface iUserInput {
 
     String peek();
 
-    String pop();
+    int[] pop();
 
     boolean checkAvailable();
+
+    void cancelRequest();
+
+    void request(TurnState type, String[] options);
 
 }
