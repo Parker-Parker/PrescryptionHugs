@@ -18,18 +18,18 @@ public class Test
         // }
 
 
-        System.out.println("beginning input test");
-        InputBufferStuffer buff = new InputBufferStuffer(new Scanner(System.in));
-        buff.start();
-        for(int i=0; i<8000;i++){
-            try{TimeUnit.MILLISECONDS.sleep(1); }
-                catch (Exception e){System.out.println(e);}
-            if(i%200==0){    
-                System.out.println("Time = +" +i);}    
-            if(buff.checkAvailable()){
-                System.out.println("Received: <"+buff.readLine()+">");
-            }
-        }
+        // System.out.println("beginning input test");
+        // InputBufferStuffer buff = new InputBufferStuffer(new Scanner(System.in));
+        // buff.start();
+        // for(int i=0; i<8000;i++){
+        //     try{TimeUnit.MILLISECONDS.sleep(1); }
+        //         catch (Exception e){System.out.println(e);}
+        //     if(i%200==0){    
+        //         System.out.println("Time = +" +i);}    
+        //     if(buff.checkAvailable()){
+        //         System.out.println("Received: <"+buff.readLine()+">");
+        //     }
+        // }
 
 
 
@@ -64,17 +64,33 @@ public class Test
 
         
         
+        // String kek = "poop";
+        // System.out.println("Test 2 begins...");
+        // TurnController game = new TurnController(testField);
+        // // Scanner cmdIn = new Scanner(System.in);
+        // for(int i = 0;i<45;i++){
+        //     //update other controllers
+        //     game.executeState();
+        //     game.getField().printField();
+        //     if(true){
+        //         System.out.println("Hit enter to continue...  "+ i);
+        //         kek = cmdIn.nextLine();
+        //     }
+        // }
+        
+        
         String kek = "poop";
         System.out.println("Test 2 begins...");
         TurnController game = new TurnController(testField);
-        Scanner cmdIn = new Scanner(System.in);
+        game.user.register(new UserInputLocal());
+        // Scanner cmdIn = new Scanner(System.in);
         for(int i = 0;i<45;i++){
             //update other controllers
             game.executeState();
             game.getField().printField();
             if(true){
-                System.out.println("Hit enter to continue...  "+ i);
-                kek = cmdIn.nextLine();
+                // System.out.println("Hit enter to continue...  "+ i);
+                // kek = cmdIn.nextLine();
             }
         }
         
