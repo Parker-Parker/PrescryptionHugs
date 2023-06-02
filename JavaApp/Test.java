@@ -1,10 +1,38 @@
 import java.util.Scanner;
-
+import java.util.concurrent.TimeUnit;
 
 public class Test
 {
     public static void main(String []args)
     {
+
+        // System.out.println("beginning input test");
+        // Scanner test1 = new Scanner(System.in);
+        // for(int i=0; i<500;i++){
+        //     try{TimeUnit.SECONDS.sleep(1); }
+        //         catch (Exception e){System.out.println(e);}
+        //     System.out.println("Time = +" +i);    
+        //     if(test1.hasNextLine()){
+        //         System.out.println("Received: <"+test1.nextLine()+">");
+        //     }
+        // }
+
+
+        System.out.println("beginning input test");
+        InputBufferStuffer buff = new InputBufferStuffer(new Scanner(System.in));
+        buff.start();
+        for(int i=0; i<500;i++){
+            try{TimeUnit.SECONDS.sleep(1); }
+                catch (Exception e){System.out.println(e);}
+            System.out.println("Time = +" +i);    
+            if(buff.checkAvailable()){
+                System.out.println("Received: <"+buff.readLine()+">");
+            }
+        }
+
+
+
+
 
         System.out.println("Welcome to Inscryption. Server running");
         System.out.println("generating test game...");
@@ -31,7 +59,7 @@ public class Test
         testField.enemyCardsBack[3].giveSigil(Sigils.TrifurcatedStrike); 
         testField.enemyCardsBack[3].giveSigil(Sigils.WorthySacrifice);
         testField.enemyCardsBack[3].giveSigil(Sigils.DeathTouch);// quill combo does not yet work
-        
+
 
         
         
