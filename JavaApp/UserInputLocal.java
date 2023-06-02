@@ -93,14 +93,20 @@ public class UserInputLocal implements iUserInput {
     public int[] parse(TurnState type, String text){
         int[] cmd ={0,0,0,0};
         String[] args = text.split(" ");
+        System.out.println("Parsing...");
+        
+        for (String a : args){
+            System.out.println(a);    
+        }
+        System.out.println(args);
         if (args.length<3){
             System.out.println("UserInputLocal: invalid user input: "+text);
         }
-        else if(args[0].toUpperCase()!="USER"){
+        else if(!args[0].equalsIgnoreCase("USER")){
             System.out.println("UserInputLocal: Ignoring non-USER command: "+text);
             
         }
-        else if(args[1].toUpperCase()!=typeCodes.get(type)){
+        else if(!args[1].equalsIgnoreCase(typeCodes.get(type))){
             System.out.println("UserInputLocal: Current request is: "+type.name()+"... Ignoring off topic USER command: "+text);
             
         }
