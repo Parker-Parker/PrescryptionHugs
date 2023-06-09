@@ -17,6 +17,7 @@ public class ServerHandler extends Thread{
     int listenPort = 5433;
     public ServerHandler(UserInputHandler uih){
         this.user = uih;
+        this.start();
     }
 
 

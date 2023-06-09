@@ -83,6 +83,7 @@ public class Test
         System.out.println("Test 2 begins...");
         TurnController game = new TurnController(testField);
         game.user.register(new UserInputLocal());
+        ServerHandler server = new ServerHandler(game.user);
         // Scanner cmdIn = new Scanner(System.in);
         for(int i = 0;i<45;i++){
             //update other controllers

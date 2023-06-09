@@ -9,7 +9,7 @@ public class UserInputNetwork implements iUserInput {
     EnumMap<TurnState, String> typeCodes = new EnumMap<>(TurnState.class);
 
     public UserInputNetwork(Scanner clientScanner) {//maybe I should've made an bstract userInput class?
-                                                    //maybe add an outputStream? might need to make another buffer class
+                                                    //maybe add an outputStream? might need to make another buffer class(maybe not though, it is asynch write)
         typeCodes.put(TurnState.playerDraw,"DRA");
         typeCodes.put(TurnState.playerReady,"RDY");  
         typeCodes.put(TurnState.playerSacrifice,"SAC");
