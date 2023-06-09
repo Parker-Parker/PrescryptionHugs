@@ -112,7 +112,12 @@ public class TurnController {
                 else    
                 {
                     for(Card c : field.getPlayerCards()){
+                        if (c==null){
+                            choices.add("null");
+                        
+                        }else{
                         choices.add(c.getTitle());
+                        }
                     }
                     //collect respond to player input
                     // int[] cmdSac = user.getSacrificeInput();//never null, block if you cant return int[2]
