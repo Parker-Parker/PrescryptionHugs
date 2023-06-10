@@ -18,7 +18,6 @@ public class ServerWindow
         Scanner sysIn = new Scanner(System.in);
         System.out.println("Is this a test game(Y/n)");
         String input = sysIn.nextLine();
-        sysIn = null;
         if(input.toLowerCase().charAt(0) == 'y'){
             System.out.println("Generating test field");
             mainField.bulkInit();
@@ -28,7 +27,10 @@ public class ServerWindow
             //add this
         }
 
-
+        System.out.println("Press enter when all inputs are registered");
+        input = sysIn.nextLine();
+        sysIn = null;
+        
         for(int i = 0;i<45;i++){
             //update other controllers
             game.executeState();
