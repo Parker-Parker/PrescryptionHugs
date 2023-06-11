@@ -26,7 +26,7 @@ public class UserInputClient {
             while(in==null){
                 in = terminalBuffer.readLine();    
             }
-
+            System.out.println("you wrote: "+in);
             String[] split = in.split(":");
             try(Socket server = new Socket(split[0], Integer.getInteger(split[1]));
                 PrintStream s = new PrintStream(server.getOutputStream());){
