@@ -31,6 +31,12 @@
             "mainClass": "UserInputClient",
             "projectName": "PrescryptionHugs_8649863"
         }
+    ],
+    "compounds": [
+        {
+            "name": "Compound",
+            "configurations": ["Server", "Client"]
+        }
     ]
     
 }
