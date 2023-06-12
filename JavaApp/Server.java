@@ -7,6 +7,13 @@ class TCPServer {
         String clientSentence;
         String capitalizedSentence;
         ServerSocket welcomeSocket = new ServerSocket(5433);
+
+        System.out.println("Server Set Up: "    + "\nlocPort: "+ welcomeSocket.getLocalPort()
+                                                + "\ninet: "+ welcomeSocket.getInetAddress()
+                                                + "\nlocSoc: "+ welcomeSocket.getLocalSocketAddress()
+                                                + "\nchnl: "+ welcomeSocket.getChannel()
+                        );
+
         while (true) {
             Socket connectionSocket = welcomeSocket.accept();
             // BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
