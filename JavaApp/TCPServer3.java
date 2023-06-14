@@ -3,14 +3,14 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.LinkedList;
 
-class TCPServer extends Thread{
+class TCPServer3 extends Thread{
 
     String clientSentence;
     String capitalizedSentence;
     // ServerSocket welcomeSocket;// = new ServerSocket(5433);
     Socket  connectionSocket;
 
-    public TCPServer(Socket conn){
+    public TCPServer3(Socket conn){
         this.connectionSocket = conn;
     }
 
@@ -18,7 +18,7 @@ class TCPServer extends Thread{
         // String clientSentence;
         // String capitalizedSentence;
         ServerSocket welcomeSocket = new ServerSocket(5433);
-        LinkedList<TCPServer> clients = new LinkedList<>();
+        LinkedList<TCPServer3> clients = new LinkedList<>();
         System.out.println("Server Set Up: "    + "\nlocPort: "+ welcomeSocket.getLocalPort()
                                                 + "\ninet: "+ welcomeSocket.getInetAddress()
                                                 + "\nlocSoc: "+ welcomeSocket.getLocalSocketAddress()
@@ -33,7 +33,7 @@ class TCPServer extends Thread{
             // )
             {  Socket connectionSocket = welcomeSocket.accept();
             
-                TCPServer newClient = new TCPServer(connectionSocket);
+                TCPServer3 newClient = new TCPServer3(connectionSocket);
 
                 newClient.start();
                 clients.add(newClient);
