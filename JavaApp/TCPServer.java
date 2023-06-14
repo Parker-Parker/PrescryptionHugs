@@ -81,6 +81,7 @@ class TCPServer extends Thread{
  
         } catch(Exception e){
             System.out.println(e);
+            //should probably do somethig here to satop mem leak
         }
 
     }
