@@ -63,11 +63,14 @@ class TCPServerMaster extends Thread {
                 Enumeration ee = n.getInetAddresses();
                 while (ee.hasMoreElements()) {
                     InetAddress i = (InetAddress) ee.nextElement();
-                    System.out.println("  > "+i.getHostName()+": \t"+i.getHostAddress());
-                    if(i.getHostAddress().split(".")[0].equals("192")&&i.getHostAddress().split(".")[1].equals("168")){
+                    System.out.println("  > "+i.getHostName()+":   \t\t"+i.getHostAddress());
+                    // if(i.getHostAddress().contains(".") && i.getHostAddress().split(".").length==4 && i.getHostAddress().split(".")[0].equals("192") && i.getHostAddress().split(".")[1].equals("168")){
+                    //     x = i.getHostAddress();
+                    // }
+                    if(i.getHostAddress().contains("192.168.")){
                         x = i.getHostAddress();
                     }
-
+                        
                 }
             }
         } catch (Exception e) {
