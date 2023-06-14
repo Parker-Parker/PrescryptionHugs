@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-class TCPServer {
+class TCPServer2 {
     public static void main(String argv[]) throws Exception {
         String clientSentence;
         String capitalizedSentence;
