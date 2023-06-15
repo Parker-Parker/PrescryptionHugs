@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 
 public class InputProtocolString {// implements iInputProtocol {
-    final int[] command = { 0, 0, 0, 0, 0, 0 };
+    static final int[] command = { 0, 0, 0, 0, 0, 0 };
     // InputBufferStuffer buffer;
     // TurnState mode = null;
     EnumMap<InputOutputType, String> typeCodesEncode = new EnumMap<>(InputOutputType.class);
@@ -102,16 +102,18 @@ public class InputProtocolString {// implements iInputProtocol {
         String[] args = text.split(" ");
         System.out.println("Parsing..."); //debug
         
-        for (String a : args){ //debug
-            System.out.println(a);    
-        }
-        System.out.println(args); //debug
+        // for (String a : args){ //debug
+        //     System.out.println(a);    
+        // }
+        // System.out.println(args); //debug
         if (args.length<3){
             System.out.println("Input rejected, too few parameters: "+text);
             return null;
         }
-        else {//maybe add if key is valid?// no need, if invalid will return null which is handled by default case
-            switch(typeCodesDecode.get(args[0])){
+        // else if(!(args[0]==null)    ){//&&!(typeCodesDecode.get(args[0].toUpperCase())==null)){//maybe add if key is valid?// no need, if invalid will return null which is handled by default case
+        else if(!(typeCodesDecode.get(args[0].toUpperCase())==null)){//maybe add if key is valid?// no need, if invalid will return null which is handled by default case
+
+            switch(typeCodesDecode.get(args[0].toUpperCase())){
                 case Admin:
                     System.out.println("TODO: IO type valid but not yet implemented: "+text);//TODO Implement String command type
                     return null;
@@ -141,6 +143,12 @@ public class InputProtocolString {// implements iInputProtocol {
                     // break;
 
             }
+        }else{
+
+            System.out.println("Ignoring command of unrecognized IO type: "+text);
+            // System.out.println("args[0]==null: "+(args[0]==null));
+            // System.out.println("typeCodesDecode.get(args[0])==null: "+(args[0]==null?true:typeCodesDecode.get(args[0].toUpperCase())==null));
+            return null;
         }
 
 
@@ -150,19 +158,19 @@ public class InputProtocolString {// implements iInputProtocol {
 
         String[] args = text.split(" ");
         System.out.println("Parsing User Input command..."); //debug
-        return  typeUserCodesDecode.get(args[1]) == null? null :parseUserByState(typeUserCodesDecode.get(args[1]), text);//sanity checking
+        return  typeUserCodesDecode.get(args[1].toUpperCase()) == null? null :parseUserByState(typeUserCodesDecode.get(args[1].toUpperCase()), text);//sanity checking
 
     }
 
-    public int[] parseUserByState(TurnState type, String text) {
+    public int[] parseUserByState(TurnState type, String text) { //this is legacy should work fine but could definitely be improved
         int[] cmd = command.clone();
         String[] args = text.split(" ");
         System.out.println("Parsing User input command by type: " + type.name());
 
-        for (String a : args) {
-            System.out.println(a);
-        }
-        System.out.println(args);
+        // for (String a : args) {
+        //     System.out.println(a);
+        // }
+        // System.out.println(args);
         if (args.length < 3) {
             System.out.println("UserInput: invalid user input: " + text);
         } else if (!args[0].equalsIgnoreCase("USER")) {
@@ -250,7 +258,7 @@ public class InputProtocolString {// implements iInputProtocol {
                         case "0":
                             cmd[2] = 0;
                             cmd[3] = 0;
-                            break;
+                            break;//TODO: HOLY SHIT FIX THIS
                         case "1":
                             if (args.length < 4) {
                                 System.out.println("UserInput: Not enough arguments: " + text);
