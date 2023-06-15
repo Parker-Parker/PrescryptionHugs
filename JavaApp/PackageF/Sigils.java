@@ -1,3 +1,5 @@
+package PackageF;
+
 public enum Sigils {
     Rabbit,
     Bees,

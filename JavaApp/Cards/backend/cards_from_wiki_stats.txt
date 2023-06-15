@@ -1,0 +1,71 @@
+// Adder	1	1	2 Blood	Reptile	Touch of Death	Kills Survivors
+	// Alpha	1	2	4 Bones	Canine	Leader	-
+	// Amalgam	3	3	2 Blood	Avian, Canine, Hooved, Reptile, Insect, Squirrel	-	-
+	// Amoeba	1	2	2 Bones	-	Amorphous	-
+	// Worker Ant	Ants	2	1 Blood	Insect	-	Ant
+    // Ant Queen	Ants	3	2 Blood	Insect	Ant Spawner	Ant
+	// Bat	2	1	4 Bones	-	Airborne	-
+	// Beaver	1	4	2 Blood	-	Dam Builder	-
+	// Bee	1	1	-	Insect	Airborne	-
+	// Beehive	0	2	1 Blood	Insect	Bees Within	-
+	// Bloodhound	2	3	2 Blood	Canine	Guardian	-
+	// Bullfrog	1	2	1 Blood	Reptile	Mighty Leap	-
+	// Caged Wolf	0	6	2 Blood	Canine	-	Terrain, No Deathcard
+	// Cat	0	1	1 Blood	-	Many Lives	-
+	// Undead Cat	3	6	1 Blood	-	-	-
+	// Cockroach	1	1	4 Bones	Insect	Unkillable	-
+	// Coyote	2	1	4 Bones	Canine	-	-
+	// The Daus	2	2	2 Blood	-	Bellist	-
+	// Tail	0	2	-	-	-	-
+	// Elk	2	4	2 Blood	Hooved	Sprinter	-
+	// Elk Fawn	1	1	1 Blood	Hooved	Sprinter, Fledgling	-
+	// Field Mice	2	2	2 Blood	-	Fecundity	-
+	// Geck	1	1	-	Reptile	-	-
+	// Black Goat	0	1	1 Blood	Hooved	Worthy Sacrifice	Goat
+	// Grizzly	4	6	3 Blood	-	-	-
+	// Child 13	0	1	1 Blood	Hooved	Many Lives	-
+	// Kingfisher	1	1	1 Blood	Avian	Airborne, Waterborne	-
+	// Corpse Maggots	1	2	5 Bones	Insect	Corpse Eater	-
+	// Magpie	1	1	2 Blood	Avian	Airborne, Hoarder	-
+	// Mantis	1	1	1 Blood	Insect	Bifurcated Strike	-
+	// Mantis God	1	1	1 Blood	Insect	Trifurcated Strike	-
+	// Mole	0	4	1 Blood	-	Burrower	-
+	// Mole Man	0	6	1 Blood	-	Burrower, Mighty Leap	-
+	// Moose Buck	3	7	3 Blood	Hooved	Hefty	-
+	// Strange Larva	0	3	1 Blood	Insect	Fledgling	-
+	// Strange Pupa	0	3	1 Blood	Insect	Fledgling	-
+	// Mothman	7	3	1 Blood	Insect	Airborne	-
+	// Pack Mule	0	5	-	Hooved	Sprinter	Uncuttable
+	// Opossum	1	1	2 Bones	-	-	-
+	// River Otter	1	1	1 Blood	-	Waterborne	-
+	// Ouroboros	1	1	2 Blood	Reptile	Unkillable	Satisfies Ring Trial
+	// Pack Rat	2	2	2 Blood	-	Trinket Bearer	-
+	// Porcupine	1	2	1 Blood	-	Sharp Quills	-
+	// Pronghorn	1	3	2 Blood	Hooved	Sprinter, Bifurcated Strike	-
+	// Rabbit	0	1	-	-	-	-
+	// Rat King	2	1	2 Blood	-	Bone King	-
+	// Rattler	3	1	6 Bones	Reptile	-	-
+	// Raven	2	3	2 Blood	Avian	Airborne	-
+	// Raven Egg	0	2	1 Blood	Avian	Fledgling	-
+	// Great White	4	2	3 Blood	-	Waterborne	-
+	// Skink	1	2	1 Blood	Reptile	Loose Tail	-
+	// Wriggling Tail	0	2	-	Reptile	-	-
+	// Skunk	0	3	1 Blood	-	Stinky	-
+	// River Snapper	1	6	2 Blood	Reptile	-	-
+	// Long Elk	1	2	4 Bones	Hooved	Sprinter, Touch of Death	Kills Survivors
+	// Sparrow	1	2	1 Blood	Avian	Airborne	-
+	// Bell Tentacle	Bell Ringer	3	2 Blood	-	-	-
+	// Card Tentacle	Card Counter	1	1 Blood	-	-	-
+	// Mirror Tentacle	M!rror r0rriM	3	1 Blood	-	-	-
+	// Squirrel	0	1	-	Squirrel	-	-
+	// Stoat	1	3	1 Blood	-	-	-
+	// Tail Feathers	0	2	-	-	-	-
+	// Furry Tail	0	2	-	-	-	-
+	// Wriggling Leg	0	2	-	-	-	-
+	// Urayuli	7	7	4 Blood	-	-	-
+	// Turkey Vulture	3	3	8 Bones	Avian	Airborne	-
+	// Warren	0	2	1 Blood	-	Rabbit Hole	-
+	// Wolf	3	2	2 Blood	Canine	-	Wolf
+	// Wolf Cub	1	1	1 Blood	Canine	Fledgling	Wolf
+	// Ring Worm	0	1	1 Blood	Insect	-	Kills Survivors, Satisfies Ring Trial
+	// Glitched Card	-	-	-	-	-	-
