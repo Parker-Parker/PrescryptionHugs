@@ -8,13 +8,27 @@ class TCPServerSlave extends Thread{
     String capitalizedSentence;
     Socket  connectionSocket;
     iNetworkInput parent;
+    String clientName = "unnamed GenNet??";
 
     public TCPServerSlave(Socket conn){
         this.connectionSocket = conn;
+        this.setClientName();
     }
     public TCPServerSlave(Socket conn, iNetworkInput parent){
         this.connectionSocket = conn;
+        this.setClientName();
         this.parent = parent;
+        this.parent.register(this);//really should change this name//also redundant but thats ok
+    }
+
+    public void setClientName(){
+        if((connectionSocket!=null)){
+            clientName = connectionSocket.getInetAddress()+":"+connectionSocket.getPort();
+        }
+    }
+
+    public String getClientName(){
+        return this.clientName;
     }
 
     public void run() {
@@ -53,5 +67,11 @@ class TCPServerSlave extends Thread{
             //should probably do somethig here to satop mem leak
         }
 
+    }
+    public void setParent(iNetworkInput networkInput) {
+        this.parent = networkInput;
+    }
+    public iNetworkInput getParent() {
+        return this.parent;
     }
 }

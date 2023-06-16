@@ -61,21 +61,22 @@ class TCPServerMaster extends Thread {
                     // type, give new network input the socket, register the new input to the input
                     // handler
                     Scanner sc = new Scanner(connectionSocket.getInputStream());
-                    String cfgString = sc.nextLine();
+                    String cfgString = sc.nextLine();//TODO: need to add a timeout to this!!
                     String clientName = connectionSocket.getInetAddress() + ":" + connectionSocket.getPort();
                     System.out.println("Client " + clientName + " sent config command: >" + cfgString);
                     String[] args = cfgString.split(" ");
                     // System.out.println("Parsing..."); //debug
                     if ((args.length >= 1) && (args[0] != null)) {// &&()
                         iNetworkInput networkInput = this.parseConfig(cfgString);//TODO: AAAAAAAAAA //todo: add null handling //new GenericNetworkInput();//
-                        TCPServerSlave newClient = new TCPServerSlave(connectionSocket);
+                        TCPServerSlave newClient = new TCPServerSlave(connectionSocket, networkInput);
                         networkInput.register(newClient);
                         // newClient.start();// maybe we do this in the network input constructor?
                         
                         if(networkInput.hasInputType(InputOutputType.User)){
                             uHandler.register(networkInput.getUserInput());
                         }
-
+                         newClient.start();// maybe we do this in the network input constructor?
+                       
 
                         clients.add(newClient);
                         System.out.println("NewClientAdded... ");
