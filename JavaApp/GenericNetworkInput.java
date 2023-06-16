@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class GenericNetworkInput implements iNetworkInput,iUserInput {
 
-    SafeRingBuffer<int[]> userInputBuffer = new SafeRingBuffer<>();//might need to throw this in an iUserInput
+    SafeRingBuffer<int[]> userInputBuffer = new SafeRingBuffer<int[]>();//might need to throw this in an iUserInput
     InputProtocolString protocol = new InputProtocolString();
     InputOutputType[] ioTypesByOrdinal = new InputOutputType[30];
     TCPServerSlave clientConnection;

@@ -38,12 +38,12 @@ public class ServerHandler extends Thread{
                         user.register(new UserInputNetwork(newClientScanner));// TODO:since this is now happening in a new thread, I think I need to Mutex it...
                     }
                 catch(Exception e){
-                    System.out.println(e);
+                    e.printStackTrace();
                 }   
             }
         }
         catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         
         

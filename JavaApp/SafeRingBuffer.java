@@ -21,22 +21,32 @@ public class SafeRingBuffer<E> { // Removed all that threading crap//buffer stuf
     // boolean busy = false;//mutex
     // Scanner sc = new Scanner(System.in);
 
+
+    boolean windowAvail = false; //HOLY SHIT. this is wild. because multiple threads try to act on this, threads can actually end up trying to .push() to the buffer before the constructor even finishes executing...ABSOLUTELY WILD
+    int lastTicket = 0;          // ^^ No, me and java are both just dumb. Java only lets you Specify CAPACITY, not SIZE in the arraylist contructor. pretty useless. A for loop is apparently required. BOOO Java 
+    int nowServing = 1;
+
     public SafeRingBuffer() {
-        buffer = new ArrayList<>(10);
-        // this.buffer = new E[10];
+        this(10);
+        
     }
 
     public SafeRingBuffer(int size) {
-        buffer = new ArrayList<>(size);
+        buffer = new ArrayList<E>(size);
+        while(buffer.size() < size) {
+            buffer.add(null);
+        }
+        windowAvail = true;
+        System.out.println("buf siz: "+buffer.size());
         // this.buffer = new E[size];
         // for(int i=0;i<size;i++){
         // this.buffer
         // }
     }
 
-    boolean windowAvail = true;
-    int lastTicket = 0;
-    int nowServing = 1;
+    // boolean windowAvail = true;
+    // int lastTicket = 0;
+    // int nowServing = 1;
 
     public int takeTicket() {// this will block until resource is available. it will provide a ticket number.
                              // failure to return ticket will make resource unavailable
@@ -125,8 +135,15 @@ public class SafeRingBuffer<E> { // Removed all that threading crap//buffer stuf
 
     public void push(E input) {
         int ticket = takeTicket(); // busy = true;
-        buffer.set(head, input); // buffer[head] = next;
-        head = (head + 1) % buffer.size(); // head = (head + 1) % 10;
+        System.out.println("buf siz: "+buffer.size());
+        if(buffer.size()>0){
+            buffer.set(head, input); // buffer[head] = next;
+            head = (head + 1) % buffer.size(); // head = (head + 1) % 10;
+        }
+        else{
+            System.out.println("Ring buffer zero length?? cant push "+head+" "+ticket);
+            
+        }
         returnTicket(ticket); // busy = false;
 
         if (head == tail) {

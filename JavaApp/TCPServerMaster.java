@@ -88,12 +88,12 @@ class TCPServerMaster extends Thread {
                     }
 
                 } catch (Exception e) {
-                    System.out.println(e);
+                    e.printStackTrace();
                 }
             }
         } catch (Exception e) {
             System.out.println("Server networking failed to start...");
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -164,7 +164,7 @@ class TCPServerMaster extends Thread {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return x;
     }

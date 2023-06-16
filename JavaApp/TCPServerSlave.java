@@ -63,7 +63,7 @@ class TCPServerSlave extends Thread{
                     
  
         } catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
             //should probably do somethig here to satop mem leak
         }
 

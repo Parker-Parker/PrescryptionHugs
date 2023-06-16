@@ -50,7 +50,7 @@ class TCPServer3 extends Thread{
             }
             catch(Exception e)
             {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     }
@@ -80,7 +80,7 @@ class TCPServer3 extends Thread{
                     
  
         } catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
             //should probably do somethig here to satop mem leak
         }
 

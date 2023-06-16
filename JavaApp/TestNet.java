@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class Test
+public class TestNet
 {
     public static void main(String []args)
     {
@@ -82,10 +82,16 @@ public class Test
         String kek = "poop";
         System.out.println("Test 2 begins...");
         TurnController game = new TurnController(testField);
-        game.user.register(new UserInputLocal());
-        ServerHandler server = new ServerHandler(game.user);
-        // Scanner cmdIn = new Scanner(System.in);
-        for(int i = 0;i<45;i++){
+        // game.user.register(new UserInputLocal());
+        // ServerHandler server = new ServerHandler(game.user);
+        TCPServerMaster serverMaster = new TCPServerMaster(game.user);
+        serverMaster.start();
+        
+        Scanner cmdIn = new Scanner(System.in);
+        System.out.println("Hit enter when all connections established...");
+        kek = cmdIn.nextLine();
+        
+        for(int i = 0;i<450;i++){
             //update other controllers
             game.executeState();
             game.getField().printField();
