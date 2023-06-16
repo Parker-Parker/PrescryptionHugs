@@ -133,6 +133,12 @@ public class SafeRingBuffer<E> { // Removed all that threading crap//buffer stuf
             System.out.println("oops, i think the ringbuffer overflowed");
         }
 
+    }    
+    public void wipe() {
+        int ticket = takeTicket(); 
+        head = tail;
+        returnTicket(ticket); 
+
     }
 
     // public void run() {// loop in thread

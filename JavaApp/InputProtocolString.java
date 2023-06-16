@@ -38,63 +38,6 @@ public class InputProtocolString {// implements iInputProtocol {
 
     }
 
-    // @Override
-    // public void request(TurnState type, LinkedList<String> choices) {
-    // mode = type;
-    // System.out.println("User input of type: "+type.name()+" requested, listen
-    // mode changed");
-    // if(choices!=null&&choices.peek()!=null){
-    // String optInfo = "Options for "+type.name()+": ";
-    // for (int i = 0;i<choices.size();i++){//for each in list //String s :
-    // choices){
-    // optInfo = optInfo +i +") "+choices.get(i)+" ";
-    // }
-    // System.out.println("User Input Options: "+optInfo);
-    // }
-
-    // // switch (mode) {
-    // // case playerDraw:
-
-    // // case playerReady:
-
-    // // case playerSacrifice:
-
-    // // case playerSummon:
-
-    // // }
-    // }
-
-    // @Override
-    // public String peek() {
-    // return null;
-
-    // }
-
-    // @Override
-    // public int[] pop() {
-    // // if(this.);
-    // return null;
-    // }
-
-    // @Override
-    // public boolean checkAvailable() {//can i pop?? .D~8)
-
-    // while(buffer.checkAvailable()){
-    // if(buffer.peek()==null){
-
-    // }
-    // else{
-
-    // }
-    // }
-    // return false;
-    // }
-
-    // @Override
-    // public void cancelRequest() {
-    // System.out.println(this.mode.name()+" request closed");
-    // this.mode = null;
-    // }
 
     public int[] parse(String text){
 
