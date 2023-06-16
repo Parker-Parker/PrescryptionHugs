@@ -6,7 +6,7 @@ public class UserInputHandler {
     TurnController game;
     int[] play_args;
 
-    public void register(iUserInput input) {
+    public void register(iUserInput input) { //TODO:need a deregister option
         userInputs.add(input);
         // userInputs.sort(null);
     }

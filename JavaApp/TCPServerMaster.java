@@ -7,12 +7,38 @@ import java.util.LinkedList;
 class TCPServerMaster extends Thread {
 
     int socket = 5433;
+    UserInputHandler uHandler = null;
 
+
+    public TCPServerMaster(){
+    }
     public TCPServerMaster(int socket){
         this.socket = socket;
     }
-    public TCPServerMaster(){
+    public TCPServerMaster(UserInputHandler handler){
+        this.uHandler = handler;
     }
+    public TCPServerMaster(int socket, UserInputHandler handler){
+        this.socket = socket;
+        this.uHandler = handler;
+    }
+
+
+    public void setSocket(int socket){//might want to check if server running first...
+        this.socket = socket;
+    }
+    public void setUserInputHandler(UserInputHandler handler){
+        this.uHandler = handler;
+    }
+    public int getSocket(){
+        return socket;
+    }
+    public UserInputHandler getUserInputHandler(){
+        return uHandler;
+    }
+
+
+
 
     public void run() {
 
@@ -31,10 +57,10 @@ class TCPServerMaster extends Thread {
             while (true) {
                 try
                 {  Socket connectionSocket = welcomeSocket.accept();
-                
+                    
+                    //TODO: Immediate: parse config command, make a new networkInput of the correct type, give new network input the socket, register the new input to the input handler
                     TCPServerSlave newClient = new TCPServerSlave(connectionSocket);
-
-                    newClient.start();
+                    newClient.start();// maybe we do this in the network input constructor?
                     clients.add(newClient);
                     System.out.println("NewClientAdded... ");
                     System.out.println(clients.toString());
