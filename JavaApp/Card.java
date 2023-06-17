@@ -4,12 +4,18 @@ import java.util.EnumMap;
 
 public class Card implements iCard {
     static int id = 0;
+    int cardId = 0;
     String title = "Card ";
     EnumMap<Sigils, Boolean> sigils = new EnumMap<>(Sigils.class);
     int baseAttack = 0;
     int baseHealth = 1;
     int attack = 0;
     int health = 1;
+    int cost = 0;
+    Object image = null;
+    
+
+
     boolean dead = false;
     Field field = null;
 
