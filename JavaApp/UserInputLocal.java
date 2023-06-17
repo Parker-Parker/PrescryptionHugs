@@ -35,37 +35,9 @@ public class UserInputLocal implements iUserInput {
 
 
 
-        // switch (mode) {
-        //     case playerDraw:
-
-        //     case playerReady:
-
-        //     case playerSacrifice:
-
-        //     case playerSummon:
-
-
-        // }
     }    
     
-    
-    
-    
-    
-    
-    
-    
-    @Override
-    public String peek() {
-        return null;
-
-    }
-
-    @Override
-    public int[] pop() {
-        // if(this.);
-        return null;
-    }
+ 
 
     @Override
     public boolean checkAvailable() {//can i pop?? .D~8)

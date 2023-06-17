@@ -1,4 +1,5 @@
 
-public class Squirrel extends Card {
+public class Squirrel extends Card {//TODO:implement
+
 
 }

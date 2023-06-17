@@ -43,15 +43,9 @@ class TCPServerSlave extends Thread{
             while(!connectionSocket.isClosed()){
                 if(inFromClient.hasNextLine()){                
                     clientSentence = inFromClient.nextLine();
-                    System.out.println("Received: " + clientSentence + " on " + connectionSocket.getPort() +" Inet:"+ connectionSocket.getInetAddress()                     ///////////////////////////////////////////////////
-                                                                                                            +" loc:"+ connectionSocket.getLocalAddress()                    //all this stuff has to be  swapped out for a write/call to parent //gayyyyyy
-                                                                                                            +" LocSoc:"+ connectionSocket.getLocalSocketAddress()           // 
-                                                                                                            +" Rem Soc:"+ connectionSocket.getRemoteSocketAddress()
-                                                                                                            +" Inet:"+ connectionSocket.getChannel());
+                    System.out.println("Received: " + clientSentence + " from " +" Inet:"+ connectionSocket.getInetAddress()+":"+ connectionSocket.getPort());
                     System.out.println("Reporting client message to parent(iNetworkInput)...  ");
                     parent.process(clientSentence);
-                    capitalizedSentence = clientSentence.toUpperCase() + '\n';  //these will have to go soon :(
-                    outToClient.writeBytes(capitalizedSentence);                //// :(
                 }
 
                 ///////////////////////////////////////////////

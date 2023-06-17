@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-
+//only needed for userInputLocal
 
 public class InputBufferStuffer extends Thread { //this is a buffer class to allow asynchronous access to input streams without  blocking (via threads) 
     String[] buffer = {null,null,null,null,null,null,null,null,null,null};//array of size 10 //Sometimes... i fucking hate java

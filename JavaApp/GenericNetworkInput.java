@@ -10,13 +10,6 @@ public class GenericNetworkInput implements iNetworkInput,iUserInput {
     TCPServerSlave clientConnection;
 
 
-
-
-
-
-
-
-
     public GenericNetworkInput(LinkedList<InputOutputType> ioTypes) {
         for(InputOutputType t:InputOutputType.values()){
             ioTypesByOrdinal[t.ordinal()] = t;
@@ -33,15 +26,7 @@ public class GenericNetworkInput implements iNetworkInput,iUserInput {
     ////////////////////    v  v  iUserInput Stuff   v  v   ///////////////////////// TODO:These
     //////////////////////////////////////////////////////////////////////////////// TODO: funcs
 
-    @Override
-    public String peek() {
-        return null;
-    }
-
-    @Override
-    public int[] pop() {        return null;
-    }
-
+   
     @Override
     public boolean checkAvailable() {
         return userInputBuffer.checkAvailable();
@@ -66,10 +51,8 @@ public class GenericNetworkInput implements iNetworkInput,iUserInput {
             nextCmd = userInputBuffer.popOld();
             if((nextCmd!=null)&&(nextCmd.length==6)&&(nextCmd[1]==type.ordinal())){
                 out = Arrays.copyOfRange(nextCmd, 2, 6);
-
             }
         }
-
         return out;
     }
     //////////////////////////////////////////////////////////////////////////////// TODO: Do
@@ -78,7 +61,7 @@ public class GenericNetworkInput implements iNetworkInput,iUserInput {
 
     @Override
     public iUserInput getUserInput() {
-        return this; //this is temporary// should make an EnumMap<InputOutputType,iInput>// shouldnt do that, just have a field for iUserInput, iAdminInput...//either way stop having this function implement i<>Input and have a field do it instead
+        return this; //returning <this> is temporary// should make an EnumMap<InputOutputType,iInput>// shouldnt do that, just have a field for iUserInput, iAdminInput...//either way stop having this function implement i<>Input and have a field do it instead
         }
 
     @Override
@@ -86,11 +69,8 @@ public class GenericNetworkInput implements iNetworkInput,iUserInput {
         switch(type){
             case User:
                 return !(this.getUserInput()==null);//TODO: this REALLY needs to be changed to the genNetInp's iUserInput object derectly (not this.getUserInput) once its has bee implemented
-                // break;
             default:
                 return false;
-                // break;
-
         }
     }
 
