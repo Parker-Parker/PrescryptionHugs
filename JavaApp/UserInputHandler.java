@@ -124,38 +124,5 @@ public class UserInputHandler {
 
 
 
-    // public int[] getDrawInput() {
-    //     if(userInputs.peek()==null){
-    //         //no interfaces exist, skip turn 
-    //     }
-    //     else {//block until input
-    //         for(iUserInput in : this.userInputs ){
-    //             in.requestPlayerDraw()
-    //         }
-    //         int[] cmd = null;//should really make a command class, that holds cmd, arg1, arg2...
-    //         while (commandString==null){
-    //             for (iUserInput in : userInputs){
-                    
-    //                 //should check in reverse priority
-    //                 commandString = in.checkAvailable() ? commandString : in.pop();
-    //                 // commandString = (in.peek() == null) ? commandString : in.pop();
-    //                 //maybe also peek-compare command type
-
-    //             }
-    //         }
-    //     }    
-    // }
-
-    // public int[] getSummonInput() {
-    //     return null;
-    // }
-
-    // public int[] getSacrificeInput() {
-    //     return null;
-    // }
-
-    // public int[] getPlayerReadyInput() {
-    //     return null;
-    // }
 
 }

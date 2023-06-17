@@ -8,7 +8,7 @@ public class Test
 
         // System.out.println("beginning input test");
         // Scanner test1 = new Scanner(System.in);
-        // for(int i=0; i<500;i++){
+        // for(int i=0; i<50;i++){
         //     try{TimeUnit.SECONDS.sleep(1); }
         //         catch (Exception e){e.printStackTrace();}
         //     System.out.println("Time = +" +i);    
@@ -84,7 +84,8 @@ public class Test
         TurnController game = new TurnController(testField);
         game.user.register(new UserInputLocal());
         ServerHandler server = new ServerHandler(game.user);
-        // Scanner cmdIn = new Scanner(System.in);
+        Scanner cmdIn = new Scanner(System.in);
+        kek = cmdIn.nextLine();
         for(int i = 0;i<45;i++){
             //update other controllers
             game.executeState();
