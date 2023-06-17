@@ -1,6 +1,11 @@
 import java.util.EnumMap;
 
-
+//TODO: make libCard extends card?
+//TODO: make libraryHandler() that  can
+    //importLibrary("libfile.csv") //parses text file, for each valid entry adds libCard to hashmap keyed by card name //should look for String filename.contains(.CSV/.JSON/.txt)
+    //addCard(params) that makes new card() and adds it to librart    
+    //make(String name) returns a copy of card in lib hashmap(using libcard's clone())
+    //libCard.clone() returns a copy of the card, might want to make it named duplicate() instead    
 
 public class Card implements iCard {
     static int id = 0;
