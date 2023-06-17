@@ -1,12 +1,9 @@
-import java.util.LinkedList;
-import java.util.Scanner;
 import java.util.EnumMap;
 import java.util.HashMap;
 
-public class InputProtocolString {// implements iInputProtocol {
+public class InputProtocolString {
     static final int[] command = { 0, 0, 0, 0, 0, 0 };
-    // InputBufferStuffer buffer;
-    // TurnState mode = null;
+
     EnumMap<InputOutputType, String> typeCodesEncode = new EnumMap<>(InputOutputType.class);
     HashMap<String, InputOutputType> typeCodesDecode = new HashMap<String, InputOutputType>();
 
@@ -33,9 +30,6 @@ public class InputProtocolString {// implements iInputProtocol {
             typeUserCodesDecode.put(typeUserCodesEncode.get(key), key);
         }
 
-        // buffer = new InputBufferStuffer(new Scanner(System.in));
-        // buffer.start();
-
     }
 
 
@@ -43,18 +37,13 @@ public class InputProtocolString {// implements iInputProtocol {
 
         int[] cmd = null;
         String[] args = text.split(" ");
-        System.out.println("Parsing..."); //debug
+        // System.out.println("Parsing..."); //debug
         
-        // for (String a : args){ //debug
-        //     System.out.println(a);    
-        // }
-        // System.out.println(args); //debug
         if (args.length<3){
             System.out.println("Input rejected, too few parameters: "+text);
             return null;
         }
-        // else if(!(args[0]==null)    ){//&&!(typeCodesDecode.get(args[0].toUpperCase())==null)){//maybe add if key is valid?// no need, if invalid will return null which is handled by default case
-        else if(!(typeCodesDecode.get(args[0].toUpperCase())==null)){//maybe add if key is valid?// no need, if invalid will return null which is handled by default case
+        else if(!(typeCodesDecode.get(args[0].toUpperCase())==null)){
 
             switch(typeCodesDecode.get(args[0].toUpperCase())){
                 case Admin:
@@ -89,8 +78,6 @@ public class InputProtocolString {// implements iInputProtocol {
         }else{
 
             System.out.println("Ignoring command of unrecognized IO type: "+text);
-            // System.out.println("args[0]==null: "+(args[0]==null));
-            // System.out.println("typeCodesDecode.get(args[0])==null: "+(args[0]==null?true:typeCodesDecode.get(args[0].toUpperCase())==null));
             return null;
         }
 
@@ -100,7 +87,7 @@ public class InputProtocolString {// implements iInputProtocol {
     public int[] parseUser(String text){
 
         String[] args = text.split(" ");
-        System.out.println("Parsing User Input command..."); //debug
+        // System.out.println("Parsing User Input command..."); //debug
         return  typeUserCodesDecode.get(args[1].toUpperCase()) == null? null :parseUserByState(typeUserCodesDecode.get(args[1].toUpperCase()), text);//sanity checking
 
     }
@@ -108,12 +95,8 @@ public class InputProtocolString {// implements iInputProtocol {
     public int[] parseUserByState(TurnState type, String text) { //this is legacy should work fine but could definitely be improved
         int[] cmd = command.clone();
         String[] args = text.split(" ");
-        System.out.println("Parsing User input command by type: " + type.name());
+        // System.out.println("Parsing User input command by type: " + type.name());
 
-        // for (String a : args) {
-        //     System.out.println(a);
-        // }
-        // System.out.println(args);
         if (args.length < 3) {
             System.out.println("UserInput: invalid user input: " + text);
         } else if (!args[0].equalsIgnoreCase("USER")) {
@@ -261,17 +244,4 @@ public class InputProtocolString {// implements iInputProtocol {
         return null;
     }
 
-    // public void read() {
-
-    // }
-
-    // @Override
-    // public int[] popParsed(TurnState type) {
-    //     if (buffer.checkAvailable()) {
-    //         return parse(type, buffer.readLine());
-
-    //     } else {
-    //         return null;
-    //     }
-    // }
 }

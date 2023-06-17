@@ -8,7 +8,6 @@ public class UserInputHandler {
 
     public void register(iUserInput input) { //TODO:need a deregister option
         userInputs.add(input);
-        // userInputs.sort(null);
     }
 
     public void requestInputBroadcast(){//TurnState,hand/cardlist) {
@@ -34,16 +33,12 @@ public class UserInputHandler {
             while (cmd==null){
                 for (iUserInput in : userInputs){
 
-                    // String message = in.checkAvailable() ? "Accepted command from "+in.peek().getName();
                     cmd = (cmd == null) ? in.popParsed(type) : cmd;// not sure if I should add type to these
                 }
             }
             for (iUserInput in : userInputs){       
-                // in.request(type);
-                // in.cancelRequest(type, message);
                 in.cancelRequest();
             }
-            printCMD(type, cmd);
             return cmd;
             
         }
@@ -92,9 +87,6 @@ public class UserInputHandler {
         return cmd;
     }
 
-    public void parseCMD(String s){
-
-    }
     public void printCMD(TurnState type, int[] cmd){
         String out = "CMD "+type.name()+": " ;
         for(int i : cmd){

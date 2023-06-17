@@ -13,6 +13,7 @@ public enum TurnState {
     leshyBegin,
     leshySummon,
     leshyAttack,
+    leshyPlayBack,
     leshyWin,
     leshyEnd,
     // non sure where to put this

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class TestNet
+public class TestNetServer
 {
     public static void main(String []args)
     {
@@ -8,7 +8,6 @@ public class TestNet
         System.out.println("generating test game...");
         Field testField = new Field();
         testField.bulkInit( );
-        testField.printField();
         testField.printField();
         testField.enemyCards[0].giveSigil(Sigils.Airborne);
         testField.playerCards[1].giveSigil(Sigils.SharpQuills);

@@ -5,7 +5,7 @@ class TestNetClient {
     public static void main(String argv[]) throws Exception {
         String hostName = "localhost";
         int port = 5433;
-        //parse args
+        //parse args?
         String sentence;
         // String modifiedSentence;
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
@@ -18,8 +18,6 @@ class TestNetClient {
         while(true){
             sentence = inFromUser.readLine();
             outToServer.writeBytes(sentence + '\n');
-            // modifiedSentence = inFromServer.readLine();
-            // System.out.println("FROM SERVER: " + modifiedSentence);
         }
         // clientSocket.close();
     }
