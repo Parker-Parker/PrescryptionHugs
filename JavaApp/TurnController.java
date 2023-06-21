@@ -198,17 +198,23 @@ public class TurnController {
                 for(int i = 0; i<4; i++){
                     field.enemyAttack(i); //(get pos based debuff/buff too)asks each card(slot) who it wants to attack, then does the attack(flight/jump/nope sigils)//must call attackee's takedamage function(handle death,overflow dmg, reflect)
                 }
-                this.setState(TurnState.leshyEnd);
+                this.setState(TurnState.leshyPlayBack);
                 break;
             case leshyWin:
                 break;
             case leshyEnd:
+                this.setState(TurnState.playerBegin);
+                break;
+            case leshyPlayBack:
                 //leshyPlanNextMove()
                 //leshyfetchnextmove() //fetches next move from a move itinerary that can be edited asynchronously
-                for(int i = 0; i<4; i++){
-                    field.enemyPreSummon(nextMove[i],i); //moves card from leshys mind to on deck(if it can)
-                }
-                this.setState(TurnState.playerBegin);
+                // for(int i = 0; i<4; i++){
+                //     field.enemyPreSummon(nextMove[i],i); //moves card from leshys mind to on deck(if it can)
+                // }
+                field.enemySummonRear();
+                this.setState(TurnState.leshyEnd);
+                break;
+            default:
                 break;
         }
     }    

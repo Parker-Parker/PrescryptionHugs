@@ -1,4 +1,6 @@
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Field {
     Card[] nullCards = {null, null, null, null};
@@ -9,6 +11,8 @@ public class Field {
     LinkedList<Card> mainDeck = new LinkedList<Card>();
     LinkedList<Card> sideDeck = new LinkedList<Card>();
     LinkedList<Card> hand = new LinkedList<Card>();
+    ArrayList<LinkedList<Card>> enemyPlannedMoves = new ArrayList<>(List.of(new LinkedList<Card>(),new LinkedList<Card>(),new LinkedList<Card>(),new LinkedList<Card>()));
+    
 
     //for sacrifices
     LinkedList<Card> sacrifices = new LinkedList<Card>(); 
@@ -310,8 +314,15 @@ public class Field {
         playerCards[3]      = new Card(1,1,"bort");
         for (Card[] r :rows){
             for(Card c: r) {
-                if (c != null) {c.setField(this);}
+                if (c != null) {c.setField(this);}//should make this happen every all the time update
             }
+        }
+
+        for(int i = 0; i<25;i++){
+            for(int k = 0; k<4;k++){
+                enemyPlannedMoves.get(i).add(new Card("LDeck: "+k+":"+i));
+                
+            }   
         }
         
     }
@@ -513,5 +524,24 @@ public class Field {
     }
     public LinkedList<Card> getHand() {
         return hand;
+    }
+    public void enemySummonRear() { //
+        for(int i = 0; i<4; i++){ //mode: independent patient queues no pileup //We can add different modes to make this more configurable, per battle
+                                    //desc: each column has a card feeder that will automatically summon the next card if the back row of field is vacant
+                                    //      it is valid to put nulls in list to postpone summoning for a turn
+                                    //      independant: it will not wait until an entire row can be summoned at once, separate columns can become out of sync  //alt opts could be Sync/blocking
+                                    //      patient:     if the field slot is already occupied the feeder will not advance until it is available                //alts can be impatient-wasteful(tosses card that cannot be summoned and advances queue), impatient-opportunist(plays to any open space), impatient-recycler(puts card back on end of queue if blocked),patient-pileup(Cards with an empty space in front of them in the feeder will advance, but blocked cards will be patient. i.e. if front card is blocked advance all cards behind the frontmost null (by removing that null) ex: > Bear null Moose null Elk null Elk null | Field:Squirrel >>> Bear null Moose null Elk null Elk | Field:Squirrel >>> Bear null Moose null Elk Elk | Field:Squirrel >>> Bear null Moose Elk Elk | Field:Squirrel >>> Field Sq dies >>> Bear null Moose Elk Elk | Field:null >>> Bear null Moose Elk | Field:Elk >>> Bear Moose Elk | Field:Elk )                 
+            if(enemyCardsBack[i] == null){
+                if(!enemyPlannedMoves.isEmpty()){
+                    enemyCardsBack[i] = enemyPlannedMoves.get(i).pop();
+                }
+                else{
+                    System.out.println("Leshy is out of moves for column: "+i);
+                }
+                
+            } else if((!enemyPlannedMoves.isEmpty())&&(enemyPlannedMoves.get(i).peek()==null) ){
+                enemyPlannedMoves.get(i).pop();
+            }
+        }
     }    
 }

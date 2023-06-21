@@ -1,4 +1,4 @@
-public enum Sigils {
+public enum Sigils {//Need to make an encoder / decoder for this 
     Rabbit,
     Bees,
     Sprinter,
