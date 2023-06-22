@@ -30,11 +30,15 @@ public class Field {
         for(int i = 0; i<25;i++){
             mainDeck.add(new Card(i%3,i%7,"Card D"+i));
         }
+        // for (Card c : mainDeck){
+        //     c.setField(this);
+        // }
     }
     public void initMainDeck(LinkedList<Card> deck) {
         for(Card c : deck){
             mainDeck.add(c.makeCopy());
         }
+        
     }
     public void initSideDeck() {
         for(int i = 0; i<25; i++){
@@ -51,7 +55,7 @@ public class Field {
     public Boolean playCard(Card card, int slot) { //return true if successful, expect prev container to remove from its list
         if(playerCards[slot] == null){
             playerCards[slot] = card;
-            //playerCards[slot].setField(this);
+            playerCards[slot].setField(this);//not sure why this was commented out?
             playerCards[slot].onSummon(this);
             // for i 0-3 enemyCards[i].reactSummon()
             return true;
@@ -322,7 +326,7 @@ public class Field {
 
         for(int i = 0; i<25;i++){
             for(int k = 0; k<4;k++){
-                enemyPlannedMoves.get(i).add(new Card("LDeck: "+k+":"+i));
+                enemyPlannedMoves.get(k).add(new Card("LDeck: "+k+":"+i));
                 
             }   
         }
@@ -457,7 +461,14 @@ public class Field {
                     int overflow = target.takeDamage(damage, playerCards[i]);//the damage source is passed in so the spike sigil can be tested  in takeDamage and directly call the revenge target's .takeDamage(1,null); 
                 
                     if((overflow>0) && (enemyCardsBack[i+t]!=null)){
-                        enemyCardsBack[i+t].takeDamage(overflow, playerCards[i]);
+                        if((playerCards[i]!=null)){
+                            enemyCardsBack[i+t].takeDamage(overflow, playerCards[i]);
+                    
+                        }
+                        else{//hacky null handling
+                            enemyCardsBack[i+t].takeDamage(overflow, null);
+                    
+                        }
                     }
                 }
             }
@@ -604,6 +615,10 @@ public class Field {
             if(enemyCardsBack[i] == null){
                 if(!enemyPlannedMoves.isEmpty()){
                     enemyCardsBack[i] = enemyPlannedMoves.get(i).pop();
+                    if(enemyCardsBack[i] != null){
+                        enemyCardsBack[i].setField(this);
+                    }
+                    
                 }
                 else{
                     System.out.println("Leshy is out of moves for column: "+i);

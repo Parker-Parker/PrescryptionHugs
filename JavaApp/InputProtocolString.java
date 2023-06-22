@@ -184,7 +184,7 @@ public class InputProtocolString {
                         case "0":
                             cmd[2] = 0;
                             cmd[3] = 0;
-                            break;//TODO: HOLY SHIT FIX THIS
+                            return cmd;
                         case "1":
                             if (args.length < 4) {
                                 System.out.println("UserInput: Not enough arguments: " + text);
@@ -235,7 +235,7 @@ public class InputProtocolString {
 
                             break;
                     }
-                    break;
+                    return cmd;//oops
                 default:
                     System.out.println("UserInput: " + type.name() + " is unknown request type. command was: " + text);
                     break;

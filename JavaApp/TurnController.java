@@ -169,7 +169,8 @@ public class TurnController {
                         this.setState(TurnState.playerReady); //if summon successful    
                 
                         if(summoned){
-                            this.setState(TurnState.playerReady); //if summon successful    
+                            this.setState(TurnState.playerReady); //if summon successful 
+                            field.getHand().remove(field.summonCandidate);//this should really be done in the field
                         }
                         else{
                             this.setState(TurnState.playerSummon); //if summon unsuccessful    
