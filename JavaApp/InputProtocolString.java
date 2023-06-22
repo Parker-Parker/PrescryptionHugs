@@ -211,31 +211,31 @@ public class InputProtocolString {
                             cmd[3] = 0;
                             cmd[4] = 0;
                             cmd[5] = 0;
-                            break;
+                            return cmd;
                         case "1":
                             cmd[2] = 1;
                             cmd[3] = 0;
                             cmd[4] = 0;
                             cmd[5] = 0;
-                            break;
+                            return cmd;
                         case "2":
                             cmd[2] = 2;
                             cmd[3] = 0;
                             cmd[4] = 0;
                             cmd[5] = 0;
-                            break;
+                            return cmd;
                         case "3":
                             cmd[2] = 3;
                             cmd[3] = 0;// coudvle just done a hashmap with strings as keys... D'OH!
                             cmd[4] = 0;
                             cmd[5] = 0;
-                            break;
+                            return cmd;
                         default:
                             System.out.println("UserInput: invalid command argument: " + text);
 
                             break;
                     }
-                    return cmd;//oops
+                    break;
                 default:
                     System.out.println("UserInput: " + type.name() + " is unknown request type. command was: " + text);
                     break;
