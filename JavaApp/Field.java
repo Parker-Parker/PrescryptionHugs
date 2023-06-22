@@ -12,11 +12,13 @@ public class Field {
     LinkedList<Card> sideDeck = new LinkedList<Card>();
     LinkedList<Card> hand = new LinkedList<Card>();
     ArrayList<LinkedList<Card>> enemyPlannedMoves = new ArrayList<>(List.of(new LinkedList<Card>(),new LinkedList<Card>(),new LinkedList<Card>(),new LinkedList<Card>()));
-    
+    //candle 
+    //scale
 
     //for sacrifices
     LinkedList<Card> sacrifices = new LinkedList<Card>(); 
     Card current = null;
+    int summonCandidate;
 
 
 
@@ -505,22 +507,90 @@ public class Field {
         
     }
     public boolean playCard(int i, int slot) {
-        return false;
+        return playCard(hand.get(i), slot);
     }
+    
+    public boolean playCardSac(int slot) {
+        return playCard(current, slot);
+    }
+    
     public boolean checkRoom() {
-        return false;
+        return ((this.playerCards[0]==null)||(this.playerCards[1]==null)||(this.playerCards[2]==null)||(this.playerCards[3]==null));
     }
     public int executeSacrifices() {
-        return 0;
+        int value = 0;
+        for(Card c : sacrifices){
+            value+=c.value;
+            c.sacrifice();
+        }
+        return value;
     }
     public void addSacrifice(int i) {
+        if(!(i<0||i>3)){
+            if(!(this.playerCards[i]==null)){
+                if(this.playerCards[i].value >0){
+                    this.sacrifices.add(playerCards[i]);
+                }
+                else{
+                    System.out.println("terrain sac requested");
+                }
+            }
+            else{
+                System.out.println("null sac requested");
+            }    
+        }
+        else{
+            System.out.println("oob sac requested");
+        }
     }
     public void clearSacrifices() {
+        while(!this.sacrifices.isEmpty()){
+            this.sacrifices.pop();
+        }
     }
     public boolean checkSacrifices() {
-        return false;
+        
+        int totValue = 0;
+        for(Card c : sacrifices){
+            if(!(c==null)){
+                if(c.value >0){
+                    totValue += c.value;
+                }
+            }
+        }
+        return (totValue >= this.current.cost);
+
+
+        // return false;
     }
-    public void prepPlayCard(int i) {
+    public boolean prepPlayCard(int i) {
+        // confirm there is enough blood on the field  
+        //if no bounce back wait for card clear then bounce back to ready 
+        //confirm not 0 cost
+        if(hand.get(i)!=null){
+            if(hand.get(i).cost>0){
+                int availableBlood = 0;
+                for(int c = 0; c<4; c++){
+                    if(!(this.playerCards[c]==null)){
+                        if(this.playerCards[c].value >0){
+                            availableBlood += this.playerCards[c].value;
+                        }
+                    }
+                }
+                if(availableBlood > hand.get(i).cost){//valid summonable
+                    this.current=hand.get(i);
+                    this.summonCandidate = i;
+                    return true;
+                }
+                
+            }
+
+        }
+        else {//card is null??
+            System.out.println("card is null?");
+        }
+        return false;
+
     }
     public LinkedList<Card> getHand() {
         return hand;

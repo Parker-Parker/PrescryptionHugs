@@ -79,38 +79,46 @@ public class TurnController {
                     this.setState(TurnState.playerEnd); //if player ends turn    
                 } 
                 else if(cmdReady[0]==1){ //if player attempts summon of 0 cost
-                    
-                    field.playCard(cmdReady[1], cmdReady[2]);  // check if sacrifices are sufficient, 
+                    if(  (field.getHand().get(cmdReady[1])!=null) && (field.getHand().get(cmdReady[1]).getCost()==0)  ){  // check if sacrifices are sufficient, 
+                        if(field.playCard(cmdReady[1], cmdReady[2])){
+                            field.getHand().remove(cmdReady[1]);
+                        }
+                        else{
+                            //summon blocked/failed
+                        }
+                    }
+                    else{
+                        System.out.println("tried to direct summon expensive or null card");
+                    }
                                                                 //if no, just report angry leshy to anim queue
                                                                 //if yes, add card to field at slot, run card.whenPlayed() then purge from hand
                     this.setState(TurnState.playerReady);       //no more work needed, ready to play new card
                     //may want to add something that waits for bad card cleared. may want field.playCard() to return true/false to facilitate this 
                 }
-                else if(cmdReady[0]==2){
-                    field.clearSacrifices();
-                    field.prepPlayCard(cmdReady[1]); // confirm there is enough blood on the field nvm //maybe do pop>put_first? nvm 
-                                                //if no bounce back wait for card clear then bounce back to ready 
-                                                //confirm not 0 cost
-                    field.clearSacrifices();
-                    this.setState(TurnState.playerSacrifice);
+                else if(cmdReady[0]==2){//if player attempts summon of 1+ cost
                     
+                    field.clearSacrifices();
+                    if(field.prepPlayCard(cmdReady[1])){// confirm there is enough blood on the field and card requires sacrifice(cost>0)
+                        field.clearSacrifices();    
+                        this.setState(TurnState.playerSacrifice);
+                    }
+                    else{
+                        this.setState(TurnState.playerReady);    
+                    }
 
                 }
 
-                
-                
-                //this.setState(TurnState.playerSummon); //if player attempts summon of 0 cost
-                //this.setState(TurnState.playerSacrifice); //if player attempts summon of 1+ cost
-                //this.setState(TurnState.playerEnd); //if player ends turn
                 
                 break;
             case playerSacrifice:
                 
                 if(field.checkSacrifices()){//sacrifices are satisfactory
                     this.setState(TurnState.playerSummon); //if summon cost satisfied //call sacrifice method on all cards in list
+                    field.executeSacrifices();
                 } 
                 else    
                 {
+                    // int i = 0;
                     for(Card c : field.getPlayerCards()){
                         if (c==null){
                             choices.add("null");
@@ -142,7 +150,7 @@ public class TurnController {
                 
                 break;
             case playerSummon:
-                int cost = field.executeSacrifices();//should return total cost. if cost > 0 cannot cancel
+                // int cost = field.executeSacrifices();//should return total cost. if cost > 0 cannot cancel
                 if(field.checkRoom()){
                     boolean summoned = false;
                     while(summoned==false) {
@@ -156,20 +164,22 @@ public class TurnController {
                         //card:                          
                         // x                                                                          
                         //0-3 index on field                                                                              
-                        summoned = field.playCard(0, cmdSummon[0]);
+                        // summoned = field.playCard(0, cmdSummon[0]);   //decided against the pop->push method                                                    
+                        summoned = field.playCardSac(cmdSummon[0]);
                         this.setState(TurnState.playerReady); //if summon successful    
                 
                         if(summoned){
                             this.setState(TurnState.playerReady); //if summon successful    
                         }
                         else{
-                            this.setState(TurnState.playerSummon); //if summon successful    
+                            this.setState(TurnState.playerSummon); //if summon unsuccessful    
                 
                             //leshy yell at player
                         }
                     }
                 }
                 else{//there is no room(all sacrifices likely unkillable)
+                    System.out.println("no room for sac summon?");
                     this.setState(TurnState.playerReady); //if summon successful    
                 }
                 

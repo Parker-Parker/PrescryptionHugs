@@ -25,6 +25,7 @@ public class Card implements iCard {
     Field field = null;
 
     int[][] attackLists= {{0}, {-1,1}, {-1,0,1}, {-2,-1,0,1,2} };
+    public int value = 1;
 
 
     public Card() {
@@ -142,6 +143,19 @@ public class Card implements iCard {
 
     public Card makeCopy() {
         return new Card();//TODO
+    }
+
+    public void sacrifice() {
+        if(this.checkSigil(Sigils.ManyLives)){
+            //cat thing
+        }
+        else{
+            this.die();
+        }
+    }
+
+    public int getCost() {
+        return cost;
     }
 }
 
