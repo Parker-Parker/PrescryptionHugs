@@ -46,6 +46,8 @@ int stuff;
 
     //TODO: encounter/round that stores list of leshy's moves for a battle (and maybe interrupts to register)
     //TODO: Leshy behavior
+        //leshy load moveslist from file
+        //leshy change movelist admin
 
     //TODO: implement event/admin interrupt turncontroller
 
