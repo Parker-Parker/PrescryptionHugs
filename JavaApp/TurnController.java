@@ -5,14 +5,16 @@ public class TurnController {
     TurnState state;
     Field field;
     Card[] nextMove = {null, null, null, null};
-    UserInputHandler user;
+    // UserInputHandler user;
+    InputOutputHandler ioHandler;
     //make a "move" object called nextMove that holds what leshy will play to the back next
     //make a "script/itinerary" object that holds or fetches multiple "moves", and coordinates nextMove
 
     public TurnController(Field inField){
         this.field = inField;
         this.state = TurnState.playerDeal;
-        this.user = new UserInputHandler();
+        // this.user = new UserInputHandler();
+        this.ioHandler = new InputOutputHandler();
     }
 
     public Field getField(){
@@ -50,7 +52,8 @@ public class TurnController {
                 choices.add("Side");
                 //collect respond to player input
                 // int[] cmdDraw = user.getDrawInput();//this should never be null, block if you cant return int[1]// return (deck)
-                int[] cmdDraw = user.getUserInput(this.state, choices);//this should never be null, block if you cant return int[1]// return (deck)
+                // int[] cmdDraw = user.getUserInput(this.state, choices);//this should never be null, block if you cant return int[1]// return (deck)
+                int[] cmdDraw = ioHandler.getUserInputHandler().getUserInput(this.state, choices);//this should never be null, block if you cant return int[1]// return (deck)
                                                                                                             // 1: Main  
                                                                                                             // 0: Squirrel
                 //boolean draw = true;
@@ -69,7 +72,7 @@ public class TurnController {
 
                 //collect respond to player input
                 // int[] cmdReady = user.getPlayerReadyInput();//never null, block if you cant return int[3]
-                int[] cmdReady = user.getUserInput(this.state, choices);//never null, block if you cant return int[3]
+                int[] cmdReady = ioHandler.getUserInputHandler().getUserInput(this.state, choices);//never null, block if you cant return int[3]
                 // return (action, card, slot)  
                 //action:                   //card:                 //slot:           
                 // 0: Bell                  // x                    //x                                                            
@@ -129,7 +132,7 @@ public class TurnController {
                     }
                     //collect respond to player input
                     // int[] cmdSac = user.getSacrificeInput();//never null, block if you cant return int[2]
-                    int[] cmdSac = user.getUserInput(this.state, choices);//never null, block if you cant return int[2]
+                    int[] cmdSac = ioHandler.getUserInputHandler().getUserInput(this.state, choices);//never null, block if you cant return int[2]
                     // return (action, card, slot)  
                     //action:                   //card:                          
                     // 0: cancel                // x                                                                          
@@ -159,7 +162,7 @@ public class TurnController {
                         choices.add("1");
                         choices.add("2");
                         choices.add("3");
-                        int[] cmdSummon = user.getUserInput(this.state, choices);//never null, block if you cant return int[1]
+                        int[] cmdSummon = ioHandler.getUserInputHandler().getUserInput(this.state, choices);//never null, block if you cant return int[1]
                         // return (slot)  
                         //card:                          
                         // x                                                                          

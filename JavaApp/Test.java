@@ -31,7 +31,7 @@ public class Test
         String kek = "poop";
         System.out.println("Test 2 begins...");
         TurnController game = new TurnController(testField);
-        game.user.register(new UserInputLocal());
+        game.ioHandler.getUserInputHandler().register(new UserInputLocal());
         Scanner cmdIn = new Scanner(System.in);
         kek = cmdIn.nextLine();
         for(int i = 0;i<65;i++){

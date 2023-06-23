@@ -7,7 +7,8 @@ import java.util.LinkedList;
 class TCPServerMaster extends Thread {
 
     int socket = 5433;
-    UserInputHandler uHandler = null;
+    // UserInputHandler uHandler = null;
+    InputOutputHandler ioHandler = null;
 
     public TCPServerMaster() {
     }
@@ -16,29 +17,45 @@ class TCPServerMaster extends Thread {
         this.socket = socket;
     }
 
-    public TCPServerMaster(UserInputHandler handler) {
-        this.uHandler = handler;
+    // public TCPServerMaster(UserInputHandler handler) {
+    //     this.uHandler = handler;
+    // }
+    public TCPServerMaster(InputOutputHandler handler) {
+        this.ioHandler = handler;
     }
 
-    public TCPServerMaster(int socket, UserInputHandler handler) {
+    // public TCPServerMaster(int socket, UserInputHandler handler) {
+    //     this.socket = socket;
+    //     this.uHandler = handler;
+    // }
+
+    public TCPServerMaster(int socket, InputOutputHandler handler) {
         this.socket = socket;
-        this.uHandler = handler;
+        this.ioHandler = handler;
     }
 
     public void setSocket(int socket) {// might want to check if server running first...
         this.socket = socket;
     }
 
-    public void setUserInputHandler(UserInputHandler handler) {
-        this.uHandler = handler;
+    // public void setUserInputHandler(UserInputHandler handler) {
+    //     this.uHandler = handler;
+    // }
+
+    public void setUserInputHandler(InputOutputHandler handler) {
+        this.ioHandler = handler;
     }
 
     public int getSocket() {
         return socket;
     }
 
-    public UserInputHandler getUserInputHandler() {
-        return uHandler;
+    // public UserInputHandler getUserInputHandler() {
+    //     return uHandler;
+    // }
+    
+    public InputOutputHandler getInputOutputHandler() {
+        return ioHandler;
     }
 
     public void run() {
@@ -73,7 +90,7 @@ class TCPServerMaster extends Thread {
                         // newClient.start();// maybe we do this in the network input constructor?
                         
                         if(networkInput.hasInputType(InputOutputType.User)){
-                            uHandler.register(networkInput.getUserInput());
+                            ioHandler.getUserInputHandler().register(networkInput.getUserInput());
                         }
                          newClient.start();// maybe we do this in the network input constructor?
                        

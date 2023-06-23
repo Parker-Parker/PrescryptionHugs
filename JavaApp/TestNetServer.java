@@ -34,7 +34,7 @@ public class TestNetServer
 
 
         TurnController game = new TurnController(testField);
-        TCPServerMaster serverMaster = new TCPServerMaster(game.user);
+        TCPServerMaster serverMaster = new TCPServerMaster(game.ioHandler);
         serverMaster.start();
         
         Scanner cmdIn = new Scanner(System.in);
