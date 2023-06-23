@@ -1,7 +1,7 @@
 
 public class NullCard extends Card{// this is a special "virtual" card, it is meant to represent striking an unoccupied card slot
  //TODO: implement this
-
+    public boolean turn = true;//true if player is attacking
 
     public NullCard(Field field) {
         super();
@@ -25,8 +25,13 @@ public class NullCard extends Card{// this is a special "virtual" card, it is me
         } 
         else {
             System.out.println(card.title +  " dealt " + damage + " to " + title +"  // TODO:fix this");
+            
+            field.directDamage( this.turn? damage:-damage );//positive tips scale in player's favor
         }
         return 0;
+    }
+    public void setTurn(boolean playerTurn) {
+        this.turn = playerTurn;
     }   
 
 }

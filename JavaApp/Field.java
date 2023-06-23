@@ -23,6 +23,7 @@ public class Field {
 
 
     int scale = 0;
+    int candles = 0;
     private NullCard nullCard = new NullCard(this);
     
 
@@ -336,7 +337,8 @@ public class Field {
     public void enemyPreSummon(Card card, int i) {
     }
 
-    public void enemyAttack(int i) {     
+    public void enemyAttack(int i) {
+        this.nullCard.setTurn(false);     
         if(enemyCards[i]!=null){
 
             
@@ -407,6 +409,7 @@ public class Field {
     }
 
     public void playerAttack(int i) {
+        this.nullCard.setTurn(true);
         if(playerCards[i]!=null){
 
         
@@ -628,5 +631,10 @@ public class Field {
                 enemyPlannedMoves.get(i).pop();
             }
         }
+    }
+    public void directDamage(int damage) {
+        scale = scale + damage;
+        System.out.println( damage>0? ("Leshy took " + damage+" damage! score is "+this.scale):("Player took " + (-damage)+" damage! score is "+this.scale)    );
+        
     }    
 }
