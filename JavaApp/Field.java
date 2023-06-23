@@ -591,7 +591,7 @@ public class Field {
                         }
                     }
                 }
-                if(availableBlood > hand.get(i).cost){//valid summonable
+                if(availableBlood >= hand.get(i).cost){//valid summonable
                     this.current=hand.get(i);
                     this.summonCandidate = i;
                     return true;
