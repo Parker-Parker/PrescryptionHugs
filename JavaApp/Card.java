@@ -142,7 +142,17 @@ public class Card implements iCard {
     }
 
     public Card makeCopy() {
-        return new Card();//TODO
+        Card copy = new Card();
+        copy.attack = this.attack;
+        copy.baseAttack = this.baseAttack;
+        copy.baseHealth = this.baseHealth;
+        copy.cost = this.cost;
+        copy.health = this.health;
+        copy.image = this.image;
+        copy.sigils = this.sigils.clone();
+        copy.title = this.title;
+        copy.value = this.value;
+        return copy;
     }
 
     public void sacrifice() {
