@@ -14,28 +14,41 @@
             "type": "java",
             "name": "Test",
             "request": "launch",
-            "mainClass": "Test",
-            "projectName": "PrescryptionHugs_8649863"
+            "mainClass": "Test"
         },
         {
             "type": "java",
             "name": "Server",
             "request": "launch",
-            "mainClass": "ServerWindow",
-            "projectName": "PrescryptionHugs_8649863"
+            "mainClass": "ServerWindow"
         },
         {
             "type": "java",
             "name": "Client",
             "request": "launch",
-            "mainClass": "UserInputClient",
-            "projectName": "PrescryptionHugs_8649863"
+            "mainClass": "UserInputClient"
+        },
+        {
+            "type": "java",
+            "name": "TestNetServer",
+            "request": "launch",
+            "mainClass": "TestNetServer"
+        },
+        {
+            "type": "java",
+            "name": "TestNetClient",
+            "request": "launch",
+            "mainClass": "TestNetClient"
         }
     ],
     "compounds": [
         {
             "name": "Compound",
             "configurations": ["Server", "Client"]
+        },
+        {
+            "name": "TestNet",
+            "configurations": ["TestNetServer", "TestNetClient"]
         }
     ]
     
