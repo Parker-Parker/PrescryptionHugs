@@ -6,7 +6,6 @@ public class ObserverOutputHandler {
 
     LinkedList<iObserverOutput> observerOutputs = new LinkedList<iObserverOutput>();
     TurnController game;
-    int[] play_args;
 
     // EnumMap<ObserverTopics, String> fieldSerializedByTopic = new EnumMap<>(ObserverTopics.class);
 
@@ -81,18 +80,25 @@ public class ObserverOutputHandler {
         return serSigils;
     }
     private String serializeCard(Card card) {
-        String serCard = card.title +"/"                              
-            +  "" + card.cardId
-            + " " + card.baseAttack                                      
-            + " " + card.baseHealth                                      
-            + " " + card.attack                                      
-            + " " + card.health                                      
-            + " " + card.cost 
-            + " " + card.value
-            + " " + this.serializeSigils(card.sigils)                                       
+        
+        if(card!= null){
+            String serCard = card.getTitle() +"/"                              
+            +  "" + card.getCardId()
+            + " " + card.getBaseAttack()                                      
+            + " " + card.getBaseHealth()                                      
+            + " " + card.getAttack()                                      
+            + " " + card.getHealth()                                      
+            + " " + card.getCost() 
+            + " " + card.getValue()
+            + " " + this.serializeSigils(card.getSigils())                                       
             // + " " + card.image
         ;
         return serCard;
+    
+        }
+        else{
+            return "null/null";
+        }
     }
     private String serializeArrayOfCards(Card[] row) {
         boolean first = true;

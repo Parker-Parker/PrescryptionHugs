@@ -166,5 +166,25 @@ public class Card implements iCard {
     public int getCost() {
         return cost;
     }
+
+    public int getCardId() {
+        return cardId;
+    }
+
+    public int getBaseHealth() {
+        return baseHealth;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public EnumMap<Sigils, Boolean> getSigils() {
+        return sigils;
+    }
 }
 
