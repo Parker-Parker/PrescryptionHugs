@@ -636,5 +636,26 @@ public class Field {
         scale = scale + damage;
         System.out.println( damage>0? ("Leshy took " + damage+" damage! score is "+this.scale):("Player took " + (-damage)+" damage! score is "+this.scale)    );
         
+    }
+    public Card[] getEnemyCards() {
+        return this.enemyCards;
+    }
+    public Card[] getEnemyCardsBack() {
+        return this.enemyCardsBack;
+    }
+    public LinkedList<Card> getSideDeck() {
+        return this.sideDeck;
+    }
+    public LinkedList<Card> getMainDeck() {
+        return this.mainDeck;
+    }
+    public LinkedList<Card> getSacrifices() {
+        return this.sacrifices;
+    }
+    public Card getCurrent() {
+        return this.current;
+    }
+    public ArrayList<LinkedList<Card>> getEnemyPlannedMoves() {
+        return this.enemyPlannedMoves;
     }    
 }

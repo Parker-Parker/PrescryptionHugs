@@ -18,14 +18,13 @@ public class Card implements iCard {
     int health = 1;
     int cost = 0;
     Object image = null;
+    public int value = 1;
     
-
 
     boolean dead = false;
     Field field = null;
 
     int[][] attackLists= {{0}, {-1,1}, {-1,0,1}, {-2,-1,0,1,2} };
-    public int value = 1;
 
 
     public Card() {
@@ -121,7 +120,7 @@ public class Card implements iCard {
     }
 
     public int getHealth() {
-        return 0;
+        return this.health;
     } 
     public boolean checkDead(){
         return dead;
