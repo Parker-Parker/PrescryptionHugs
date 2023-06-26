@@ -5,7 +5,7 @@ import java.util.Scanner;
 class TCPServerSlave extends Thread{
 
     String clientSentence;
-    String capitalizedSentence;
+    String serverSentence;
     Socket  connectionSocket;
     iNetworkInput parent;
     String clientName = "unnamed GenNet??";
@@ -47,11 +47,16 @@ class TCPServerSlave extends Thread{
                     System.out.println("Reporting client message to parent(iNetworkInput)...  ");
                     parent.process(clientSentence);
                 }
-
                 ///////////////////////////////////////////////
                 // TODO: add some write stuff? maybe... its 3am idk
                 ////////////////////////////////////////////
-                        
+                if(parent.hasNextLine()){
+                    serverSentence = parent.nextLine();
+                    outToClient.writeBytes(serverSentence + '\n');
+                } 
+                
+
+
             }
             System.out.println("Closed: ");
                     

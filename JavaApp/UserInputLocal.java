@@ -233,4 +233,11 @@ public class UserInputLocal implements iUserInput {
             return null;
         }
     }
+
+
+    @Override
+    public void push(int[] x) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'push'");
+    }
 }

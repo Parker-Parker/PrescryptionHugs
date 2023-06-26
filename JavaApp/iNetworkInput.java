@@ -9,4 +9,8 @@ public interface iNetworkInput {
 
     void process(String clientSentence);
 
+    boolean hasNextLine();
+
+    String nextLine();
+
 }

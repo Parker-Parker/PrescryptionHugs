@@ -10,4 +10,6 @@ public interface iUserInput {
 
     int[] popParsed(TurnState type);
 
+    void push(int[] x);
+
 }
