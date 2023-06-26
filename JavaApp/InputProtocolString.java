@@ -4,9 +4,9 @@ import java.util.HashMap;
 public class InputProtocolString {
     static final int[] command = { 0, 0, 0, 0, 0, 0 };
 
-    EnumMap<InputOutputType, String> typeCodesEncode = new EnumMap<>(InputOutputType.class);
-    HashMap<String, InputOutputType> typeCodesDecode = new HashMap<String, InputOutputType>();
-
+    EnumMap<InputOutputType, String> typeCodesEncode = new EnumMap<>(InputOutputType.class);        //I could out this in a generic class 
+    HashMap<String, InputOutputType> typeCodesDecode = new HashMap<String, InputOutputType>();      //something like EnumLookup<Enum> typecodes
+                                                                                                    //it would let  m keep the constructor much cleaner
     EnumMap<TurnState, String> typeUserCodesEncode = new EnumMap<>(TurnState.class);
     HashMap<String, TurnState> typeUserCodesDecode = new HashMap<String, TurnState>();
 

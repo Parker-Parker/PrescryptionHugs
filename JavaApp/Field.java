@@ -657,5 +657,56 @@ public class Field {
     }
     public ArrayList<LinkedList<Card>> getEnemyPlannedMoves() {
         return this.enemyPlannedMoves;
+    }
+    public void setNullCards(Card[] nullCards) {
+        this.nullCards = nullCards;
+    }
+    public void setEnemyCardsBack(Card[] enemyCardsBack) {
+        this.enemyCardsBack = enemyCardsBack;
+    }
+    public void setEnemyCards(Card[] enemyCards) {
+        this.enemyCards = enemyCards;
+    }
+    public void setPlayerCards(Card[] playerCards) {
+        this.playerCards = playerCards;
+    }
+    public void setRows(Card[][] rows) {
+        this.rows = rows;
+    }
+    public void setMainDeck(LinkedList<Card> mainDeck) {
+        this.mainDeck = mainDeck;
+    }
+    public void setSideDeck(LinkedList<Card> sideDeck) {
+        this.sideDeck = sideDeck;
+    }
+    public void setHand(LinkedList<Card> hand) {
+        this.hand = hand;
+    }
+    public void setEnemyPlannedMoves(ArrayList<LinkedList<Card>> enemyPlannedMoves) {
+        this.enemyPlannedMoves = enemyPlannedMoves;
+    }
+    public void setSacrifices(LinkedList<Card> sacrifices) {
+        this.sacrifices = sacrifices;
+    }
+    public void setCurrent(Card current) {
+        this.current = current;
+    }
+    public void setSummonCandidate(int summonCandidate) {
+        this.summonCandidate = summonCandidate;
+    }
+    public void setScale(int scale) {
+        this.scale = scale;
+    }
+    public void setCandles(int candles) {
+        this.candles = candles;
+    }
+    public void setNullCard(NullCard nullCard) {
+        this.nullCard = nullCard;
+    }
+    public void setBlank(String blank) {
+        this.blank = blank;
+    }
+    public void setHoriz(String horiz) {
+        this.horiz = horiz;
     }    
 }

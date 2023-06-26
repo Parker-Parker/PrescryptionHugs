@@ -186,5 +186,49 @@ public class Card implements iCard {
     public EnumMap<Sigils, Boolean> getSigils() {
         return sigils;
     }
+
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
+    }
+
+    public void setSigils(EnumMap<Sigils, Boolean> sigils) {
+        this.sigils = sigils;
+    }
+
+    public void setBaseAttack(int baseAttack) {
+        this.baseAttack = baseAttack;
+    }
+
+    public void setBaseHealth(int baseHealth) {
+        this.baseHealth = baseHealth;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public void setImage(Object image) {
+        this.image = image;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
+    public void setAttackLists(int[][] attackLists) {
+        this.attackLists = attackLists;
+    }
 }
 
