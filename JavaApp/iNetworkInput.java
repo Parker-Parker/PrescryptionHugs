@@ -13,4 +13,6 @@ public interface iNetworkInput {
 
     String nextLine();
 
+    iObserverOutput getObserverOutput();
+
 }

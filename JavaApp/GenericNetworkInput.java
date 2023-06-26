@@ -36,6 +36,8 @@ public class GenericNetworkInput implements iNetworkInput {
     @Override
     public boolean hasInputType(InputOutputType type) {
         switch(type){
+            case Observer:
+                return !(this.getObserverOutput()==null);
             case User:
                 return !(this.getUserInput()==null);//TODO: this REALLY needs to be changed to the genNetInp's iUserInput object derectly (not this.getUserInput) once its has bee implemented
             default:
@@ -93,5 +95,10 @@ public class GenericNetworkInput implements iNetworkInput {
 
         return this.obsOutput.pop();
 
+    }
+
+    @Override
+    public iObserverOutput getObserverOutput() {
+        return this.obsOutput;
     }   
 }

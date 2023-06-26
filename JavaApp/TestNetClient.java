@@ -26,19 +26,15 @@ class TestNetClient {
             // if(inFromUser.hasNextLine()){
             if(System.in.available()>0){
 
-                System.out.println(System.in.available()+":"+clientSocket.getInputStream().available());
+                System.out.println(System.in.available()+":"+clientSocket.getInputStream().available()); //debug
                 // sentence = inFromUser.readLine();
-                System.out.println("NEW USER LINE");
                 sentence = inFromUser.nextLine();
                 outToServer.writeBytes(sentence + '\n');
-                // outToServer.flush();
-                System.out.println("NEW USER LINE SENT");
             }
             // if(inFromServer.hasNextLine()){
             if(clientSocket.getInputStream().available()>0){
                 // sentence = inFromUser.readLine();
 
-                System.out.println("NEW SERVER LINE RECEIVED");
                 System.out.println(inFromServer.nextLine());
                 // outToServer.writeBytes(sentence + '\n');
             }

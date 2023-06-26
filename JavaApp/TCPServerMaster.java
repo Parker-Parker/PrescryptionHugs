@@ -92,6 +92,9 @@ class TCPServerMaster extends Thread {
                         if(networkInput.hasInputType(InputOutputType.User)){
                             ioHandler.getUserInputHandler().register(networkInput.getUserInput());
                         }
+                        if(networkInput.hasInputType(InputOutputType.Observer)){
+                            ioHandler.getObserverOutputHandler().register(networkInput.getObserverOutput());
+                        }
                          newClient.start();// maybe we do this in the network input constructor?
                        
 

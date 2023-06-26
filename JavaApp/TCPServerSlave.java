@@ -41,7 +41,8 @@ class TCPServerSlave extends Thread{
         ){
             // while(connectionSocket.isConnected()){
             while(!connectionSocket.isClosed()){
-                if(inFromClient.hasNextLine()){                
+                // if(inFromClient.hasNextLine()){    
+                if(connectionSocket.getInputStream().available()>0){        //scanner.hasnextline blocks        
                     clientSentence = inFromClient.nextLine();
                     System.out.println("Received: " + clientSentence + " from " +" Inet:"+ connectionSocket.getInetAddress()+":"+ connectionSocket.getPort());
                     System.out.println("Reporting client message to parent(iNetworkInput)...  ");
@@ -54,7 +55,7 @@ class TCPServerSlave extends Thread{
                 if(parent.hasNextLine()){
                     serverSentence = parent.nextLine();
                     outToClient.writeBytes(serverSentence + '\n');
-                    outToClient.flush();
+                    // outToClient.flush();
                 } 
                 
 
