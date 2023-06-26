@@ -50,9 +50,11 @@ class TCPServerSlave extends Thread{
                 ///////////////////////////////////////////////
                 // TODO: add some write stuff? maybe... its 3am idk
                 ////////////////////////////////////////////
+                // System.out.println("received");
                 if(parent.hasNextLine()){
                     serverSentence = parent.nextLine();
                     outToClient.writeBytes(serverSentence + '\n');
+                    outToClient.flush();
                 } 
                 
 

@@ -616,7 +616,7 @@ public class Field {
                                     //      independant: it will not wait until an entire row can be summoned at once, separate columns can become out of sync  //alt opts could be Sync/blocking
                                     //      patient:     if the field slot is already occupied the feeder will not advance until it is available                //alts can be impatient-wasteful(tosses card that cannot be summoned and advances queue), impatient-opportunist(plays to any open space), impatient-recycler(puts card back on end of queue if blocked),patient-pileup(Cards with an empty space in front of them in the feeder will advance, but blocked cards will be patient. i.e. if front card is blocked advance all cards behind the frontmost null (by removing that null) ex: > Bear null Moose null Elk null Elk null | Field:Squirrel >>> Bear null Moose null Elk null Elk | Field:Squirrel >>> Bear null Moose null Elk Elk | Field:Squirrel >>> Bear null Moose Elk Elk | Field:Squirrel >>> Field Sq dies >>> Bear null Moose Elk Elk | Field:null >>> Bear null Moose Elk | Field:Elk >>> Bear Moose Elk | Field:Elk )                 
             if(enemyCardsBack[i] == null){
-                if(!enemyPlannedMoves.isEmpty()){
+                if(!enemyPlannedMoves.get(i).isEmpty()){
                     enemyCardsBack[i] = enemyPlannedMoves.get(i).pop();
                     if(enemyCardsBack[i] != null){
                         enemyCardsBack[i].setField(this);
