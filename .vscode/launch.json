@@ -39,6 +39,12 @@
             "name": "TestNetClient",
             "request": "launch",
             "mainClass": "TestNetClient"
+        },
+        {
+            "type": "java",
+            "name": "TestNetClientVis",
+            "request": "launch",
+            "mainClass": "TestNetClientVis"
         }
     ],
     "compounds": [
@@ -49,6 +55,10 @@
         {
             "name": "TestNet",
             "configurations": ["TestNetServer", "TestNetClient"]
+        },
+        {
+            "name": "TestNetVis",
+            "configurations": ["TestNetServer", "TestNetClientVis"]
         }
     ]
     

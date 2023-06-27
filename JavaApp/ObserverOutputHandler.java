@@ -102,7 +102,7 @@ public class ObserverOutputHandler {
     }
     private String serializeArrayOfCards(Card[] row) {
         boolean first = true;
-        String serArray = "ar-" +row.length+"(";
+        String serArray = "ar-" +row.length+"!";
         for (Card card:row){
             if(!first){
                 serArray = serArray +",";
@@ -115,7 +115,7 @@ public class ObserverOutputHandler {
     }
     private String serializeListOfCards(LinkedList<Card> cards) {
         boolean first = true;
-        String serList = "li-" +cards.size()+"(";
+        String serList = "li-" +cards.size()+"!";
         for (Card card:cards){
             if(!first){
                 serList = serList +",";
@@ -144,7 +144,7 @@ public class ObserverOutputHandler {
         return "Hand:"+this.serializeListOfCards(field.getHand());
     }
     private String serializeSacrifices(Field field){
-        return "Sacrifices:"+this.serializeCard(field.getCurrent()) + ")"
+        return "Sacrifices:"+this.serializeCard(field.getCurrent()) + "#"
                             +this.serializeListOfCards(field.getSacrifices());
     }
     private String serializeMainDeck(Field field){
@@ -156,32 +156,59 @@ public class ObserverOutputHandler {
     private String serializeEnemyPlannedMoves(Field field){
         ArrayList<LinkedList<Card>> moves = field.getEnemyPlannedMoves();
         String serMoves = "EnemyPlannedMoves:"+
-                        this.serializeListOfCards(moves.get(0)) + ")" +
-                        this.serializeListOfCards(moves.get(1)) + ")" +
-                        this.serializeListOfCards(moves.get(2)) + ")" +
+                        this.serializeListOfCards(moves.get(0)) + "#" +
+                        this.serializeListOfCards(moves.get(1)) + "#" +
+                        this.serializeListOfCards(moves.get(2)) + "#" +
                         this.serializeListOfCards(moves.get(3)) ;
 
         return serMoves;
     }
 
     
+    public EnumMap<ObserverTopics, String> deserializeTopics(String messageString) {
+        EnumMap<ObserverTopics, String> fieldSerializedByTopic = new EnumMap<>(ObserverTopics.class);
+            
+        if((messageString!=null) && (!messageString.isEmpty())){
+            
+            String[] topicStrings = messageString.split(";");
+
+            if((topicStrings!=null) ){// && (topicStrings.length>4)){
+                String[] topic;
+                for(String s : topicStrings){
+                    topic = s.split(":");
+                    if((topic!=null)&&(topic.length==2)){
+                        for(ObserverTopics t : ObserverTopics.values()){
+                            if(t.name().equalsIgnoreCase(topic[0])){
+                                fieldSerializedByTopic.put(t, s);
+                            }
+                        }
+                    }            
+                }
+            }
+        }
+        return fieldSerializedByTopic;
+    }
 
 
-    // public Field deserializeField(String field) {
-    //     EnumMap<ObserverTopics, String> fieldSerializedByTopic
-        
-                
-    // }
     public void deserializeField(Field field, EnumMap<ObserverTopics, String> fieldSerializedByTopic) {
         //Field/state
-        field.setEnemyCardsBack(      this.deserializeEnemyCardsBack(fieldSerializedByTopic.get(ObserverTopics.EnemyCardsBack))       );                     
-        field.setEnemyCards(          this.deserializeEnemyCards(fieldSerializedByTopic.get(ObserverTopics.EnemyCards))           );             
-        field.setPlayerCards(         this.deserializePlayerCards(fieldSerializedByTopic.get(ObserverTopics.PlayerCards))          );           
-        field.setHand(                this.deserializeHand(fieldSerializedByTopic.get(ObserverTopics.Hand))                 );                          
-        field.setSacrifices(          this.deserializeSacrifices(fieldSerializedByTopic.get(ObserverTopics.Sacrifices))           );            
-        field.setMainDeck(            this.deserializeMainDeck(fieldSerializedByTopic.get(ObserverTopics.MainDeck))             );           
-        field.setSideDeck(            this.deserializeSideDeck(fieldSerializedByTopic.get(ObserverTopics.SideDeck))             );   
-        field.setEnemyPlannedMoves(   this.deserializeEnemyPlannedMoves(fieldSerializedByTopic.get(ObserverTopics.EnemyPlannedMoves))    );
+        Card[] setEnemyCardsBack =                            this.deserializeEnemyCardsBack(fieldSerializedByTopic.get(ObserverTopics.EnemyCardsBack));                     
+        Card[] setEnemyCards =                                this.deserializeEnemyCards(fieldSerializedByTopic.get(ObserverTopics.EnemyCards));             
+        Card[] setPlayerCards =                               this.deserializePlayerCards(fieldSerializedByTopic.get(ObserverTopics.PlayerCards));           
+        LinkedList<Card> setHand =                            this.deserializeHand(fieldSerializedByTopic.get(ObserverTopics.Hand));                          
+        LinkedList<Card> setSacrifices =                      this.deserializeSacrifices(fieldSerializedByTopic.get(ObserverTopics.Sacrifices));            
+        LinkedList<Card> setMainDeck =                        this.deserializeMainDeck(fieldSerializedByTopic.get(ObserverTopics.MainDeck));           
+        LinkedList<Card> setSideDeck =                        this.deserializeSideDeck(fieldSerializedByTopic.get(ObserverTopics.SideDeck));   
+        ArrayList<LinkedList<Card>> setEnemyPlannedMoves =    this.deserializeEnemyPlannedMoves(fieldSerializedByTopic.get(ObserverTopics.EnemyPlannedMoves));
+        //Field/state
+        field.setEnemyCardsBack(      (setEnemyCardsBack ==null)      ? field.getEnemyCardsBack(    ) : (setEnemyCardsBack)                 );                     
+        field.setEnemyCards(          (setEnemyCards ==null)          ? field.getEnemyCards(        ) : (setEnemyCards)                 );             
+        field.setPlayerCards(         (setPlayerCards ==null)         ? field.getPlayerCards(       ) : (setPlayerCards)                    );           
+        field.setHand(                (setHand ==null)                ? field.getHand(              ) : (setHand)                   );                          
+        field.setSacrifices(          (setSacrifices ==null)          ? field.getSacrifices(        ) : (setSacrifices)                 );            
+        field.setMainDeck(            (setMainDeck ==null)            ? field.getMainDeck(          ) : (setMainDeck)                   );           
+        field.setSideDeck(            (setSideDeck ==null)            ? field.getSideDeck(          ) : (setSideDeck)                   );   
+        field.setEnemyPlannedMoves(   (setEnemyPlannedMoves ==null)   ? field.getEnemyPlannedMoves( ) : (setEnemyPlannedMoves)                  );
         
                 
     }
@@ -189,118 +216,131 @@ public class ObserverOutputHandler {
 
 
     public Card[] deserializeEnemyCardsBack(String topicString)   {
-        String[] topic = topicString.split(":");
-        if((topic.length==2)    &&
-            (topic[0]!=null)    &&
-            (topic[1]!=null)    &&
-            (!topic[0].isEmpty())    &&
-            (!topic[1].isEmpty())    &&
-            (!topic[0].equalsIgnoreCase(ObserverTopics.EnemyCardsBack.name()))        
-        ){
-            return this.deserializeArrayOfCards(topic[1]);
+        if(topicString!=null){
 
+            String[] topic = topicString.split(":");
+            
+            if((topic.length==2)    &&                                                                          
+                (topic[0]!=null)    &&                                                                          
+                (topic[1]!=null)    &&                                                                          
+                (!topic[0].isEmpty())    &&                                                                         
+                (!topic[1].isEmpty())    &&                                                                         
+                (topic[0].equalsIgnoreCase(ObserverTopics.EnemyCardsBack.name()))                                                                                   
+            ){
+                return this.deserializeArrayOfCards(topic[1]);
+            }
         }
+
         return null;
     }        
     public Card[] deserializeEnemyCards(String topicString)   {
+        if(topicString!=null){
         String[] topic = topicString.split(":");
         if((topic.length==2)    &&
             (topic[0]!=null)    &&
             (topic[1]!=null)    &&
             (!topic[0].isEmpty())    &&
             (!topic[1].isEmpty())    &&
-            (!topic[0].equalsIgnoreCase(ObserverTopics.EnemyCards.name()))        
+            (topic[0].equalsIgnoreCase(ObserverTopics.EnemyCards.name()))        
         ){
             return this.deserializeArrayOfCards(topic[1]);
 
-        }
+        }}
         return null;
     }            
     public Card[] deserializePlayerCards(String topicString)  {
+        if(topicString!=null){
         String[] topic = topicString.split(":");
         if((topic.length==2)    &&
             (topic[0]!=null)    &&
             (topic[1]!=null)    &&
             (!topic[0].isEmpty())    &&
             (!topic[1].isEmpty())    &&
-            (!topic[0].equalsIgnoreCase(ObserverTopics.PlayerCards.name()))        
+            (topic[0].equalsIgnoreCase(ObserverTopics.PlayerCards.name()))        
         ){
             return this.deserializeArrayOfCards(topic[1]);
 
-        }
+        }}
         return null;
     }              
     public LinkedList<Card> deserializeHand(String topicString)   {
+        if(topicString!=null){
         String[] topic = topicString.split(":");
         if((topic.length==2)    &&
             (topic[0]!=null)    &&
             (topic[1]!=null)    &&
             (!topic[0].isEmpty())    &&
             (!topic[1].isEmpty())    &&
-            (!topic[0].equalsIgnoreCase(ObserverTopics.Hand.name()))        
+            (topic[0].equalsIgnoreCase(ObserverTopics.Hand.name()))        
         ){
             return this.deserializeListOfCards(topic[1]);
 
-        }
+        }}
         return null;
     }                    
     public LinkedList<Card> deserializeSacrifices(String topicString) {
+        if(topicString!=null){
         String[] topic = topicString.split(":");
         if((topic.length==2)    &&
             (topic[0]!=null)    &&
             (topic[1]!=null)    &&
             (!topic[0].isEmpty())    &&
             (!topic[1].isEmpty())    &&
-            (!topic[0].equalsIgnoreCase(ObserverTopics.Sacrifices.name()))        
+            (topic[0].equalsIgnoreCase(ObserverTopics.Sacrifices.name()))        
         ){
             return this.deserializeListOfCards(topic[1]);
 
-        }
+        }}
         return null;
     }            
     public LinkedList<Card> deserializeMainDeck(String topicString)   {
+        if(topicString!=null){
         String[] topic = topicString.split(":");
         if((topic.length==2)    &&
             (topic[0]!=null)    &&
             (topic[1]!=null)    &&
             (!topic[0].isEmpty())    &&
             (!topic[1].isEmpty())    &&
-            (!topic[0].equalsIgnoreCase(ObserverTopics.MainDeck.name()))        
+            (topic[0].equalsIgnoreCase(ObserverTopics.MainDeck.name()))        
         ){
             return this.deserializeListOfCards(topic[1]);
 
         }
+    }
         return null;
     }                
     public LinkedList<Card> deserializeSideDeck(String topicString)   {
+        if(topicString!=null){
         String[] topic = topicString.split(":");
         if((topic.length==2)    &&
             (topic[0]!=null)    &&
             (topic[1]!=null)    &&
             (!topic[0].isEmpty())    &&
             (!topic[1].isEmpty())    &&
-            (!topic[0].equalsIgnoreCase(ObserverTopics.SideDeck.name()))        
+            (topic[0].equalsIgnoreCase(ObserverTopics.SideDeck.name()))        
         ){
             return this.deserializeListOfCards(topic[1]);
 
         }        
+    }
         return null;
 
     }                
     public ArrayList<LinkedList<Card>> deserializeEnemyPlannedMoves(String topicString)    {
+        if(topicString!=null){
         String[] topic = topicString.split(":");
         if((topic.length==2)    &&
             (topic[0]!=null)    &&
             (topic[1]!=null)    &&
             (!topic[0].isEmpty())    &&
             (!topic[1].isEmpty())    &&
-            (!topic[0].equalsIgnoreCase(ObserverTopics.EnemyPlannedMoves.name()))        
+            (topic[0].equalsIgnoreCase(ObserverTopics.EnemyPlannedMoves.name()))        
         ){
             ArrayList <LinkedList<Card>> deserArrayList = new ArrayList<LinkedList<Card>>(4);
             for(int i=0;i<4;i++){
                 deserArrayList.add(new LinkedList<Card>());
             }
-            String[] lists = topic[1].split(")");
+            String[] lists = topic[1].split("#");
             if(lists.length==4){
                 for(int i=0;i<4;i++){
                     deserArrayList.set(i, this.deserializeListOfCards(lists[i]));
@@ -313,27 +353,14 @@ public class ObserverOutputHandler {
             return deserArrayList;
 
         }
+    }
         return null;
     }      
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //HELPERS
     private EnumMap<Sigils, Boolean> deserializeSigils(String cardSigils) {
+        if(cardSigils!=null){
         String[] sig = cardSigils.split("-");
         if( (sig.length==2) &&
             (sig[0]!=null)  &&
@@ -354,9 +381,11 @@ public class ObserverOutputHandler {
                 }
                 return deserSigils;
             }
+        }
             return null;
     }
     private Card deserializeCard(String cardString) {
+        if(cardString!=null){
         String[] cs = cardString.split("/");
         if( (cs.length==2) &&
             (cs[0]!=null)  &&
@@ -402,56 +431,61 @@ public class ObserverOutputHandler {
                 }
 
             }
+        }
             return null;
 
     }
     private Card[] deserializeArrayOfCards(String rowString) {
-        Card[] deserRow = new Card[4];
-         
-        ////////////////////////////////////////////////
-        String[] row = rowString.split("(");
-        if( (row.length==2) &&
-            (row[0]!=null)  &&
-            (row[1]!=null)  &&
-            (!row[0].isEmpty())  &&
-            (!row[1].isEmpty())  
-            ){//header appears parsable
-                String[] header = row[0].split("-");
-                if( (header.length==2) &&
-                    (header[0]!=null)  &&
-                    (header[1]!=null)  &&
-                    (!header[0].isEmpty())  &&
-                    (!header[1].isEmpty())  &&
-                    (header[0].equalsIgnoreCase("ar"))
-                    ){
-                        int i = -1;
-                        try{i = Integer.parseInt(header[1]);}catch(Exception e){e.printStackTrace();i= 0;}
-                        if(i==4){
-                            String[] cardStrings = row[1].split(",");
-                            boolean test = true;
-                            for(String s : cardStrings){
-                                if(s==null||s.isEmpty()){
-                                    test = false;
+
+        if(rowString!=null){
+            Card[] deserRow = new Card[4];
+            
+            ////////////////////////////////////////////////
+            String[] row = rowString.split("!");
+
+            if( (row.length==2) &&
+                (row[0]!=null)  &&
+                (row[1]!=null)  &&
+                (!row[0].isEmpty())  &&
+                (!row[1].isEmpty())  
+                ){//header appears parsable
+                    String[] header = row[0].split("-");
+                    if( (header.length==2) &&
+                        (header[0]!=null)  &&
+                        (header[1]!=null)  &&
+                        (!header[0].isEmpty())  &&
+                        (!header[1].isEmpty())  &&
+                        (header[0].equalsIgnoreCase("ar"))
+                        ){
+                            int i = -1;
+                            try{i = Integer.parseInt(header[1]);}catch(Exception e){e.printStackTrace();i= 0;}
+                            if(i==4){
+                                String[] cardStrings = row[1].split(",");
+                                boolean test = true;
+                                for(String s : cardStrings){
+                                    if(s==null||s.isEmpty()){
+                                        test = false;
+                                    }
                                 }
-                            }
-                            if(test && i==cardStrings.length){
-                                // for(; i>0; i--){
-                                for(int t=0; t<i; t++){
-                                    deserRow[i] = this.deserializeCard(cardStrings[i]);
+                                if(test && i==cardStrings.length){
+                                    // for(; i>0; i--){
+                                    for(int t=0; t<i; t++){
+                                        deserRow[t] = this.deserializeCard(cardStrings[t]);
+                                    }
+                                    return deserRow;
                                 }
-                                return deserRow;
                             }
                         }
                     }
-                }
-
+        }
         return null;
     }
     private LinkedList<Card> deserializeListOfCards(String cardsString) {
+        if(cardsString!=null){
         LinkedList<Card> deserList = new LinkedList<Card>();
          
         ////////////////////////////////////////////////
-        String[] row = cardsString.split("(");
+        String[] row = cardsString.split("!");
         if( (row.length==2) &&
             (row[0]!=null)  &&
             (row[1]!=null)  &&
@@ -478,15 +512,16 @@ public class ObserverOutputHandler {
                         }
                         if(test && i==cardStrings.length){
                             for(int t=0; t<i; t++){
-                                deserList.add(this.deserializeCard(cardStrings[i]));
+                                deserList.add(this.deserializeCard(cardStrings[t]));
                             }
                             return deserList;
                         }
                     
                     }
                 }
-
+            }
         return null;
+        
     }
     
 
