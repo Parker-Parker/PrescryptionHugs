@@ -37,6 +37,7 @@ class TestNetClientVis {
                 // sentence = inFromUser.readLine();
                 sentence = inFromUser.nextLine();
                 outToServer.writeBytes(sentence + '\n');
+                outToServer.flush();
             }
             // if(inFromServer.hasNextLine()){
             if(clientSocket.getInputStream().available()>0){

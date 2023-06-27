@@ -327,7 +327,7 @@ public class Field {
 
         for(int i = 0; i<25;i++){
             for(int k = 0; k<4;k++){
-                enemyPlannedMoves.get(k).add(new Card("LDeck: "+k+":"+i));
+                enemyPlannedMoves.get(k).add(new Card("LDeck "+k+" "+i));
                 
             }   
         }

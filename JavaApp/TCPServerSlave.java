@@ -55,7 +55,7 @@ class TCPServerSlave extends Thread{
                 if(parent.hasNextLine()){
                     serverSentence = parent.nextLine();
                     outToClient.writeBytes(serverSentence + '\n');
-                    // outToClient.flush();
+                    outToClient.flush();
                 } 
                 
 
