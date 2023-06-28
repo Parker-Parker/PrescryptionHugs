@@ -45,6 +45,12 @@
             "name": "TestNetClientVis",
             "request": "launch",
             "mainClass": "TestNetClientVis"
+        },
+        {
+            "type": "java",
+            "name": "RendererWindow",
+            "request": "launch",
+            "mainClass": "FieldRendererWindowClient"
         }
     ],
     "compounds": [
@@ -59,6 +65,10 @@
         {
             "name": "TestNetVis",
             "configurations": ["TestNetServer", "TestNetClientVis"]
+        },
+        {
+            "name": "TestNetRender",
+            "configurations": ["TestNetServer", "TestNetClientVis", "RendererWindow"]
         }
     ]
     
