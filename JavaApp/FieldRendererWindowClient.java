@@ -68,7 +68,7 @@ public class FieldRendererWindowClient {
  		frame.setTitle("Inscryption Network Renderer Client");
  		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  		frame.setResizable(false);
-        frame.setUndecorated(true);
+        // frame.setUndecorated(true);
         
  		frame.pack();
  		frame.setVisible(true);
