@@ -36,8 +36,8 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     FieldRendererPanel() {
 
         try{
-            File font_file = new File("resources/HEAVYWEI.TTF");
-            fontHeavyWeight = Font.createFont(Font.TRUETYPE_FONT, font_file);
+            File font_file = new File("JavaApp/resources/HEAVYWEI.TTF");
+            fontHeavyWeight = Font.createFont(Font.TRUETYPE_FONT, font_file).deriveFont(12f);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -79,7 +79,9 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
          fieldCanvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
          fieldCanvas.setColor(Color.red);
 
-         fieldCanvas.setFont(new Font("Ink Free", Font.BOLD, 40));
+        //  fieldCanvas.setFont(new Font("Ink Free", Font.BOLD, 40));
+
+        fieldCanvas.setFont(fontHeavyWeight);
  
          FontMetrics metrics1 = getFontMetrics(fieldCanvas.getFont());
  
