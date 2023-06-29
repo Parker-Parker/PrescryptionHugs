@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -32,18 +33,28 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     // Graphics fieldCanvas = fieldImage.getGraphics();
     Graphics2D fieldCanvas = (Graphics2D)fieldImage.getGraphics();
 
+
+    private BufferedImage emptyImage = new BufferedImage(100, 10, BufferedImage.TYPE_INT_RGB);
+
+    HashMap<String,BufferedImage> cardPortraits = new HashMap<>();
     BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
-    BufferedImage[] costs = {new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB),
-                            new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB),
-                            new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB),
-                            new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB)};
-    Card testCard = new Card("Stoat");
+    BufferedImage[] costs = {emptyImage,
+                            emptyImage,
+                            emptyImage,
+                            emptyImage,
+                            emptyImage};
+    Card testCard0 = new Card("Stoat");
+    Card testCard1 = new Card("mole");
+    Card testCard2 = new Card("moose");
+    Card testCard3 = new Card("Spud");
     
 
 
     private int rotation = 0;
     
     Font fontHeavyWeight;
+    Font fontHeavyWeight_Stat;
+
 
     FieldRendererPanel() {
 
@@ -55,14 +66,28 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
             e.printStackTrace();
             fontHeavyWeight = Font.getFont("Comic Sans");
         }
+        fontHeavyWeight_Stat = fontHeavyWeight.deriveFont(42f);
 
         try {
             cardBase = ImageIO.read(new File("JavaApp/resources/card_empty.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-    
+        testCard0.setCost(1);
+        testCard1.setCost(2);
+        testCard2.setCost(3);
+        testCard3.setCost(0);
 
+        testCard2.setAttack(3);
+        testCard0.setAttack(1);
+        testCard0.setAttack(2);
+
+        testCard2.setHealth(2);
+        testCard0.setHealth(3);
+        testCard3.setHealth(4);
+    
+        importPortraits("JavaApp/resources/Portraits");
+        importCosts("JavaApp/resources/Costs");
 
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -125,10 +150,11 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
 
         //  ((Graphics2D)fieldCanvas).transform(rTransform);
          fieldCanvas.transform(rTransform);
-         fieldCanvas.drawImage(renderCard(testCard), null, SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
-         fieldCanvas.drawImage(renderCard(testCard), null, (CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+         fieldCanvas.drawImage(renderCard(testCard0), null, SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+         fieldCanvas.drawImage(renderCard(testCard1), null, (CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
          fieldCanvas.drawImage(renderCard(null), null, 2*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
-         fieldCanvas.drawImage(renderCard(testCard), null, 3*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+         fieldCanvas.drawImage(renderCard(testCard2), null, 3*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+         fieldCanvas.drawImage(renderCard(testCard3), null, 4*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
         //  fieldImage.
          g2d.drawImage(fieldImage, null, 0,0);
 
@@ -152,22 +178,124 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
             g.drawString("NULL", (CARD_WIDTH - metrics.stringWidth("NULL")) / 2, (CARD_HEIGHT - metrics.getHeight()) / 2);//draw title
             return cardImage;
         }else{
-            g.setFont(fontHeavyWeight);
+
+            FontMetrics metrics = getFontMetrics(fontHeavyWeight);
+            FontMetrics metrics2 = getFontMetrics(fontHeavyWeight_Stat);
+
             g.drawImage(cardBase,null,0,0);//draw background
 
             g.setColor(Color.BLACK);
             g.setFont(fontHeavyWeight);
-            FontMetrics metrics = getFontMetrics(fieldCanvas.getFont());
             g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2, metrics.getHeight());//draw title
 
-            g.drawString(" "+c.getAttack(), metrics.stringWidth(c.getAttack()+"")/2, CARD_HEIGHT-metrics.getHeight());//draw attack
-            g.drawString(c.getHealth()+" ", (CARD_WIDTH - metrics.stringWidth(c.getHealth()+" ")*4/3) , CARD_HEIGHT-metrics.getHeight()*3/4);//draw health
-
+            g.setFont(fontHeavyWeight_Stat);
+            // g.drawString(""+c.getAttack(), CARD_WIDTH*19/120-metrics2.stringWidth(c.getAttack()+"")/2, CARD_HEIGHT*23/30+metrics2.getHeight()/2);//draw attack
+            // g.drawString(c.getHealth()+"", (CARD_WIDTH*101/120 - metrics2.stringWidth(c.getHealth()+"")/2) , CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health
+            g.drawString(""+c.getAttack(), CARD_WIDTH*20/120-metrics2.stringWidth(c.getAttack()+"")/2, CARD_HEIGHT*91/120+metrics2.getHeight()/2);//draw attack
+            g.drawString(c.getHealth()+"", (CARD_WIDTH*100/120 - metrics2.stringWidth(c.getHealth()+"")/2) , CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health
+            
+            BufferedImage portrait = getCardPortrait(c.getTitle());
+            g.drawImage(portrait,null,CARD_WIDTH/2-portrait.getWidth()/2,CARD_HEIGHT*8/19-portrait.getHeight()/2);//draw portrait
+            
+            BufferedImage cost = getCostIndicator(c.cost);
+            g.drawImage(cost,null,(CARD_WIDTH-cost.getWidth()),CARD_HEIGHT/13);//draw cost indicator
+            // g.drawImage(cost,null,0,0);//draw cost indicator
+            
             return cardImage;
         }
         
+
+
     }
 
+    public BufferedImage getCardPortrait(String name){
+        BufferedImage portrait = cardPortraits.get(name.toUpperCase());
+        return portrait==null? emptyImage:portrait;
+    }
+    public BufferedImage getCostIndicator(int cost){
+        if(cost<costs.length){
+            return costs[cost];
+        }
+        return emptyImage;
+    }
+    
+    public void importPortraits(String folderPath){
+        
+        try{
+            File folder = new File(folderPath);
+            File[] listOfFiles = folder.listFiles();
+            
+            for (int i = 0; i < listOfFiles.length; i++) {
+                try{
+                    if (listOfFiles[i].isFile()) {
+                        // System.out.println("File " + listOfFiles[i].getName());
+                        String fileName = listOfFiles[i].getName();
+                        fileName = (String)fileName.subSequence("portait_".length()+1, fileName.length()-".png".length());
+
+                        // System.out.println(fileName);
+                        BufferedImage portrait = null;
+                        try {
+                            portrait = ImageIO.read(listOfFiles[i]);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        
+                        cardPortraits.put(fileName.toUpperCase(), portrait);
+
+                    } else if (listOfFiles[i].isDirectory()) {
+                        System.out.println("Directory " + listOfFiles[i].getName());
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+     
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void importCosts(String folderPath){
+        
+        try{
+            File folder = new File(folderPath);
+            File[] listOfFiles = folder.listFiles();
+            
+            for (int i = 0; i < listOfFiles.length; i++) {
+                try{
+                    if (listOfFiles[i].isFile()) {
+                        String fileName = listOfFiles[i].getName();
+                        System.out.println(fileName);
+                        System.out.println("cost_.length()+1 = "+"cost_".length()+1+"fileName.length()-blood.png.length() = "+(fileName.length()-"blood.png".length()));
+                        
+                        fileName = (String)fileName.subSequence("cost_".length(), "cost_".length()+1);
+                        
+                        System.out.println(fileName);
+                        BufferedImage portrait = null;
+                        try {
+                            int cost = Integer.parseInt(fileName);
+                            portrait = ImageIO.read(listOfFiles[i]);
+                            costs[cost] = portrait;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        
+
+                    } else if (listOfFiles[i].isDirectory()) {
+                        System.out.println("Directory " + listOfFiles[i].getName());
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+     
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
 
 
