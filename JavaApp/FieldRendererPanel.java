@@ -46,7 +46,7 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     Card testCard0 = new Card("Stoat");
     Card testCard1 = new Card("mole");
     Card testCard2 = new Card("moose");
-    Card testCard3 = new Card("Spud");
+    Card testCard3 = new Card("DEBIL");
     
 
 
@@ -76,15 +76,15 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
         testCard0.setCost(1);
         testCard1.setCost(2);
         testCard2.setCost(3);
-        testCard3.setCost(0);
+        testCard3.setCost(4);
 
         testCard2.setAttack(3);
         testCard0.setAttack(1);
-        testCard3.setAttack(24);
+        testCard3.setAttack(-1);
 
         testCard2.setHealth(2);
         testCard0.setHealth(3);
-        testCard3.setHealth(45);
+        testCard3.setHealth(69);
     
         importPortraits("JavaApp/resources/Portraits");
         importCosts("JavaApp/resources/Costs");
@@ -204,8 +204,6 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
             return cardImage;
         }
         
-
-
     }
 
     public BufferedImage getCardPortrait(String name){
