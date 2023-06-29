@@ -3,10 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,6 +31,8 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     Timer timer;
 
 
+    ArrayList<LinkedList<BufferedImage>> zBuffer = new ArrayList<>();
+
     // BufferedImage fieldImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
     BufferedImage fieldImage = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
     // Graphics fieldCanvas = fieldImage.getGraphics();
@@ -37,12 +42,17 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     private BufferedImage emptyImage = new BufferedImage(100, 10, BufferedImage.TYPE_INT_RGB);
 
     HashMap<String,BufferedImage> cardPortraits = new HashMap<>();
-    BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
+    BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage slotBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage[] costs = {emptyImage,
                             emptyImage,
                             emptyImage,
                             emptyImage,
                             emptyImage};
+
+
+
+
     Card testCard0 = new Card("Stoat");
     Card testCard1 = new Card("mole");
     Card testCard2 = new Card("moose");
@@ -50,13 +60,17 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     
 
 
-    private int rotation = 0;
+    private int animTimer = 0;
     
     Font fontHeavyWeight;
     Font fontHeavyWeight_Stat;
 
 
     FieldRendererPanel() {
+
+        for(int i =0; i<10;i++){
+            zBuffer.add(i, new LinkedList<BufferedImage>());
+        }
 
         try{
             File font_file = new File("JavaApp/resources/HEAVYWEI.TTF");
@@ -70,6 +84,12 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
 
         try {
             cardBase = ImageIO.read(new File("JavaApp/resources/card_empty.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            slotBase = ImageIO.read(new File("JavaApp/resources/Slot/card_slot.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,8 +150,7 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
  
          FontMetrics metrics1 = getFontMetrics(fieldCanvas.getFont());
  
-         fieldCanvas.drawString("Score: rotation*Math.PI/180.0 = " + rotation*Math.PI/180.0, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + 7)) / 2,
-         fieldCanvas.getFont().getSize());
+         fieldCanvas.drawString("Score: animTimer*Math.PI/180.0 = " + animTimer*Math.PI/180.0, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + 7)) / 2, fieldCanvas.getFont().getSize());
  
          // Game Over text
  
@@ -145,31 +164,108 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
          fieldCanvas.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
 
-         AffineTransform rTransform = new AffineTransform();
-        //  rTransform.rotate(rotation*DELAY*Math.PI/180000.0,SCREEN_WIDTH/2.0, SCREEN_HEIGHT/2.0);
+        //  AffineTransform rTransform = new AffineTransform();
+         //  rTransform.rotate(rotation*DELAY*Math.PI/180000.0,SCREEN_WIDTH/2.0, SCREEN_HEIGHT/2.0);
 
         //  ((Graphics2D)fieldCanvas).transform(rTransform);
-         fieldCanvas.transform(rTransform);
-         fieldCanvas.drawImage(renderCard(testCard0), null, SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
-         fieldCanvas.drawImage(renderCard(testCard1), null, (CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
-         fieldCanvas.drawImage(renderCard(null), null, 2*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
-         fieldCanvas.drawImage(renderCard(testCard2), null, 3*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
-         fieldCanvas.drawImage(renderCard(testCard3), null, 4*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+        //  fieldCanvas.transform(rTransform);
+
+
+        //  fieldCanvas.drawImage(renderCard(testCard0), null, SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+        //  fieldCanvas.drawImage(renderCard(testCard1), null, (CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+        //  fieldCanvas.drawImage(renderCard(null), null, 2*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+        //  fieldCanvas.drawImage(renderCard(testCard2), null, 3*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+        //  fieldCanvas.drawImage(renderCard(testCard3), null, 4*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
+
+        // AffineTransform anim = makeSlotTF(0, 0, 300);    
+        AffineTransform anim = makeSlotTF(0, 0, (45*animTimer/60f)%CARD_HEIGHT);    
+
+        renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard0), null), 0,0);
+        renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard1), null), 1,1);
+        renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard3), null), 2,1);
+        renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard2), anim), 3,0);
+
+
+
+
+
+
+         
         //  fieldImage.
+         this.drawBuffer(fieldCanvas);
          g2d.drawImage(fieldImage, null, 0,0);
 
     }
 
 
+    // private BufferedImage renderCardSlot(Card card, AffineTransform animationTransform){
+    //     BufferedImage slot = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
+    //     return slot;        
+    // }
+
+
+
+
+    private void renderAtPos(Graphics2D g, BufferedImage img, int column, int row){
+        g.drawImage(img, null, 
+                    (SCREEN_WIDTH/2)    -((CARD_WIDTH + GAP)*3/2)   +column*(CARD_WIDTH + GAP)     -img.getWidth()/2, 
+                    (SCREEN_HEIGHT/2)   -((CARD_HEIGHT +GAP))       +row*(CARD_WIDTH + GAP)  -img.getHeight()/2 
+                    );//make this more parameterized
+    }
+
+    private AffineTransform makeSlotTF(int degreesCW, double dx,double dy){
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(degreesCW*Math.PI/180.0,CARD_WIDTH*4/2.0, CARD_HEIGHT*4/2.0);
+        transform.translate(dx, dy);
+        return transform;
+    }
+
+    private BufferedImage renderCardSlot(BufferedImage card, AffineTransform animationTransform){
+        BufferedImage slot = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage cardAnimated = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D slotGraphics2d = (Graphics2D)slot.getGraphics();
+        Graphics2D cardAnimatedGraphics2d = (Graphics2D)cardAnimated.getGraphics();
+
+        slotGraphics2d.drawImage(slotBase, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
+        
+        cardAnimatedGraphics2d.drawImage(card, null, (slot.getWidth()-card.getWidth())/2, (slot.getHeight()-card.getHeight())/2);
+        if(animationTransform!=null){
+            System.out.println("Did a tf: "+animationTransform.toString());
+            
+            BufferedImage cardAnimatedTransformed = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
+            AffineTransformOp affineTransformOp = new AffineTransformOp(animationTransform, AffineTransformOp.TYPE_BILINEAR);
+            affineTransformOp.filter(cardAnimated, cardAnimatedTransformed );
+            cardAnimated = cardAnimatedTransformed;
+            // cardAnimatedGraphics2d.transform(animationTransform);
+        }
+        
+        slotGraphics2d.drawImage(cardAnimated, null, 0,0);
+        
+
+        return slot;//returns a transparent image with a slot at the exaft center and the corresponding card placed relative to the slot
+        
+    }
+
+    private void drawBuffer(Graphics2D g) {
+        // for(LinkedList<BufferedImage> list : zBuffer)
+        for(int i = 0; i<zBuffer.size();i++){
+            for(BufferedImage image : zBuffer.get(i)){
+                g.drawImage(image, null, 0, 0);
+            }
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent arg0) {
         repaint();//every DELAY ms draw new frame?
-        rotation++;
+        animTimer++;
+        //updatefield
+        //updateanim params
     }
 
     public BufferedImage renderCard(Card c){
         
-        BufferedImage cardImage = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        BufferedImage cardImage = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) cardImage.getGraphics();
         if(c==null){
             g.setColor(Color.RED);
