@@ -80,11 +80,11 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
 
         testCard2.setAttack(3);
         testCard0.setAttack(1);
-        testCard0.setAttack(2);
+        testCard3.setAttack(24);
 
         testCard2.setHealth(2);
         testCard0.setHealth(3);
-        testCard3.setHealth(4);
+        testCard3.setHealth(45);
     
         importPortraits("JavaApp/resources/Portraits");
         importCosts("JavaApp/resources/Costs");
@@ -266,12 +266,12 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
                 try{
                     if (listOfFiles[i].isFile()) {
                         String fileName = listOfFiles[i].getName();
-                        System.out.println(fileName);
-                        System.out.println("cost_.length()+1 = "+"cost_".length()+1+"fileName.length()-blood.png.length() = "+(fileName.length()-"blood.png".length()));
+                        // System.out.println(fileName);
+                        // System.out.println("cost_.length()+1 = "+"cost_".length()+1+"fileName.length()-blood.png.length() = "+(fileName.length()-"blood.png".length()));
                         
                         fileName = (String)fileName.subSequence("cost_".length(), "cost_".length()+1);
                         
-                        System.out.println(fileName);
+                        // System.out.println(fileName);
                         BufferedImage portrait = null;
                         try {
                             int cost = Integer.parseInt(fileName);
