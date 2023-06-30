@@ -26,7 +26,8 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     static final int CARD_HEIGHT = 190;
 
     static final int DELAY = 15;
-    static final int GAP = 15;
+    // static final int GAP = 15;
+    static final int GAP = 50;
 
     Timer timer;
 
@@ -39,7 +40,7 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     Graphics2D fieldCanvas = (Graphics2D)fieldImage.getGraphics();
 
 
-    private BufferedImage emptyImage = new BufferedImage(100, 10, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage emptyImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 
     HashMap<String,BufferedImage> cardPortraits = new HashMap<>();
     BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -64,6 +65,8 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
     
     Font fontHeavyWeight;
     Font fontHeavyWeight_Stat;
+
+    private Field currentField;//need to change this to buffer
 
 
     FieldRendererPanel() {
@@ -180,21 +183,25 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
         // AffineTransform anim = makeSlotTF(0, 0, 300);    
         // AffineTransform anim = makeSlotTF((120*animTimer/60.0), 0, 0);//(90*animTimer/60f)%CARD_HEIGHT);    
         // AffineTransform anim = makeSlotTF(90, 0, (250*animTimer/60f)%CARD_HEIGHT);    
-        AffineTransform anim = makeSlotTF((180*animTimer/60.0), 0, (900*animTimer/60f)%CARD_HEIGHT);
-
-        renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard0), null), 0,0);
-        renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard1), null), 1,1);
-        renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard3), null), 2,1);
-        renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard2), anim), 3,0);
+        // AffineTransform anim = makeSlotTF((180*animTimer/60.0), 0, (900*animTimer/60f)%CARD_HEIGHT);
 
 
 
+        // AffineTransform anim = makeSlotTF(0, 0, (200*animTimer/60f)%CARD_HEIGHT);
+
+        // renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard0), null), 0,0);
+        // renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard1), null), 1,1);
+        // renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard3), null), 2,1);
+        // renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard2), anim), 3,0);
+
+
+        renderField(fieldCanvas, currentField);
 
 
 
          
         //  fieldImage.
-         this.drawBuffer(fieldCanvas);
+        //  this.drawBuffer(fieldCanvas);
          g2d.drawImage(fieldImage, null, 0,0);
 
     }
@@ -207,6 +214,31 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
 
 
 
+
+    private void renderField(Graphics2D canvas, Field field) {
+        for(int i = 0;i<4;i++){
+            if((canvas!=null)&&(field!=null)&&(field.getEnemyCardsBack()!=null)&&(field.getEnemyCardsBack().length==4)){
+                renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i,0)), i,0);
+            }
+        }
+        for(int i = 0;i<4;i++){
+            if((canvas!=null)&&(field!=null)&&(field.getEnemyCards()!=null)&&(field.getEnemyCards().length==4)){
+                renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCards()[i]), getAnimation(i,1)), i,1);
+            }
+        }
+        for(int i = 0;i<4;i++){
+            if((canvas!=null)&&(field!=null)&&(field.getPlayerCards()!=null)&&(field.getPlayerCards().length==4)){
+                renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i,2)), i,2);
+            }
+        }
+    }
+    static int rand = 0;
+
+    private AffineTransform getAnimation(int column, int row) {
+        // rand = (rand+5+7)%10-5;
+        rand = (rand+3)%20;
+        return makeSlotTF((rand-10)/3, 0,0);
+    }
 
     private void renderAtPos(Graphics2D g, BufferedImage img, int column, int row){
 
@@ -400,6 +432,11 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void setField(Field newField) {
+        this.currentField = newField;
+        // currentField.bulkInit();
     }
 }
 

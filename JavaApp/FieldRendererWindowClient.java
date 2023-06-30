@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 
 public class FieldRendererWindowClient {
 
+    static Field field = new Field();
+    static FieldRendererPanel panel;
+
     public static void main(String[] args) throws Exception {
 
         // new GameFrame();
@@ -19,16 +22,16 @@ public class FieldRendererWindowClient {
 
 
 
-        Field field = new Field();
         ObserverOutputHandler observerParser = new ObserverOutputHandler();
         
         JFrame frame = setupGameFrame();
         
         
         System.out.println("Press enter to connect to "+hostName+":"+port);
+        (new Scanner(System.in)).nextLine();
 
 
-        Socket clientSocket = new Socket("localhost", 5433);
+        Socket clientSocket = new Socket(hostName,port);
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
         Scanner inFromServer = new Scanner(clientSocket.getInputStream());
 
@@ -50,7 +53,7 @@ public class FieldRendererWindowClient {
 
 
                 field.printField();
-
+                panel.setField(field);
 
 
             }
@@ -62,9 +65,10 @@ public class FieldRendererWindowClient {
 
     private static JFrame setupGameFrame(){
         JFrame frame = new JFrame();
+        panel = new FieldRendererPanel();
+        panel.setField(field);
 
-
- 		frame.add(new FieldRendererPanel());
+ 		frame.add(panel);
  		frame.setTitle("Inscryption Network Renderer Client");
  		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  		frame.setResizable(false);
