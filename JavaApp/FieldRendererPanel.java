@@ -178,7 +178,9 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
         //  fieldCanvas.drawImage(renderCard(testCard3), null, 4*(CARD_WIDTH+GAP)+SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
 
         // AffineTransform anim = makeSlotTF(0, 0, 300);    
-        AffineTransform anim = makeSlotTF(0, 0, (45*animTimer/60f)%CARD_HEIGHT);    
+        // AffineTransform anim = makeSlotTF((120*animTimer/60.0), 0, 0);//(90*animTimer/60f)%CARD_HEIGHT);    
+        // AffineTransform anim = makeSlotTF(90, 0, (250*animTimer/60f)%CARD_HEIGHT);    
+        AffineTransform anim = makeSlotTF((180*animTimer/60.0), 0, (900*animTimer/60f)%CARD_HEIGHT);
 
         renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard0), null), 0,0);
         renderAtPos(fieldCanvas, renderCardSlot(renderCard(testCard1), null), 1,1);
@@ -207,16 +209,17 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
 
 
     private void renderAtPos(Graphics2D g, BufferedImage img, int column, int row){
+
         g.drawImage(img, null, 
                     (SCREEN_WIDTH/2)    -((CARD_WIDTH + GAP)*3/2)   +column*(CARD_WIDTH + GAP)     -img.getWidth()/2, 
-                    (SCREEN_HEIGHT/2)   -((CARD_HEIGHT +GAP))       +row*(CARD_WIDTH + GAP)  -img.getHeight()/2 
+                    (SCREEN_HEIGHT/2)   -((CARD_HEIGHT +GAP))       +row*(CARD_HEIGHT + GAP)  -img.getHeight()/2 
                     );//make this more parameterized
     }
 
-    private AffineTransform makeSlotTF(int degreesCW, double dx,double dy){
+    private AffineTransform makeSlotTF(double degreesCW, double dx,double dy){
         AffineTransform transform = new AffineTransform();
-        transform.rotate(degreesCW*Math.PI/180.0,CARD_WIDTH*4/2.0, CARD_HEIGHT*4/2.0);
         transform.translate(dx, dy);
+        transform.rotate(degreesCW*Math.PI/180.0,CARD_WIDTH*4/2.0, CARD_HEIGHT*4/2.0);
         return transform;
     }
 
@@ -229,17 +232,25 @@ public class FieldRendererPanel extends JPanel implements ActionListener {
         slotGraphics2d.drawImage(slotBase, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
         
         cardAnimatedGraphics2d.drawImage(card, null, (slot.getWidth()-card.getWidth())/2, (slot.getHeight()-card.getHeight())/2);
-        if(animationTransform!=null){
-            System.out.println("Did a tf: "+animationTransform.toString());
-            
-            BufferedImage cardAnimatedTransformed = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
-            AffineTransformOp affineTransformOp = new AffineTransformOp(animationTransform, AffineTransformOp.TYPE_BILINEAR);
-            affineTransformOp.filter(cardAnimated, cardAnimatedTransformed );
-            cardAnimated = cardAnimatedTransformed;
-            // cardAnimatedGraphics2d.transform(animationTransform);
+        // if(animationTransform!=null){
+        //     // System.out.println("Did a tf: "+animationTransform.toString());
+        //     BufferedImage cardAnimatedTransformed = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
+        //     AffineTransformOp affineTransformOp = new AffineTransformOp(animationTransform, AffineTransformOp.TYPE_BILINEAR);
+        //     affineTransformOp.filter(cardAnimated, cardAnimatedTransformed );
+        //     cardAnimated = cardAnimatedTransformed;
+        //     // cardAnimatedGraphics2d.transform(animationTransform);
+        // }
+        // slotGraphics2d.drawImage(cardAnimated, null, 0,0);
+
+
+        if(animationTransform==null){//I think this is supposed to be faster...
+            slotGraphics2d.drawImage(cardAnimated, null, 0,0);
+
         }
-        
-        slotGraphics2d.drawImage(cardAnimated, null, 0,0);
+        else{
+            slotGraphics2d.drawImage(cardAnimated, new AffineTransformOp(animationTransform, AffineTransformOp.TYPE_BILINEAR), 0,0);
+
+        }
         
 
         return slot;//returns a transparent image with a slot at the exaft center and the corresponding card placed relative to the slot
