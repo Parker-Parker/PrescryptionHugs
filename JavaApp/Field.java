@@ -27,6 +27,14 @@ public class Field {
     private NullCard nullCard = new NullCard(this);
     
 
+    public Field(Card[] nC, Card[] eCB, Card[] eC, Card[] pC, ArrayList<LinkedList<Card>> epm) {
+        nullCards = nC;
+        enemyCardsBack = eCB;
+        enemyCards = eC;
+        playerCards = pC;
+        enemyPlannedMoves = epm;
+    }
+
     public void initMainDeck() {
         for(int i = 0; i<25;i++){
             mainDeck.add(new Card(i%3,i%7,"Card D"+i));
