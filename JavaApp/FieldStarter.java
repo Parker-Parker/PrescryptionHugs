@@ -128,8 +128,8 @@ class Game21 extends Field {
 
     private static final Card[] nullArray = {null, null, null, null};
     private static final Card[] enemyCardsBackArray = {null, null, null, null};
-    private static final Card[] enemyCardsFrontArray = {null, null, null, null};
-    private static final Card[] playerCardsArray = {null, null, null, null};
+    private static final Card[] enemyCardsFrontArray = {null, new Boulder(), null, null};
+    private static final Card[] playerCardsArray = {null, null, null, new Stump()};
     private static final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(List.of(      
         new LinkedList<Card>(List.of(new WolfCub(), new Coyote(), new Mantis(), null, new Bullfrog(), null, new RiverSnapper(), null, new Alpha(), null, null, new Grizzly(), null, null, null, new WolfCub(), null, null, new Adder(), null, null, new Grizzly(), new Sparrow(), new Bat(), new Grizzly())),
         new LinkedList<Card>(List.of(new Bullfrog(), null, null, null, new Grizzly(), null, new Coyote(), null, new Mantis(), null, new Grizzly(), null, null, new RiverSnapper(), null, new WolfCub(), new Grizzly(), new Adder(), null, null, new Grizzly(), null, new Bat(), null, null)),
@@ -145,8 +145,8 @@ class Game22 extends Field {
 
     private static final Card[] nullArray = {null, null, null, null};
     private static final Card[] enemyCardsBackArray = {null, null, null, null};
-    private static final Card[] enemyCardsFrontArray = {null, null, null, null};
-    private static final Card[] playerCardsArray = {null, null, null, null};
+    private static final Card[] enemyCardsFrontArray = {null, new Boulder(), null, null};
+    private static final Card[] playerCardsArray = {null, null, null, new Stump()};
     private static final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(List.of(      
         new LinkedList<Card>(List.of(new Elk(), new Coyote(), new Mantis(), null, new Bullfrog(), null, new Elk(), null, new Alpha(), null, null, new Grizzly(), null, null, null, new Mantis(), null, null, new Wolf(), null, null, new Elk(), new Wolf(), new Sparrow())),
         new LinkedList<Card>(List.of(new Grizzly(), null, null, null, new Bullfrog(), null, new Wolf(), null, new Grizzly(), null, new Grizzly(), null, null, new Elk(), null, new Coyote(), new Wolf(), new Mantis(), null, null, new Adder(), null, null, new Wolf(), new Bat())),
@@ -165,8 +165,8 @@ class Game23 extends Field {
 
     private static final Card[] nullArray = {null, null, null, null};
     private static final Card[] enemyCardsBackArray = {null, null, null, null};
-    private static final Card[] enemyCardsFrontArray = {null, null, null, null};
-    private static final Card[] playerCardsArray = {null, null, null, null};
+    private static final Card[] enemyCardsFrontArray = {null, new Boulder(), null, null};
+    private static final Card[] playerCardsArray = {null, null, null, new Stump()};
     private static final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(List.of(      
         new LinkedList<Card>(List.of(new Elk(), null, null, new Alpha(), null, new Coyote(), null, new Bullfrog(), new Elk(), null, new Grizzly(), null, new Mantis(), new Sparrow(), null, new Elk(), new Mantis(), null, null, null, new Wolf(), new Grizzly(), null, null, new Bat())),
         new LinkedList<Card>(List.of(null, new Grizzly(), null, null, null, new Adder(), null, new Wolf(), new Bat(), null, new Mantis(), null, new Grizzly(), new Coyote(), new Bullfrog(), null, null, new Grizzly(), null, null, null, new Wolf(), null, new Elk(), new Wolf())),
@@ -182,8 +182,8 @@ class Game24 extends Field {
 
     private static final Card[] nullArray = {null, null, null, null};
     private static final Card[] enemyCardsBackArray = {null, null, null, null};
-    private static final Card[] enemyCardsFrontArray = {null, null, null, null};
-    private static final Card[] playerCardsArray = {null, null, null, null};
+    private static final Card[] enemyCardsFrontArray = {null, new Boulder(), null, null};
+    private static final Card[] playerCardsArray = {null, null, null, new Stump()};
     private static final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(List.of(      
         new LinkedList<Card>(List.of(new Bullfrog(), null, new Elk(), new Mantis(), null, null, new Elk(), new Alpha(), null, new Grizzly(), null, null, new Coyote(), new Bat(), null, null, null, new Sparrow(), null, new Wolf(), new Mantis(), null, null, new Grizzly(), new Sparrow(), null, null, new Grizzly(), new Wolf(), new Elk(), null, new Coyote())),
         new LinkedList<Card>(List.of(null, new Grizzly(), null, new Wolf(), null, new Bat(), new Grizzly(), null, null, new Grizzly(), null, null, new Adder(), null, new Mantis(), new Coyote(), new Bullfrog(), new Wolf(), null, null, null, new Wolf(), null, new Elk(), new Elk(), null, new Grizzly(), new Wolf(), new Elk(), new Grizzly(), new Elk(), null, new Elk())),
@@ -225,9 +225,9 @@ class Game3 extends Field {
 class Game31 extends Field {
 
     private static final Card[] nullArray = {null, null, null, null};
-    private static final Card[] enemyCardsBackArray = {null, null, null, null};
-    private static final Card[] enemyCardsFrontArray = {null, null, null, null};
-    private static final Card[] playerCardsArray = {null, null, null, null};
+    private static final Card[] enemyCardsBackArray = {new Coyote(), null, new Wolf(), new Wolf()};
+    private static final Card[] enemyCardsFrontArray = {null, new Stump(), null, null};
+    private static final Card[] playerCardsArray = {new GrandFir(), null, new GrandFir(), new Boulder()};
     private static final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(List.of(      
         new LinkedList<Card>(List.of(new Bullfrog(), null, new Grizzly(), new Elk(), new Wolf(), new Elk(), null, null, new Elk(), new Mantis(), null, null, new Elk(), new Bat(), new Elk(), null, null, new Coyote(), new Grizzly(), new Elk(), null, null, null, new Mantis(), null, new Sparrow(), null, new Grizzly(), null, null, new Elk(), new Grizzly(), new Wolf(), new Elk(), null, null, new Grizzly())),
         new LinkedList<Card>(List.of(new Grizzly(), null, new Grizzly(), new Bat(), new Grizzly(), null, new Grizzly(), new Elk(), new Wolf(), null, null, new Elk(), new Elk(), null, null, new Coyote(), new Grizzly(), null, null, new Wolf(), new Elk(), new Grizzly(), new Elk(), null, new Grizzly(), new Elk(), new Grizzly(), new Elk(), null, new Wolf(), new Elk(), null, new Adder(), null, null)),
@@ -242,9 +242,9 @@ class Game31 extends Field {
 class Game32 extends Field {
 
     private static final Card[] nullArray = {null, null, null, null};
-    private static final Card[] enemyCardsBackArray = {null, null, null, null};
-    private static final Card[] enemyCardsFrontArray = {null, null, null, null};
-    private static final Card[] playerCardsArray = {null, null, null, null};
+    private static final Card[] enemyCardsBackArray = {new Coyote(), null, new Wolf(), new Wolf()};
+    private static final Card[] enemyCardsFrontArray = {null, new Stump(), null, null};
+    private static final Card[] playerCardsArray = {new GrandFir(), null, new GrandFir(), new Boulder()};
     private static final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(List.of(      
         new LinkedList<Card>(List.of(new Grizzly(), null, null, new Elk(), new Elk(), new Grizzly(), null, new Elk(), new Coyote(), null, new Mantis(), null, null, new Grizzly(), new Wolf(), new Elk(), null, new Bat(), null, new Elk(), new Grizzly(), new Wolf(), null, null, null, new Sparrow(), null, null, new Elk(), null, new Grizzly(), new Elk(), new Mantis(), null, new Grizzly(), new Elk())),
         new LinkedList<Card>(List.of(null, null, new Coyote(), new Grizzly(), null, new Grizzly(), new Elk(), new Elk(), null, null, new Elk(), new Grizzly(), new Elk(), null, null, new Elk(), new Bat(), null, new Grizzly(), null, new Elk(), new Adder(), new Grizzly(), null, null, null, new Wolf(), new Grizzly(), new Elk(), null, new Elk(), null, new Wolf(), new Elk(), null, new Grizzly(), null, new Elk())),
@@ -259,9 +259,9 @@ class Game32 extends Field {
 class Game33 extends Field {
 
     private static final Card[] nullArray = {null, null, null, null};
-    private static final Card[] enemyCardsBackArray = {null, null, null, null};
-    private static final Card[] enemyCardsFrontArray = {null, null, null, null};
-    private static final Card[] playerCardsArray = {null, null, null, null};
+    private static final Card[] enemyCardsBackArray = {new Coyote(), null, new Wolf(), new Wolf()};
+    private static final Card[] enemyCardsFrontArray = {null, new Stump(), null, null};
+    private static final Card[] playerCardsArray = {new GrandFir(), null, new GrandFir(), new Boulder()};
     private static final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(List.of(      
         new LinkedList<Card>(List.of(null, new Elk(), new Grizzly(), null, new Elk(), null, null, null, new Elk(), null, new Elk(), new Elk(), null, new Elk(), new Elk(), new Grizzly(), new Grizzly(), null, new Mantis(), null, new Elk(), new Coyote(), null, new Wolf(), new Grizzly(), null, new Sparrow(), null, new Elk(), null, new Grizzly(), new Elk(), new Coyote(), new Grizzly(), new Mantis(), null, null)),
         new LinkedList<Card>(List.of(new Elk(), null, new Elk(), null, null, null, new Grizzly(), new Elk(), new Coyote(), new Elk(), new Grizzly(), new Elk(), null, null, new Grizzly(), new Elk(), new Elk(), null, new Elk(), null, null, new Bat(), new Elk(), new Grizzly(), null, null, new Elk(), new Coyote(), null, new Elk(), null, new Elk(), null, new Mantis(), new Grizzly(), new Wolf())),
@@ -277,9 +277,9 @@ class Game33 extends Field {
 class Game34 extends Field {
 
     private static final Card[] nullArray = {null, null, null, null};
-    private static final Card[] enemyCardsBackArray = {null, null, null, null};
-    private static final Card[] enemyCardsFrontArray = {null, null, null, null};
-    private static final Card[] playerCardsArray = {null, null, null, null};
+    private static final Card[] enemyCardsBackArray = {new Coyote(), null, new Wolf(), new Wolf()};
+    private static final Card[] enemyCardsFrontArray = {null, new Stump(), null, null};
+    private static final Card[] playerCardsArray = {new GrandFir(), null, new GrandFir(), new Boulder()};
     private static final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(List.of(      
         new LinkedList<Card>(List.of(new Elk(), new Elk(), null, new Elk(), new Elk(), new Elk(), null, new Elk(), new Elk(), new Grizzly(), null, new Grizzly(), new Mantis(), null, new Grizzly(), new Elk(), null, null, null, new Coyote(), null, new Elk(), null, new Elk(), new Grizzly(), new Sparrow(), null, new Elk(), new Grizzly(), new Coyote(), null, new Mantis(), null, new Elk(), null, null)),
         new LinkedList<Card>(List.of(null, new Elk(), new Grizzly(), new Elk(), null, new Grizzly(), new Elk(), new Elk(), null, null, new Bat(), new Grizzly(), new Elk(), new Elk(), new Elk(), null, new Elk(), new Coyote(), new Elk(), new Elk(), new Elk(), new Mantis(), new Grizzly(), new Wolf(), null, new Elk(), null, new Elk(), new Coyote(), null, null, null, null, new Grizzly(), null, new Elk())),
