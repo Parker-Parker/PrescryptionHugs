@@ -65,8 +65,24 @@ public class Card implements iCard {
         cost = costNumber;
         costType = cType;
         tribe = trb;
-        Sigils sigVal = Sigils.valueOf(sigs);
-        giveSigil(sigVal);
+
+        if(sigs!=null){
+            String[] sigArray = sigs.split(",");
+            if(sigArray!=null && sigArray.length>=1){
+                for(String s : sigArray){
+                    if(s!=null){
+                        try{
+                            Sigils sigVal = Sigils.valueOf(s);
+                            giveSigil(sigVal);
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        
         traits = trts;
         imgFileLoc = imageFileLocation;
     }

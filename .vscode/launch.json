@@ -51,6 +51,18 @@
             "name": "RendererWindow",
             "request": "launch",
             "mainClass": "FieldRendererWindowClient"
+        },
+        {
+            "type": "java",
+            "name": "DillonServer",
+            "request": "launch",
+            "mainClass": "DillDillServer"
+        },
+        {
+            "type": "java",
+            "name": "DillonClient",
+            "request": "launch",
+            "mainClass": "DillDillClient"
         }
     ],
     "compounds": [
@@ -69,6 +81,10 @@
         {
             "name": "TestNetRender",
             "configurations": ["TestNetServer", "TestNetClientVis", "RendererWindow"]
+        },
+        {
+            "name": "TestDillDill",
+            "configurations": ["DillonClient", "DillonServer", "RendererWindow"]
         }
     ]
     
