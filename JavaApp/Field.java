@@ -606,7 +606,7 @@ public class Field {
         // confirm there is enough blood on the field  
         //if no bounce back wait for card clear then bounce back to ready 
         //confirm not 0 cost
-        if(hand.size()<i&&hand.get(i)!=null){
+        if((hand.size()>i)&&(hand.get(i)!=null)){
             if(hand.get(i).cost>0){
                 int availableBlood = 0;
                 for(int c = 0; c<4; c++){

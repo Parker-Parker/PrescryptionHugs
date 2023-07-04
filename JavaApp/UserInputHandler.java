@@ -31,7 +31,7 @@ public class UserInputHandler {
             }
             int[] cmd = null;//should really make a command class, that holds cmd, arg1, arg2...
             while (cmd==null){
-                for (iUserInput in : userInputs){
+                for (iUserInput in : userInputs){//xrashes if new input added midgame// maybe should clone and itereate thru clone?// TODO:
 
                     cmd = (cmd == null) ? in.popParsed(type) : cmd;// not sure if I should add type to these
                 }
