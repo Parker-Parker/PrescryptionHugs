@@ -35,6 +35,18 @@ public class Field {
         enemyCards = eC;
         playerCards = pC;
         enemyPlannedMoves = epm;
+        for(int i = 0; i <4; i++){
+            if(enemyCardsBack[i] != null){
+                enemyCardsBack[i].setField(this);
+            }
+            if(enemyCards[i] != null){
+                enemyCards[i].setField(this);
+            }
+            if(playerCards[i] != null){
+                playerCards[i].setField(this);
+            }
+        }
+
     }
 
     public Field() {
