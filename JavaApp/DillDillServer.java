@@ -50,7 +50,7 @@ public class DillDillServer
 
             //////////////////////////////////////////////////////
             //dillon add thing that sets hand = to  carkins deck//
-            //////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////// make it so his hand never gets cards taken away.
 
             loopctr = 0;
             handsString = "hand: ";

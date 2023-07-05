@@ -13,7 +13,7 @@ class DillDillClient {
         Field field = new Field();
         ObserverOutputHandler observerParser = new ObserverOutputHandler();
         
-
+        GuiTest GUI = new GuiTest();
         
         // BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         Scanner inFromUser = new Scanner(System.in);
@@ -21,8 +21,9 @@ class DillDillClient {
         System.out.println("Press enter to connect to "+hostName+":"+port);
         // sentence = inFromUser.readLine();
         sentence = inFromUser.nextLine();
-
+        System.out.println("oy");
         Socket clientSocket = new Socket("localhost", 5433);
+        System.out.println("yoooooooooooooooooo");
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
         Scanner inFromServer = new Scanner(clientSocket.getInputStream());
         
@@ -31,11 +32,11 @@ class DillDillClient {
         while(true){
 
             // if(inFromUser.hasNextLine()){
-            if(System.in.available()>0){
+            if(GUI.commandAvailable()){
 
                 System.out.println(System.in.available()+":"+clientSocket.getInputStream().available()); //debug
                 // sentence = inFromUser.readLine();
-                sentence = inFromUser.nextLine();/// << Dillon TODO: put the user input command here
+                sentence = GUI.getCommand();             
                 outToServer.writeBytes(sentence + '\n');
                 outToServer.flush();
             }
