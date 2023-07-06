@@ -637,6 +637,9 @@ public class ObserverOutputHandler {
                 if(row==r && c == col){
                     animations[r][c] = anim;
                 }
+                else{
+                    animations[r][c] = Animations.Idle;
+                }
             }
         }
 

@@ -73,6 +73,7 @@ public class FieldRendererWindowAnimClient {
  		frame.setTitle("Inscryption Network Renderer Client");
  		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  		frame.setResizable(false);
+         frame.setAlwaysOnTop( true );
         // frame.setUndecorated(true);
         
  		frame.pack();

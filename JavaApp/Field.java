@@ -58,6 +58,10 @@ public class Field {
             playerCards[slot] = card;
             playerCards[slot].setField(this);//not sure why this was commented out?
             playerCards[slot].onSummon(this);
+
+            if(playerCards[slot]!=null){
+                playerCards[slot].setPos(2, slot);
+            }
             // for i 0-3 enemyCards[i].reactSummon()
             return true;
         }
@@ -72,6 +76,10 @@ public class Field {
     
     String blank = "          ";
     String horiz = "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+";
+    private TurnController turnController;
+    public void setTurnController(TurnController tc){
+        this.turnController=tc;
+    }
     private String makeLineTitle(Card[] rowCards) {
         String outputString = "|";
         int i;
@@ -371,8 +379,13 @@ public class Field {
                     //              1               x       1       0       hit
                     //              0               x       0       0       
                     //sigils: atk~ airborne def~repulsive leap waterborne // repulsive(prevent attack) should be checked on takeDamage(int,card), i think; only actually takes damage if sourcecard is null, since that would be revenge damagefrom spikes 
-            
                     
+                    if(turnController!=null&&damage>0){
+                        turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Attack);
+                    }
+                    
+
+
                     if(target.checkSigil(Sigils.Waterborne)){// if waterborne, automatic miss(direct HP damage)
                         target = this.nullCard;
                     }
@@ -405,6 +418,14 @@ public class Field {
         if(enemyCards[i]==null){
             enemyCards[i]=enemyCardsBack[i];
             enemyCardsBack[i]=null;
+            if(enemyCards[i]!=null){
+                enemyCards[i].setPos(1, i);
+            }
+
+
+            if(turnController!=null){
+                turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.MoveDown);
+            }
         }
     }
 
@@ -521,6 +542,9 @@ public class Field {
         
     }
     public boolean playCard(int i, int slot) {
+        if(hand.get(i)!=null){
+            hand.get(i).setPos(2, slot);
+        }
         return playCard(hand.get(i), slot);
     }
     
@@ -620,6 +644,12 @@ public class Field {
                     enemyCardsBack[i] = enemyPlannedMoves.get(i).pop();
                     if(enemyCardsBack[i] != null){
                         enemyCardsBack[i].setField(this);
+                        enemyCardsBack[i].setPos(0,i);
+
+
+                        if(turnController!=null){
+                            turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 0, i, Animations.EnterTop);
+                        }
                     }
                     
                 }
@@ -708,5 +738,8 @@ public class Field {
     }
     public void setHoriz(String horiz) {
         this.horiz = horiz;
+    }
+    public TurnController getTurnController() {
+        return turnController;
     }    
 }

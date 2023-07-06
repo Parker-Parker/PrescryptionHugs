@@ -102,19 +102,45 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                                         new int[]{0}, 
                                         new int[]{0}, 
                                         new int[]{0}, 
+                                        // new int[]{0, 5,     2,  -5,     1,    3,    2,      -1,     -4,     1,      -1,     -2,     0},  
+                                        // new int[]{0, 50, 100, 150,  200,    250,    300,    350,    400,    450,    500,    550,    600,});
                                         new int[]{0},  
                                         new int[]{0});
 
-        addAnimation(Animations.Attack,   new int[]{0}, 
+        addAnimation(Animations.Attack, new int[]{0}, 
                                         new int[]{0}, 
                                         new int[]{0,    -3, -17,    -20,    -21,    -19,    -8, 20, 70, 150,    180,    190,    195,    180,    160,    120,    80,     45, 10, 0}, 
                                         new int[]{0,    50, 100,    150,    200,    250,    300, 350,400,450,   500,    550,    600,    650,    700,    750,    800,    850, 900,   950 }, 
                                         new int[]{0},  
                                         new int[]{0});
 
+        addAnimation(Animations.Die,    new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0,    10,     25,     80,     95,     110,    95,     90},  
+                                        new int[]{0,    50,     100,    150,    200,    250,    300,    350});
 
+        addAnimation(Animations.EnterTop,new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{-CARD_HEIGHT*2,   -CARD_HEIGHT*2*9/10,    -CARD_HEIGHT*2*7/10,    -CARD_HEIGHT*2*4/10,    -CARD_HEIGHT*2*2/10,    -CARD_HEIGHT*2/10,  -CARD_HEIGHT/10,    0}, 
+                                        new int[]{0,                50,                     100,                    150,                    200,                    250,                300,                350}, 
+                                        new int[]{0},  
+                                        new int[]{0});
 
+        addAnimation(Animations.Hurt,    new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0,    5,  25,     33,     15, -5, -15,    -10,    0},  
+                                        new int[]{0,    50, 100,    150,    200, 250,300,   350,    400});
 
+        addAnimation(Animations.MoveDown,    new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{-(CARD_HEIGHT+GAP),   -(CARD_HEIGHT+GAP)*9/10,   -(CARD_HEIGHT+GAP)*7/10,   -(CARD_HEIGHT+GAP)*3/10,   -(CARD_HEIGHT+GAP)*1/10,   -(CARD_HEIGHT+GAP)*1/20,   0}, 
+                                        new int[]{0,                    50,                         100,                        150,                        200,                    250,                       300}, 
+                                        new int[]{0},  
+                                        new int[]{0});
 
 
 
@@ -128,7 +154,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         }
         catch(Exception e){
             e.printStackTrace();
-            fontHeavyWeight = Font.getFont("Comic Sans");
+            fontHeavyWeight = Font.getFont("Serif");
         }
         fontHeavyWeight_Stat = fontHeavyWeight.deriveFont(42f);
 
@@ -214,17 +240,45 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
          fieldCanvas.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
         renderField(fieldCanvas, currentField);
-
+        // drawDebug(fieldCanvas);
          g2d.drawImage(fieldImage, null, 0,0);
 
     }
 
 
+    private void drawDebug(Graphics2D canvas){
+        canvas.setColor(Color.green);
+        canvas.setFont(Font.getFont("Serif"));
+        
+        // Animations anim = (currentAnimations[row])[column];
+        // int time = animTimer*DELAY;//~time in ms?
+
+        // System.out.println("Anim_debug: Col:"+column+"Row:"+row+" anim:"+(anim==null?null:anim.name())+" x:"+xValMap+" y:"+yValMap+" r:"+rValMap);
+        
+        canvas.drawString(   "Animations:\n0) 0:"   + ((currentAnimations[0])[0]==null?null:(currentAnimations[0])[0].name()) +
+                                            " 1:"   + ((currentAnimations[0])[1]==null?null:(currentAnimations[0])[1].name()) +
+                                            " 2:"   + ((currentAnimations[0])[2]==null?null:(currentAnimations[0])[2].name()) +
+                                            " 3:"   + ((currentAnimations[0])[3]==null?null:(currentAnimations[0])[3].name()) + 
+                                        "\n1) 0:"   + ((currentAnimations[1])[0]==null?null:(currentAnimations[1])[0].name()) +
+                                            " 1:"   + ((currentAnimations[1])[1]==null?null:(currentAnimations[1])[1].name()) +
+                                            " 2:"   + ((currentAnimations[1])[2]==null?null:(currentAnimations[1])[2].name()) +
+                                            " 3:"   + ((currentAnimations[1])[3]==null?null:(currentAnimations[1])[3].name()) + 
+                                        "\n2) 0:"   + ((currentAnimations[2])[0]==null?null:(currentAnimations[2])[0].name()) +
+                                            " 1:"   + ((currentAnimations[2])[1]==null?null:(currentAnimations[2])[1].name()) +
+                                            " 2:"   + ((currentAnimations[2])[2]==null?null:(currentAnimations[2])[2].name()) +
+                                            " 3:"   + ((currentAnimations[2])[3]==null?null:(currentAnimations[2])[3].name()) , 20,20);
+
+
+
+    }
+
     private void renderField(Graphics2D canvas, Field field) {
         for(int i = 0;i<4;i++){
             if((canvas!=null)&&(field!=null)&&(field.getEnemyCardsBack()!=null)&&(field.getEnemyCardsBack().length==4)){
                 renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i,0)), i,0);
+                
             }
+
         }
         for(int i = 0;i<4;i++){
             if((canvas!=null)&&(field!=null)&&(field.getEnemyCards()!=null)&&(field.getEnemyCards().length==4)){
@@ -243,9 +297,11 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         Animations anim = (currentAnimations[row])[column];
         int time = animTimer*DELAY;//~time in ms?
 
-        return anim == null? null: makeSlotTF(  linearInterpolatePoints(time, rValMap.get(anim), rTimeMap.get(anim)),
-                                    linearInterpolatePoints(time, xValMap.get(anim), xTimeMap.get(anim)), 
-                                    linearInterpolatePoints(time, yValMap.get(anim), yTimeMap.get(anim)));
+        System.out.println("Anim_debug: Col:"+column+"Row:"+row+" anim:"+(anim==null?null:anim.name())+" x:"+xValMap+" y:"+yValMap+" r:"+rValMap);
+
+        return (anim == null)||(anim == Animations.Idle)? null: makeSlotTF( linearInterpolatePoints(time, rValMap.get(anim), rTimeMap.get(anim)),
+                                                                            linearInterpolatePoints(time, xValMap.get(anim), xTimeMap.get(anim)), 
+                                                                            linearInterpolatePoints(time, yValMap.get(anim), yTimeMap.get(anim)));
 
         // //////////////////////////////////////////////////
         // switch(currentAnimations[row][column]){
@@ -302,7 +358,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                                     rTimeMap.put(anim, rtimes);
                                 }
     private int linearInterpolatePoints( int time, int[] val, int[] times){
-        if(val.length==times.length){
+        if((val!=null)&&(times!=null)&&(val.length==times.length)){
             int i = 0;
             while(i<val.length){
                 if(time<=times[i]){
@@ -399,25 +455,25 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         }
         switch(anim){
             case Attack:
-                return 2000/DELAY;
+                return 900/DELAY;
             case Die:
-                return 500/DELAY;
+                return 350/DELAY;
             case EnterTop:
-                return 500/DELAY;
+                return 400/DELAY;
             case Hurt:
-                return 500/DELAY;
+                return 400/DELAY;
             case Idle:
-                return 500/DELAY;
+                return 0/DELAY;
             case MoveDown:
-                return 500/DELAY;
+                return 350/DELAY;
             case MoveFail:
-                return 500/DELAY;
+                return 0/DELAY;
             case MoveLeft:
-                return 500/DELAY;
+                return 0/DELAY;
             case MoveRight:
-                return 500/DELAY;
+                return 0/DELAY;
             default:
-                return 500/DELAY;
+                return 0/DELAY;
         }
     }
 
