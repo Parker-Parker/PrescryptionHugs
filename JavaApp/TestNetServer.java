@@ -55,7 +55,7 @@ public class TestNetServer
             }
             System.out.println(handsString);
             // game.ioHandler.observerOutputHandler.publishField(testField);
-            game.ioHandler.getObserverOutputHandler().publishAnim(testField, 0, 0, Animations.Attack);
+            game.ioHandler.getObserverOutputHandler().publishAnim(testField, 1, 3, Animations.Idle);
             
         }
         
