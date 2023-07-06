@@ -51,5 +51,9 @@ public class GenericNetworkObserverOutput implements iObserverOutput{
         System.out.println("setSub not implemented");
     }
 
+    @Override
+    public boolean checkSub(ObserverTopics topic) {
+        return subscriptions.containsKey(topic)&&(subscriptions.get(topic)==true);
+    }
 
 }

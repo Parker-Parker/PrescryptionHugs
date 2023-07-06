@@ -30,6 +30,12 @@
         },
         {
             "type": "java",
+            "name": "auto",
+            "request": "launch",
+            "mainClass": "autoplayClient"
+        },
+        {
+            "type": "java",
             "name": "TestNetServer",
             "request": "launch",
             "mainClass": "TestNetServer"
@@ -51,6 +57,12 @@
             "name": "RendererWindow",
             "request": "launch",
             "mainClass": "FieldRendererWindowClient"
+        },
+        {
+            "type": "java",
+            "name": "RendererAnimWindow",
+            "request": "launch",
+            "mainClass": "FieldRendererWindowAnimClient"
         }
     ],
     "compounds": [
@@ -69,6 +81,10 @@
         {
             "name": "TestNetRender",
             "configurations": ["TestNetServer", "TestNetClientVis", "RendererWindow"]
+        },
+        {
+            "name": "TestNetAnimRender",
+            "configurations": ["TestNetServer","auto", "RendererAnimWindow"]
         }
     ]
     

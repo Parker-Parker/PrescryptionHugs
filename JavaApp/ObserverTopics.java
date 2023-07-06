@@ -17,7 +17,8 @@ EnemyPlannedMoves,
 MatchState,         //scale,                       Candles,                         TurnControllerState,   turnno,turnstate  
 
 //admin
-InputOutputHandlers                     
+InputOutputHandlers, 
+Animations                     
 
 
 }

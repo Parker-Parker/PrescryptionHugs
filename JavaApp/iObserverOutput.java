@@ -10,4 +10,6 @@ public interface iObserverOutput {
 
     void setSub(int[] x);
 
+    boolean checkSub(ObserverTopics animations);
+
 }
