@@ -53,8 +53,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                             emptyImage,
                             emptyImage,
                             emptyImage};
-
-
+    EnumMap<Sigils, BufferedImage> sigils = new EnumMap<>(Sigils.class);
 
 
     Card testCard0 = new Card("Stoat");
@@ -93,6 +92,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
 
     private int animLength = 0;
+
 
 
     FieldRendererAnimPanel() {
@@ -184,6 +184,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     
         importPortraits("JavaApp/resources/Portraits");
         importCosts("JavaApp/resources/Costs");
+        importSigils("JavaApp/resources/Sigils");
 
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -502,7 +503,16 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             g.setFont(fontHeavyWeight_Stat);
             // g.drawString(""+c.getAttack(), CARD_WIDTH*19/120-metrics2.stringWidth(c.getAttack()+"")/2, CARD_HEIGHT*23/30+metrics2.getHeight()/2);//draw attack
             // g.drawString(c.getHealth()+"", (CARD_WIDTH*101/120 - metrics2.stringWidth(c.getHealth()+"")/2) , CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health
+            g.setColor(Color.BLACK);
+            if(c.getAttack()!=c.getBaseAttack()){
+                g.setColor(Color.GREEN);    
+            }
             g.drawString(""+c.getAttack(), CARD_WIDTH*20/120-metrics2.stringWidth(c.getAttack()+"")/2, CARD_HEIGHT*91/120+metrics2.getHeight()/2);//draw attack
+            
+            g.setColor(Color.BLACK);
+            if(c.getHealth()!=c.getBaseHealth()){
+                g.setColor(Color.RED);    
+            }
             g.drawString(c.getHealth()+"", (CARD_WIDTH*100/120 - metrics2.stringWidth(c.getHealth()+"")/2) , CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health
             
             BufferedImage portrait = getCardPortrait(c.getTitle());
@@ -512,11 +522,31 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             g.drawImage(cost,null,(CARD_WIDTH-cost.getWidth()),CARD_HEIGHT/13);//draw cost indicator
             // g.drawImage(cost,null,0,0);//draw cost indicator
             
+            BufferedImage sigil = getSigilImage(c.sigils);
+            g.drawImage(sigil,null,(CARD_WIDTH-sigil.getWidth())/2,(CARD_HEIGHT*8)/10);//draw cost indicator
+            // g.drawImage(cost,null,0,0);//draw cost indicator
+            
             return cardImage;
         }
         
     }
 
+   
+    public BufferedImage getSigilImage(Sigils sig){
+        BufferedImage sigil = sigils.get(sig);
+        return sigil==null? emptyImage:sigil;
+    }    
+
+    public BufferedImage getSigilImage(EnumMap<Sigils,Boolean> sigs){
+        BufferedImage sigil = null;
+        for (Sigils s : sigs.keySet()){
+            if(sigs.get(s)){
+                sigil = sigils.get(s);
+            }
+        }
+        return sigil==null? emptyImage:sigil;
+    }
+    
     public BufferedImage getCardPortrait(String name){
         BufferedImage portrait = cardPortraits.get(name.toUpperCase());
         return portrait==null? emptyImage:portrait;
@@ -565,6 +595,53 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
+
+
+    
+    public void importSigils(String folderPath){
+        
+        try{
+            File folder = new File(folderPath);
+            File[] listOfFiles = folder.listFiles();
+            
+            for (int i = 0; i < listOfFiles.length; i++) {
+                try{
+                    if (listOfFiles[i].isFile()) {
+                        // System.out.println("File " + listOfFiles[i].getName());
+                        String fileName = listOfFiles[i].getName();
+                        fileName = (String)fileName.subSequence("ability_".length()+1, fileName.length()-".png".length());
+
+                        // System.out.println(fileName);
+                        BufferedImage sigil = null;
+                        try {
+                            sigil = ImageIO.read(listOfFiles[i]);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        for(Sigils s : Sigils.values()){
+                            if(s.name().equalsIgnoreCase(fileName)){
+                                sigils.put(s, sigil);
+
+                            }
+                        }
+                        
+                    } else if (listOfFiles[i].isDirectory()) {
+                        System.out.println("Directory " + listOfFiles[i].getName());
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+     
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    
     public void importCosts(String folderPath){
         
         try{
