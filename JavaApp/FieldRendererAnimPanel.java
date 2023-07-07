@@ -28,6 +28,10 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     static final int CARD_HEIGHT = 190;
 
+    static final int ANIMATED_LAYER = 2;
+
+    static final int IDLE_LAYER = 1;
+
     static final int DELAY = 15;
     // static final int GAP = 15;
     static final int GAP = 50;
@@ -35,7 +39,9 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     Timer timer;
 
 
-    ArrayList<LinkedList<BufferedImage>> zBuffer = new ArrayList<>();
+    // ArrayList<LinkedList<BufferedImage>> zBuffer = new ArrayList<>();
+
+    ArrayList<BufferedImage> zBuffer = new ArrayList<>();
 
     // BufferedImage fieldImage = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
     BufferedImage fieldImage = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -43,7 +49,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     Graphics2D fieldCanvas = (Graphics2D)fieldImage.getGraphics();
 
 
-    private BufferedImage emptyImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage emptyImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
 
     HashMap<String,BufferedImage> cardPortraits = new HashMap<>();
     BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -144,10 +150,15 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
 
 
-        for(int i =0; i<10;i++){
-            zBuffer.add(i, new LinkedList<BufferedImage>());
-        }
+        // for(int i =0; i<10;i++){
+        //     zBuffer.add(i, new LinkedList<BufferedImage>());
+        // }
 
+        
+        for(int i =0; i<10;i++){
+            zBuffer.add(i, new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB));
+        }
+        
         try{
             File font_file = new File("JavaApp/resources/HEAVYWEI.TTF");
             fontHeavyWeight = Font.createFont(Font.TRUETYPE_FONT, font_file).deriveFont(27f);
@@ -296,29 +307,60 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     }
 
     private void renderFieldZBuffer(Field field) {
-        
-    
+
+        zBuffer.set(IDLE_LAYER, new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB));
+        Graphics2D idleCanvas = (Graphics2D) zBuffer.get(IDLE_LAYER).getGraphics();
+        zBuffer.set(ANIMATED_LAYER, new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB));
+        Graphics2D animCanvas = (Graphics2D) zBuffer.get(ANIMATED_LAYER).getGraphics();
+        Graphics2D canvas;
         for(int i = 0;i<4;i++){
-            if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getEnemyCardsBack()!=null)&&(field.getEnemyCardsBack().length==4)){
-                BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
-                renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i,0)), i,0);//change this to show slot upside down
-                zBuffer.get(((currentAnimations[0])[i]==null)||((currentAnimations[0])[i]==Animations.Idle) ? 2 : 5).add(image);
+            canvas = (((currentAnimations[0])[i]==null)||((currentAnimations[0])[i]==Animations.Idle) ? idleCanvas : animCanvas);
+            if((canvas!=null)&&(field!=null)&&(field.getEnemyCardsBack()!=null)&&(field.getEnemyCardsBack().length==4)){
+                renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i,0)), i,0);
+                
+            }
+
+        }
+        for(int i = 0;i<4;i++){
+            canvas = (((currentAnimations[1])[i]==null)||((currentAnimations[1])[i]==Animations.Idle) ? idleCanvas : animCanvas);
+            if((canvas!=null)&&(field!=null)&&(field.getEnemyCards()!=null)&&(field.getEnemyCards().length==4)){
+                renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCards()[i]), getAnimation(i,1)), i,1);//change this to show slot upside down
             }
         }
         for(int i = 0;i<4;i++){
-            if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getEnemyCards()!=null)&&(field.getEnemyCards().length==4)){
-                BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
-                renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getEnemyCards()[i]), getAnimation(i,1)), i,1);//change this to show slot upside down
-                zBuffer.get(((currentAnimations[1])[i]==null)||((currentAnimations[1])[i]==Animations.Idle) ? 2 : 5).add(image);
+            canvas = (((currentAnimations[2])[i]==null)||((currentAnimations[2])[i]==Animations.Idle) ? idleCanvas : animCanvas);
+            if((canvas!=null)&&(field!=null)&&(field.getPlayerCards()!=null)&&(field.getPlayerCards().length==4)){
+                renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i,2)), i,2);
             }
         }
-        for(int i = 0;i<4;i++){
-            if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getPlayerCards()!=null)&&(field.getPlayerCards().length==4)){
-                BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
-                renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i,2)), i,2);//change this to show slot upside down
-                zBuffer.get(((currentAnimations[2])[i]==null)||((currentAnimations[2])[i]==Animations.Idle) ? 2 : 5).add(image);
-            }
-        }
+
+
+
+
+
+
+
+        // for(int i = 0;i<4;i++){
+        //     if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getEnemyCardsBack()!=null)&&(field.getEnemyCardsBack().length==4)){
+        //         BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
+        //         renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i,0)), i,0);//change this to show slot upside down
+        //         zBuffer.get(((currentAnimations[0])[i]==null)||((currentAnimations[0])[i]==Animations.Idle) ? IDLE_LAYER : ANIMATED_LAYER).add(image);
+        //     }
+        // }
+        // for(int i = 0;i<4;i++){
+        //     if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getEnemyCards()!=null)&&(field.getEnemyCards().length==4)){
+        //         BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
+        //         renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getEnemyCards()[i]), getAnimation(i,1)), i,1);//change this to show slot upside down
+        //         zBuffer.get(((currentAnimations[1])[i]==null)||((currentAnimations[1])[i]==Animations.Idle) ? IDLE_LAYER : ANIMATED_LAYER).add(image);
+        //     }
+        // }
+        // for(int i = 0;i<4;i++){
+        //     if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getPlayerCards()!=null)&&(field.getPlayerCards().length==4)){
+        //         BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
+        //         renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i,2)), i,2);//change this to show slot upside down
+        //         zBuffer.get(((currentAnimations[2])[i]==null)||((currentAnimations[2])[i]==Animations.Idle) ? IDLE_LAYER : ANIMATED_LAYER).add(image);
+        //     }
+        // }
     }
     static int rand = 0;
 
@@ -448,12 +490,18 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         
     }
 
+    // private void drawBuffer(Graphics2D g) {
+    //     // for(LinkedList<BufferedImage> list : zBuffer)
+    //     for(int i = 0; i<zBuffer.size();i++){
+    //         for(BufferedImage image : zBuffer.get(i)){
+    //             g.drawImage(image, null, 0, 0);
+    //         }
+    //     }
+    // }
     private void drawBuffer(Graphics2D g) {
         // for(LinkedList<BufferedImage> list : zBuffer)
         for(int i = 0; i<zBuffer.size();i++){
-            for(BufferedImage image : zBuffer.get(i)){
-                g.drawImage(image, null, 0, 0);
-            }
+                g.drawImage(zBuffer.get(i), null, 0, 0);
         }
     }
 
