@@ -27,6 +27,31 @@ public class Field {
     private NullCard nullCard = new NullCard(this);
     
 
+
+
+    public Field(Card[] nC, Card[] eCB, Card[] eC, Card[] pC, ArrayList<LinkedList<Card>> epm) {
+        nullCards = nC;
+        enemyCardsBack = eCB;
+        enemyCards = eC;
+        playerCards = pC;
+        enemyPlannedMoves = epm;
+        for(int i = 0; i <4; i++){
+            if(enemyCardsBack[i] != null){
+                enemyCardsBack[i].setField(this);
+            }
+            if(enemyCards[i] != null){
+                enemyCards[i].setField(this);
+            }
+            if(playerCards[i] != null){
+                playerCards[i].setField(this);
+            }
+        }
+
+    }
+
+    public Field() {
+    }
+
     public void initMainDeck() {
         for(int i = 0; i<25;i++){
             mainDeck.add(new Card(i%3,i%7,"Card D"+i));
@@ -586,10 +611,10 @@ public class Field {
         
     }
     public boolean playCard(int i, int slot) {
-        if(hand.get(i)!=null){
+        if(hand.size()>i && hand.get(i)!=null){
             hand.get(i).setPos(2, slot);
         }
-        return playCard(hand.get(i), slot);
+        return hand.size()>i ?playCard(hand.get(i), slot):false;
     }
     
     public boolean playCardSac(int slot) {
@@ -649,7 +674,7 @@ public class Field {
         // confirm there is enough blood on the field  
         //if no bounce back wait for card clear then bounce back to ready 
         //confirm not 0 cost
-        if(hand.get(i)!=null){
+        if((hand.size()>i)&&(hand.get(i)!=null)){
             if(hand.get(i).cost>0){
                 int availableBlood = 0;
                 for(int c = 0; c<4; c++){

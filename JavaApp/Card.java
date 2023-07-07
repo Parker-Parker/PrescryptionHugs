@@ -17,6 +17,10 @@ public class Card implements iCard {
     int attack = 0;
     int health = 1;
     int cost = 0;
+    String costType = "";
+    String tribe = "";
+    String traits = "";
+    String imgFileLoc = "";
     Object image = null;
     public int value = 1;
 
@@ -51,6 +55,39 @@ public class Card implements iCard {
         title = name;
         attack = baseAttack = atk;
         health = baseHealth = def;
+    }
+
+    public Card(String name, int power, int health, int costNumber, String cType, String trb, String sigs, String trts,
+            String imageFileLocation) {
+        for (Sigils key : Sigils.values()) {
+            sigils.put(key, false);
+        }
+        title = name;
+        attack = baseAttack = power;
+        health = baseHealth = health;
+        cost = costNumber;
+        costType = cType;
+        tribe = trb;
+
+        if(sigs!=null){
+            String[] sigArray = sigs.split(",");
+            if(sigArray!=null && sigArray.length>=1){
+                for(String s : sigArray){
+                    if(s!=null){
+                        try{
+                            Sigils sigVal = Sigils.valueOf(s);
+                            giveSigil(sigVal);
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        
+        traits = trts;
+        imgFileLoc = imageFileLocation;
     }
 
     public void setTitle(String input) {

@@ -60,6 +60,18 @@
         },
         {
             "type": "java",
+            "name": "DillonServer",
+            "request": "launch",
+            "mainClass": "DillDillServer"
+        },
+        {
+            "type": "java",
+            "name": "DillonClient",
+            "request": "launch",
+            "mainClass": "DillDillClient"
+        },
+        {
+            "type": "java",
             "name": "RendererAnimWindow",
             "request": "launch",
             "mainClass": "FieldRendererWindowAnimClient"
@@ -81,6 +93,10 @@
         {
             "name": "TestNetRender",
             "configurations": ["TestNetServer", "TestNetClientVis", "RendererWindow"]
+        },
+        {
+            "name": "TestDillDill",
+            "configurations": ["DillonClient", "DillonServer", "RendererWindow"]
         },
         {
             "name": "TestNetAnimRender",
