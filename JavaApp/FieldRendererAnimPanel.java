@@ -240,7 +240,9 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
  
          fieldCanvas.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
-        renderField(fieldCanvas, currentField);
+        // renderField(fieldCanvas, currentField);
+        renderFieldZBuffer(currentField);
+        drawBuffer(fieldCanvas);
         // drawDebug(fieldCanvas);
          g2d.drawImage(fieldImage, null, 0,0);
 
@@ -289,6 +291,32 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         for(int i = 0;i<4;i++){
             if((canvas!=null)&&(field!=null)&&(field.getPlayerCards()!=null)&&(field.getPlayerCards().length==4)){
                 renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i,2)), i,2);
+            }
+        }
+    }
+
+    private void renderFieldZBuffer(Field field) {
+        
+    
+        for(int i = 0;i<4;i++){
+            if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getEnemyCardsBack()!=null)&&(field.getEnemyCardsBack().length==4)){
+                BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
+                renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i,0)), i,0);//change this to show slot upside down
+                zBuffer.get(((currentAnimations[0])[i]==null)||((currentAnimations[0])[i]==Animations.Idle) ? 2 : 5).add(image);
+            }
+        }
+        for(int i = 0;i<4;i++){
+            if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getEnemyCards()!=null)&&(field.getEnemyCards().length==4)){
+                BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
+                renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getEnemyCards()[i]), getAnimation(i,1)), i,1);//change this to show slot upside down
+                zBuffer.get(((currentAnimations[1])[i]==null)||((currentAnimations[1])[i]==Animations.Idle) ? 2 : 5).add(image);
+            }
+        }
+        for(int i = 0;i<4;i++){
+            if((zBuffer!=null)&&(zBuffer.get(2)!=null)&&(zBuffer.get(5)!=null)&&(field!=null)&&(field.getPlayerCards()!=null)&&(field.getPlayerCards().length==4)){
+                BufferedImage image = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB); 
+                renderAtPos(((Graphics2D)image.getGraphics()), renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i,2)), i,2);//change this to show slot upside down
+                zBuffer.get(((currentAnimations[2])[i]==null)||((currentAnimations[2])[i]==Animations.Idle) ? 2 : 5).add(image);
             }
         }
     }
