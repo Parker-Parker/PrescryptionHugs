@@ -155,7 +155,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         // }
 
         
-        for(int i =0; i<10;i++){
+        for(int i =0; i<3;i++){
             zBuffer.add(i, new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB));
         }
         
@@ -251,9 +251,10 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
  
          fieldCanvas.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
-        // renderField(fieldCanvas, currentField);
-        renderFieldZBuffer(currentField);
-        drawBuffer(fieldCanvas);
+        renderField(fieldCanvas, currentField);
+        // renderFieldZBuffer(currentField);
+        // drawBuffer(fieldCanvas);
+
         // drawDebug(fieldCanvas);
          g2d.drawImage(fieldImage, null, 0,0);
 
@@ -295,13 +296,13 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
         }
         for(int i = 0;i<4;i++){
-            if((canvas!=null)&&(field!=null)&&(field.getEnemyCards()!=null)&&(field.getEnemyCards().length==4)){
-                renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCards()[i]), getAnimation(i,1)), i,1);//change this to show slot upside down
+            if((canvas!=null)&&(field!=null)&&(field.getPlayerCards()!=null)&&(field.getPlayerCards().length==4)){
+                renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i,2)), i,2);
             }
         }
         for(int i = 0;i<4;i++){
-            if((canvas!=null)&&(field!=null)&&(field.getPlayerCards()!=null)&&(field.getPlayerCards().length==4)){
-                renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i,2)), i,2);
+            if((canvas!=null)&&(field!=null)&&(field.getEnemyCards()!=null)&&(field.getEnemyCards().length==4)){
+                renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCards()[i]), getAnimation(i,1)), i,1);//change this to show slot upside down
             }
         }
     }
