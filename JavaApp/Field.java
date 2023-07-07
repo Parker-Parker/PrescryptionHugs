@@ -344,7 +344,34 @@ public class Field {
 
     public void enemyPreSummon(Card card, int i) {
     }
+    public void updateCardStats(){
+        for(int i = 0;i<4;i++){
+            if(enemyCards[i]!=null){
+                //buff enemy
+                //get buffs
+                int left  = i>0  ? (enemyCards[i-1]== null ? 0 :  enemyCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                int up    = true ? (playerCards[i] == null ? 0 :  playerCards[i].getBuff(0))  : 0;     // come back and add null handling
+                int right = i<3  ? (enemyCards[i+1]== null ? 0 :  enemyCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                
+                int buff  = left + up + right;
+                enemyCards[i].setAttack(enemyCards[i].getBaseAttack()+buff);
+            }
+            if(playerCards[i]!=null){
+               
+                //get player buffs
+                int left  = i>0  ? (playerCards[i-1]== null ? 0 :  playerCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                int up    = true ? (enemyCards[i]   == null ? 0 :  enemyCards[i].getBuff(0)   ) : 0;     // come back and add null handling
+                int right = i<3  ? (playerCards[i+1]== null ? 0 :  playerCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                
+                int buff  = left + up + right;
+                //this.cardAttack(dmg,source, target)
+                playerCards[i].setAttack(playerCards[i].getBaseAttack()+buff);
 
+            }
+    
+        }
+
+    }
     public void enemyAttack(int i) {
         this.nullCard.setTurn(false);     
         if(enemyCards[i]!=null){
@@ -358,14 +385,23 @@ public class Field {
                     // int up    = enemyCards[i]   == null ? 0 : (true ? enemyCards[i].getBuff(0)    : 0);     // come back and add null handling
                     // int right = playerCards[i+1]== null ? 0 : (i<3  ? playerCards[i+1].getBuff(1) : 0);     // come back and add null handlinge
                     
-                    //get buffs
-                    int left  = i>0  ? (enemyCards[i-1]== null ? 0 :  enemyCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
-                    int up    = true ? (playerCards[i]   == null ? 0 :  playerCards[i].getBuff(0)   ) : 0;     // come back and add null handling
-                    int right = i<3  ? (enemyCards[i+1]== null ? 0 :  enemyCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
-                    
-                    int buff  = left + up + right;
+                            // //get buffs
+                            // int left  = i>0  ? (enemyCards[i-1]== null ? 0 :  enemyCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                            // int up    = true ? (playerCards[i]   == null ? 0 :  playerCards[i].getBuff(0)   ) : 0;     // come back and add null handling
+                            // int right = i<3  ? (enemyCards[i+1]== null ? 0 :  enemyCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                            
+                            // int buff  = left + up + right;
+                            // //this.cardAttack(dmg,source, target)
+                            // int damage = enemyCards[i].getBaseAttack()+buff;
+                        
+                    this.updateCardStats();
+                    this.updateCardStats();
                     //this.cardAttack(dmg,source, target)
-                    int damage = enemyCards[i].getBaseAttack()+buff;
+                    int damage = enemyCards[i].getAttack();
+                   
+                   
+                   
+                   
                     //can actually move i+t(valid target slot 0-3) up here or earlier
                     Card target;
                     if (playerCards[i+t]==null) {target = this.nullCard;} else{target = playerCards[i+t];}//handles null target, code below handles valid case...need to add handling for i+t oob
@@ -420,6 +456,7 @@ public class Field {
             enemyCardsBack[i]=null;
             if(enemyCards[i]!=null){
                 enemyCards[i].setPos(1, i);
+                this.updateCardStats();
             }
 
 
@@ -442,14 +479,21 @@ public class Field {
                     // int up    = enemyCards[i]   == null ? 0 : (true ? enemyCards[i].getBuff(0)    : 0);     // come back and add null handling
                     // int right = playerCards[i+1]== null ? 0 : (i<3  ? playerCards[i+1].getBuff(1) : 0);     // come back and add null handlinge
                     
-                    //get buffs
-                    int left  = i>0  ? (playerCards[i-1]== null ? 0 :  playerCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
-                    int up    = true ? (enemyCards[i]   == null ? 0 :  enemyCards[i].getBuff(0)   ) : 0;     // come back and add null handling
-                    int right = i<3  ? (playerCards[i+1]== null ? 0 :  playerCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
-                    
-                    int buff  = left + up + right;
-                    //this.cardAttack(dmg,source, target)
-                    int damage = playerCards[i].getBaseAttack()+buff;
+                            // //get buffs
+                            // int left  = i>0  ? (playerCards[i-1]== null ? 0 :  playerCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                            // int up    = true ? (enemyCards[i]   == null ? 0 :  enemyCards[i].getBuff(0)   ) : 0;     // come back and add null handling
+                            // int right = i<3  ? (playerCards[i+1]== null ? 0 :  playerCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                            
+                            // int buff  = left + up + right;
+                            // //this.cardAttack(dmg,source, target)
+                            // int damage = playerCards[i].getBaseAttack()+buff;
+
+
+                    this.updateCardStats();
+                    this.updateCardStats();
+                    int damage = playerCards[i].getAttack();
+
+
                     //can actually move i+t(valid target slot 0-3) up here or earlier
                     Card target;
                     if (enemyCards[i+t]==null) {target = this.nullCard;} else{target = enemyCards[i+t];}//handles null target, code below handles valid case...need to add handling for i+t oob

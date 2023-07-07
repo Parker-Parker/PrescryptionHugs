@@ -298,7 +298,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         Animations anim = (currentAnimations[row])[column];
         int time = animTimer*DELAY;//~time in ms?
 
-        System.out.println("Anim_debug: Col:"+column+"Row:"+row+" anim:"+(anim==null?null:anim.name())+" x:"+xValMap+" y:"+yValMap+" r:"+rValMap);
+        // System.out.println("Anim_debug: Col:"+column+"Row:"+row+" anim:"+(anim==null?null:anim.name())+" x:"+xValMap+" y:"+yValMap+" r:"+rValMap);
 
         return (anim == null)||(anim == Animations.Idle)? null: makeSlotTF( linearInterpolatePoints(time, rValMap.get(anim), rTimeMap.get(anim)),
                                                                             linearInterpolatePoints(time, xValMap.get(anim), xTimeMap.get(anim)), 
@@ -478,6 +478,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         }
     }
 
+    Color maroon = new Color(120, 30,0);
+    Color greenatk = new Color(40, 100,50);//seafoam
 
     public BufferedImage renderCard(Card c){
         
@@ -505,13 +507,13 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             // g.drawString(c.getHealth()+"", (CARD_WIDTH*101/120 - metrics2.stringWidth(c.getHealth()+"")/2) , CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health
             g.setColor(Color.BLACK);
             if(c.getAttack()!=c.getBaseAttack()){
-                g.setColor(Color.GREEN);    
+                g.setColor(greenatk);    
             }
             g.drawString(""+c.getAttack(), CARD_WIDTH*20/120-metrics2.stringWidth(c.getAttack()+"")/2, CARD_HEIGHT*91/120+metrics2.getHeight()/2);//draw attack
             
             g.setColor(Color.BLACK);
             if(c.getHealth()!=c.getBaseHealth()){
-                g.setColor(Color.RED);    
+                g.setColor(maroon);    
             }
             g.drawString(c.getHealth()+"", (CARD_WIDTH*100/120 - metrics2.stringWidth(c.getHealth()+"")/2) , CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health
             
@@ -523,7 +525,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             // g.drawImage(cost,null,0,0);//draw cost indicator
             
             BufferedImage sigil = getSigilImage(c.sigils);
-            g.drawImage(sigil,null,(CARD_WIDTH-sigil.getWidth())/2,(CARD_HEIGHT*8)/10);//draw cost indicator
+            g.drawImage(sigil,null,(CARD_WIDTH-sigil.getWidth())/2,(CARD_HEIGHT*25/30)-sigil.getHeight()/2);//draw cost indicator
             // g.drawImage(cost,null,0,0);//draw cost indicator
             
             return cardImage;
@@ -609,7 +611,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                     if (listOfFiles[i].isFile()) {
                         // System.out.println("File " + listOfFiles[i].getName());
                         String fileName = listOfFiles[i].getName();
-                        fileName = (String)fileName.subSequence("ability_".length()+1, fileName.length()-".png".length());
+                        fileName = (String)fileName.subSequence("ability_".length(), fileName.length()-".png".length());
 
                         // System.out.println(fileName);
                         BufferedImage sigil = null;
@@ -618,9 +620,13 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        System.out.println("Importing file: "+fileName);
                         for(Sigils s : Sigils.values()){
+                            System.out.println("       checking: "+s.name());
                             if(s.name().equalsIgnoreCase(fileName)){
                                 sigils.put(s, sigil);
+
+                                System.out.println("       SUCCEEDED");
 
                             }
                         }

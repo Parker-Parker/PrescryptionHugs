@@ -19,6 +19,8 @@ public class TestNetServer
         testField.enemyCardsBack[3].giveSigil(Sigils.TrifurcatedStrike); 
         testField.enemyCardsBack[3].giveSigil(Sigils.WorthySacrifice);
         testField.enemyCardsBack[3].giveSigil(Sigils.DeathTouch);// quill combo does not yet work
+        testField.enemyCardsBack[3].giveSigil(Sigils.Leader);// quill combo does not yet work
+        testField.playerCards[2].giveSigil(Sigils.Leader);
 
         Card testCard1 = new Card(4, 4, "Chungy");
         testCard1.cost = 2;
@@ -56,7 +58,7 @@ public class TestNetServer
             System.out.println(handsString);
             // game.ioHandler.observerOutputHandler.publishField(testField);
             game.ioHandler.getObserverOutputHandler().publishAnim(testField, 1, 3, Animations.Idle);
-            
+            game.getField().updateCardStats();
         }
         
 

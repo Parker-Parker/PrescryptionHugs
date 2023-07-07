@@ -63,6 +63,8 @@ public class Card implements iCard {
 
     public void onSummon(Field field) {
         this.field = field;
+
+        this.field.updateCardStats();
     }
 
 
@@ -144,6 +146,7 @@ public class Card implements iCard {
         //field.purgeDead();//we can try a field.purgeThis(Card) too
         System.out.println(title+" has perished");
         field.purge(this);
+        field.updateCardStats();
     }
     public void setField(Field field){
         this.field = field;
