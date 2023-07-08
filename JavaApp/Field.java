@@ -358,6 +358,11 @@ public class Field {
             }
         }
 
+        for(int c = 0 ; c< 4;c++){
+            if(enemyCardsBack[c]!=null){enemyCardsBack[c].setPos(0, c);}
+            if(enemyCards[c]!=null){enemyCards[c].setPos(1, c);}
+            if(playerCards[c]!=null){playerCards[c].setPos(2, c);}
+        }
         for(int i = 0; i<25;i++){
             for(int k = 0; k<4;k++){
                 enemyPlannedMoves.get(k).add(new Card("LDeck "+k+" "+i));
