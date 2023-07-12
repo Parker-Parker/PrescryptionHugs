@@ -87,6 +87,22 @@ public class Card implements iCard {
         imgFileLoc = imageFileLocation;
     }
 
+    public String getSigilsAsCSV(){
+        String sigString = "";
+        boolean first = true;
+        for(Sigils s : this.sigils.keySet()){
+            if(this.sigils.get(s)){
+                sigString+= first?s.name():","+s.name();
+                first = false;
+            }
+        }
+        return sigString;
+    }
+
+    public Card(Card c) {
+        this(c.getTitle(),c.getBaseAttack(),c.getBaseHealth(),c.getCost()," "," ",c.getSigilsAsCSV()," ", c.imgFileLoc);
+    }
+
     public void setTitle(String input) {
         title = input;
     }

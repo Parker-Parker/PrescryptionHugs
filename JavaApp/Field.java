@@ -734,4 +734,11 @@ public class Field {
     public void setHoriz(String horiz) {
         this.horiz = horiz;
     }    
+    public LinkedList<Card> deepCopyDeck(LinkedList<Card> deck){
+        LinkedList<Card> newDeck = new LinkedList<Card>();
+        for(Card c : deck){
+            newDeck.add(new Card(c));
+        }
+        return newDeck;
+    }
 }

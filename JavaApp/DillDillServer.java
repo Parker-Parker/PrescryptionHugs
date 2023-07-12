@@ -55,6 +55,7 @@ public class DillDillServer
             turnCon.executeState();
             turnCon.getField().printField();
 
+            turnCon.getField().setHand(turnCon.getField().deepCopyDeck(mDeck) );
             //////////////////////////////////////////////////////
             //dillon add thing that sets hand = to  carkins deck//
             ////////////////////////////////////////////////////// make it so his hand never gets cards taken away.
