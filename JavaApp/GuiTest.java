@@ -2,21 +2,37 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+
 
 public class GuiTest implements ActionListener{
     
     private JLabel label;
+    private JLabel sacInfo;
     private JFrame frame;
     private JPanel panel;
     private GridLayout grid;
+    private GridLayout selGrid;
     boolean available;
     static String playerCommand;
+    static String viewedText;
+    private JComboBox<String> dropdown;
+    Object selDrop;
+    int selDropLen;
+    String selDropIndex;
 
 
     public GuiTest() {
@@ -26,99 +42,315 @@ public class GuiTest implements ActionListener{
         JButton drawMainButton = new JButton("Player Draw Main");
         JButton drawSquirrelButton = new JButton("Player Draw Squirrel");
         JButton readyButton = new JButton("Player Ready");
-        JButton sacrificeButton = new JButton("Player Sacrifice");
+        //JButton sacrificeButton = new JButton("Select Summon with Sacrifice");
         JButton cancelSacButton = new JButton("Cancel Sacrifice");
-        // JButton null2Button = new JButton("");
+        // // JButton null2Button = new JButton("");
 
-        //column 0
-        // JButton Button3 = new JButton("Other");
-        // JButton Button4 = new JButton("Other");
-        // JButton Button5 = new JButton("Other");
+        // //column 0
+        // // JButton Button3 = new JButton("Other");
+        // // JButton Button4 = new JButton("Other");
+        // // JButton Button5 = new JButton("Other");
 
-        // JButton Button6 = new JButton("Other");
-        // JButton Button7 = new JButton("Other");
-        // JButton Button8 = new JButton("Other");
+        // // JButton Button6 = new JButton("Other");
+        // // JButton Button7 = new JButton("Other");
+        // // JButton Button8 = new JButton("Other");
 
-        JButton sacThisButton0 = new JButton("Sacrifice This Column 0");
-        JButton placeCardButton0 = new JButton("Place Card Here Column 0");
+        // JButton sacThisButton0 = new JButton("Sacrifice This Column 0");
+        // JButton sacrificeSummonButton0 = new JButton("Sacrifice Summon Here Column 0");
+        // JButton directSummonButton0 = new JButton("Direct Summon Here Column 0");
+        // //JButton Button11 = new JButton("Other");
+
+        // //column 1
+        // // JButton Button31 = new JButton("Other");
+        // // JButton Button41 = new JButton("Other");
+        // // JButton Button51 = new JButton("Other");
+
+        // // JButton Button61 = new JButton("Other");
+        // // JButton Button71 = new JButton("Other");
+        // // JButton Button81 = new JButton("Other");
+
+        // JButton sacThisButton1 = new JButton("Sacrifice This Column 1");
+        // JButton sacrificeSummonButton1 = new JButton("Sacrifice Summon Here Column 1");
+        // JButton directSummonButton1 = new JButton("Direct Summon Here Column 1");
+        // //JButton Button11 = new JButton("Other");
+
+        // //column 2
+        // // JButton Button32 = new JButton("Other");
+        // // JButton Button42 = new JButton("Other");
+        // // JButton Button52 = new JButton("Other");
+
+        // // JButton Button62 = new JButton("Other");
+        // // JButton Button72 = new JButton("Other");
+        // // JButton Button82 = new JButton("Other");
+
+        // JButton sacThisButton2 = new JButton("Sacrifice This Column 2");
+        // JButton sacrificeSummonButton2 = new JButton("Sacrifice Summon Here Column 2");
+        // JButton directSummonButton2 = new JButton("Direct Summon Here Column 2");
+        // //JButton Button11 = new JButton("Other");
+
+        // //column 3
+        // // JButton Button33 = new JButton("Other");
+        // // JButton Button43 = new JButton("Other");
+        // // JButton Button53 = new JButton("Other");
+
+        // // JButton Button63 = new JButton("Other");
+        // // JButton Button73 = new JButton("Other");
+        // // JButton Button83 = new JButton("Other");
+
+        // JButton sacThisButton3 = new JButton("Sacrifice This Column 3");
+        // JButton sacrificeSummonButton3 = new JButton("Sacrifice Summon Here Column 3");
+        // JButton directSummonButton3 = new JButton("Direct Summon Here Column 3");
         //JButton Button11 = new JButton("Other");
 
-        //column 1
-        // JButton Button31 = new JButton("Other");
-        // JButton Button41 = new JButton("Other");
-        // JButton Button51 = new JButton("Other");
+        // drawMainButton.addActionListener(this);
+        // drawSquirrelButton.addActionListener(this);
+        // readyButton.addActionListener(this);
+        // sacrificeButton.addActionListener(this);
+        // cancelSacButton.addActionListener(this);
+        // sacThisButton0.addActionListener(this);
+        // sacThisButton1.addActionListener(this);
+        // sacThisButton2.addActionListener(this);
+        // sacThisButton3.addActionListener(this);
+        // sacrificeSummonButton0.addActionListener(this);
+        // sacrificeSummonButton1.addActionListener(this);
+        // sacrificeSummonButton2.addActionListener(this);
+        // sacrificeSummonButton3.addActionListener(this);
+        // directSummonButton0.addActionListener(this);
+        // directSummonButton1.addActionListener(this);
+        // directSummonButton2.addActionListener(this);
+        // directSummonButton3.addActionListener(this);
 
-        // JButton Button61 = new JButton("Other");
-        // JButton Button71 = new JButton("Other");
-        // JButton Button81 = new JButton("Other");
-
-        JButton sacThisButton1 = new JButton("Sacrifice This Column 1");
-        JButton placeCardButton1 = new JButton("Place Card Here Column 1");
-        //JButton Button11 = new JButton("Other");
-
-        //column 2
-        // JButton Button32 = new JButton("Other");
-        // JButton Button42 = new JButton("Other");
-        // JButton Button52 = new JButton("Other");
-
-        // JButton Button62 = new JButton("Other");
-        // JButton Button72 = new JButton("Other");
-        // JButton Button82 = new JButton("Other");
-
-        JButton sacThisButton2 = new JButton("Sacrifice This Column 2");
-        JButton placeCardButton2 = new JButton("Place Card Here Column 2");
-        //JButton Button11 = new JButton("Other");
-
-        //column 3
-        // JButton Button33 = new JButton("Other");
-        // JButton Button43 = new JButton("Other");
-        // JButton Button53 = new JButton("Other");
-
-        // JButton Button63 = new JButton("Other");
-        // JButton Button73 = new JButton("Other");
-        // JButton Button83 = new JButton("Other");
-
-        JButton sacThisButton3 = new JButton("Sacrifice This Column 3");
-        JButton placeCardButton3 = new JButton("Place Card Here Column 3");
-        //JButton Button11 = new JButton("Other");
-
-        drawMainButton.addActionListener(this);
-        drawSquirrelButton.addActionListener(this);
-        readyButton.addActionListener(this);
-        sacrificeButton.addActionListener(this);
-        cancelSacButton.addActionListener(this);
-        sacThisButton0.addActionListener(this);
-        sacThisButton1.addActionListener(this);
-        sacThisButton2.addActionListener(this);
-        sacThisButton3.addActionListener(this);
-        placeCardButton0.addActionListener(this);
-        placeCardButton1.addActionListener(this);
-        placeCardButton2.addActionListener(this);
-        placeCardButton3.addActionListener(this);
 
         
-        grid = new GridLayout(4, 4);
-
+        grid = new GridLayout(0, 1);
+        selGrid = new GridLayout(0, 2);
         label = new JLabel("");
 
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         panel.setLayout(grid);
         // panel.add(null2Button);
-        panel.add(sacThisButton0);
-        panel.add(sacThisButton1);
-        panel.add(sacThisButton2);
-        panel.add(sacThisButton3);
-        panel.add(placeCardButton0);
-        panel.add(placeCardButton1);
-        panel.add(placeCardButton2);
-        panel.add(placeCardButton3);
-        panel.add(drawMainButton);
-        panel.add(drawSquirrelButton);
-        panel.add(readyButton);
-        panel.add(sacrificeButton);
-        panel.add(cancelSacButton);
-        panel.add(label);
+        // panel.add(sacThisButton0);
+        // panel.add(sacThisButton1);
+        // panel.add(sacThisButton2);
+        // panel.add(sacThisButton3);
+        // panel.add(sacrificeSummonButton0);
+        // panel.add(sacrificeSummonButton1);
+        // panel.add(sacrificeSummonButton2);
+        // panel.add(sacrificeSummonButton3);
+        // panel.add(directSummonButton0);
+        // panel.add(directSummonButton1); 
+        // panel.add(directSummonButton2);
+        // panel.add(directSummonButton3);
+        // panel.add(drawMainButton);
+        // panel.add(drawSquirrelButton);
+        // panel.add(readyButton);
+        // panel.add(sacrificeButton);
+        // panel.add(cancelSacButton);
+        // panel.add(label);
+
+        // Create the dropdown list
+        LinkedList<Card> mDeckSacCopy = new LinkedList<>(DillDillServer.mDeck);
+        String[] options = new String[mDeckSacCopy.size()];
+
+        for (int i = 0; i < mDeckSacCopy.size(); i++) {
+            Card card = mDeckSacCopy.get(i);
+            String name = card.title;
+            int sacrificeCost = card.cost;
+            options[i] = i + ": " + name + " (Sacrifice Cost: " + sacrificeCost +")";
+        }        
+        ////////TODO populate mDeck with what tony has for cards
+        dropdown = new JComboBox<>(options);
+
+        // Create the confirm button
+        JButton confirmButton = new JButton("Confirm");
+
+
+////////////////////////////////////////////////////////////////////
+        // panel.add(sacrificeSummonPanel);
+        JPanel selPanel = new JPanel();
+        selPanel.setLayout(selGrid);
+        selPanel.add(dropdown);
+        selPanel.add(confirmButton);
+
+        confirmButton.addActionListener(this);
+
+        panel.add(selPanel);
+        sacInfo = new JLabel("Sacrifices Needed: " + 0);   //////////TODO link 0 with confirm button click with the actual sac cost of each of the cards in mdeck hashmap? array list?
+        JPanel sacNeededPanel = new JPanel();
+        sacNeededPanel.setLayout(grid);
+        sacNeededPanel.setBorder(BorderFactory.createTitledBorder("Summoning Info"));
+        sacNeededPanel.add(sacInfo);
+        panel.add(sacNeededPanel);
+
+        //panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between sections
+////////////////////////////////////////////////////////////////////
+// First Section - Direct Summon Cards//////////////////////////////
+        
+        ActionListener actionListener1 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String actionCommand1 = e.getActionCommand();
+                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
+                    switch (actionCommand1) {
+                        case "Direct Summon Here Column 0": 
+                            playerCommand = "user rdy 1 " + selDropIndex + " 0";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Direct Summon Here Column 1":
+                            playerCommand = "user rdy 1 " + selDropIndex + " 1";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Direct Summon Here Column 2":
+                            playerCommand = "user rdy 1 " + selDropIndex + " 2";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Direct Summon Here Column 3":
+                            playerCommand = "user rdy 1 " + selDropIndex + " 3";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else {
+
+                }
+            }
+        };
+
+        JPanel directSummonPanel = createSectionPanel1("Direct Summon", 4, "Direct Summon Here", 1, actionListener1);
+        panel.add(directSummonPanel);
+
+        //panel.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing between sections
+//////////////////////////////////////////////////////////////////
+// Second Section - Sacrifice Which Card////////////////////////////
+        
+        ActionListener actionListener2 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String actionCommand2 = e.getActionCommand();
+                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
+                    switch (actionCommand2) {
+                        case "Sacrifice This Card Column 0":
+                            playerCommand = "user sac 1 0";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Sacrifice This Card Column 1":
+                            playerCommand = "user sac 1 1";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Sacrifice This Card Column 2":
+                            playerCommand = "user sac 1 2";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Sacrifice This Card Column 3":
+                            playerCommand = "user sac 1 3";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else {
+
+                }
+            }
+        };
+
+        JPanel sacPanel = new JPanel();
+        sacPanel.setLayout(grid);
+        sacPanel.setBorder(BorderFactory.createTitledBorder("Sacrifice"));     
+        JPanel sacrificeWhichCardPanel = createSectionPanel2("Sacrifice Which Cards", 4, "Sacrifice This Card", 0, actionListener2);
+        sacPanel.add(sacrificeWhichCardPanel);
+
+////////////////////////////////////////////////////////////////////
+// Third Section - Sacrifice Summon Here////////////////////////////
+
+        ActionListener actionListener3 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                String actionCommand3 = e.getActionCommand();
+                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
+                    switch (actionCommand3) {
+                        case "Sac Summon Here Column 0":
+                            playerCommand = "user sum 0";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Sac Summon Here Column 1":
+                            playerCommand = "user sum 1";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Sac Summon Here Column 2":
+                            playerCommand = "user sum 2";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        case "Sac Summon Here Column 3":
+                            playerCommand = "user sum 3";
+                            label.setText(playerCommand);
+                            available = true;
+                            System.out.println(playerCommand);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else {
+
+                }
+            }
+        };
+
+        JPanel sacrificeSummonHerePanel = createSectionPanel3( "Summon From Sacrifices", 4,"Sac Summon Here", 0, actionListener3);
+        sacPanel.add(sacrificeSummonHerePanel);
+        
+        sacPanel.add(cancelSacButton);
+        cancelSacButton.addActionListener(this);
+
+        panel.add(sacPanel);
+
+////////////////////////////////////////////////////////////////////
+// Bottom Buttons///////////////////////////////////////////////////
+        
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+       
+////////////////////////////////////////////////////////////////////
+
+        panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between sections
+        bottomPanel.add(drawMainButton);
+        bottomPanel.add(drawSquirrelButton);
+        bottomPanel.add(readyButton);
+        
+        drawMainButton.addActionListener(this);
+        drawSquirrelButton.addActionListener(this);
+        readyButton.addActionListener(this);
+        
+        panel.add(bottomPanel);
+
+        
         
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,84 +367,237 @@ public class GuiTest implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         String actionCommand = e.getActionCommand();
-        int cardIndexInHand = 9;        /////////////TODO: have this correspond to his hand and not just be 9 gosh
         JButton bText = (JButton) e.getSource();
         label.setText(bText.getText());        
 
         switch (actionCommand) {
+            case "Confirm":
+                selDrop = dropdown.getSelectedItem();
+                selDropLen = dropdown.getSelectedItem().toString().length();
+                selDropIndex = selDrop.toString().substring(0, selDrop.toString().indexOf(":"));
+
+                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
+                    viewedText = "Direct Summoning " + selDrop.toString();
+                    sacInfo.setText(viewedText);
+                    playerCommand = "";
+                    available = false;
+                    System.out.println(playerCommand);
+                    break;
+                }
+                else {
+                    viewedText = "Sacrificing " + selDrop.toString(); // + " Sacrifices Needed: " + dropdown.getSelectedItem().toString().charAt(selDropLen - 2);
+                    sacInfo.setText(viewedText);
+                    playerCommand = "user rdy 2 " + selDropIndex;
+                    label.setText(playerCommand);
+                    System.out.println(playerCommand);
+                    available = true;
+                break;
+                }
+            case "Cancel Sacrifice":
+                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
+                    playerCommand = "user sac 0";
+                    viewedText = "Sacrifice Cancelled";
+                    sacInfo.setText(viewedText);
+                    label.setText(playerCommand);
+                    available = true;
+                    System.out.println(playerCommand);
+                }
+                else {
+                    
+                }
+                break;    
             case "Player Draw Main":
                 playerCommand = "user dra 1";
                 label.setText(playerCommand);
                 available = true;
+                System.out.println(playerCommand);
                 break;
             case "Player Draw Squirrel":
                 playerCommand = "user dra 0";
                 label.setText(playerCommand);
                 available = true;
+                System.out.println(playerCommand);
                 break;
             case "Player Ready":
                 playerCommand = "user rdy 0";
                 label.setText(playerCommand);
                 available = true;
+                System.out.println(playerCommand);
                 break;
-            case "Player Sacrifice":
-                playerCommand = "user rdy 2 " + cardIndexInHand;
-                label.setText(playerCommand);
-                available = true;
-                break;
-            case "Cancel Sacrifice":
-                playerCommand = "user sac 0";
-                label.setText(playerCommand);
-                available = true;
-                break;    
-            case "Place Card Here Column 0":
-                playerCommand = "user rdy 1 " + cardIndexInHand + " 0";
-                label.setText(playerCommand);
-                available = true;
-                break;
-            case "Sacrifice This Column 0":
-                playerCommand = "user sac 1 0";
-                label.setText(playerCommand);
-                available = true;
-                break;
-            case "Place Card Here Column 1":
-                playerCommand = "user rdy 1 " + cardIndexInHand + " 1";
-                label.setText(playerCommand);
-                available = true;
-                break;
-            case "Sacrifice This Column 1":
-                playerCommand = "user sac 1 1";
-                label.setText(playerCommand);
-                available = true;
-                break;
-            case "Place Card Here Column 2":
-                playerCommand = "user rdy 1 " + cardIndexInHand + " 2";
-                label.setText(playerCommand);
-                available = true;
-                break;
-            case "Sacrifice This Column 2":
-                playerCommand = "user sac 1 2";
-                label.setText(playerCommand);
-                available = true;
-                break;
-            case "Place Card Here Column 3":
-                playerCommand = "user rdy 1 " + cardIndexInHand + " 3";
-                label.setText(playerCommand);
-                available = true;
-                break;
-            case "Sacrifice This Column 3":
-                playerCommand = "user sac 1 3";
-                label.setText(playerCommand);
-                available = true;
-                break;
+            // case "Select Summon with Sacrifice": ////i sacrifice this  dropdown name index sacrifice cost
+            //     playerCommand = "user rdy 2 " + cardIndexInHand;
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            
+            // case "Sacrifice This Column 0":
+            //     playerCommand = "user sac 1 0";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Sacrifice This Column 1":
+            //     playerCommand = "user sac 1 1";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Sacrifice This Column 2":
+            //     playerCommand = "user sac 1 2";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Sacrifice This Column 3":
+            //     playerCommand = "user sac 1 3";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+
+            // case "Sacrifice Summon Here Column 0":
+            //     playerCommand = "user sum 0";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Sacrifice Summon Here Column 1":
+            //     playerCommand = "user sum 1";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Sacrifice Summon Here Column 2":
+            //     playerCommand = "user sum 2";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Sacrifice Summon Here Column 3":
+            //     playerCommand = "user sum 3";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            
+            // case "Direct Summon Here Column 0": 
+            //     playerCommand = "user rdy 1 " + cardIndexInHand + " 0";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Direct Summon Here Column 1":
+            //     playerCommand = "user rdy 1 " + cardIndexInHand + " 1";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Direct Summon Here Column 2":
+            //     playerCommand = "user rdy 1 " + cardIndexInHand + " 2";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
+            // case "Direct Summon Here Column 3":
+            //     playerCommand = "user rdy 1 " + cardIndexInHand + " 3";
+            //     label.setText(playerCommand);
+            //     available = true;
+            //     break;
 
             default:
                 break;
         }
     }
 
+
+    // Helper method to create a section panel with specified label, button count, and button label
+    private static JPanel createSectionPanel1(String label, int buttonCount, String buttonLabel, int columnLabel, ActionListener actionListener1) {
+        int rowcount;
+
+        if (columnLabel == 1) {
+            rowcount = 2;
+        }
+        else {
+            rowcount = 1;
+        }
+
+
+        JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
+        panel.setBorder(BorderFactory.createTitledBorder(label));
+        panel.setPreferredSize(new Dimension(300, 80));
+        if (columnLabel == 1) {
+        
+        for (int i = 0; i < buttonCount; i++) {
+            JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+            panel.add(labelComponent);
+        }
+        }
+
+        for (int i = 0; i < buttonCount; i++) {
+            JButton button = new JButton(buttonLabel + " Column " + i);
+            panel.add(button);
+            button.addActionListener(actionListener1);
+        }
+
+        return panel;
+    }
+
+    private static JPanel createSectionPanel2(String label, int buttonCount, String buttonLabel, int columnLabel, ActionListener actionListener2) {
+        int rowcount;
+
+        if (columnLabel == 1) {
+            rowcount = 2;
+        }
+        else {
+            rowcount = 1;
+        }
+
+
+        JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
+        panel.setBorder(BorderFactory.createTitledBorder(label));
+        panel.setPreferredSize(new Dimension(300, 80));
+        if (columnLabel == 1) {
+        
+        for (int i = 0; i < buttonCount; i++) {
+            JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+            panel.add(labelComponent);
+        }
+        }
+
+        for (int i = 0; i < buttonCount; i++) {
+            JButton button = new JButton(buttonLabel + " Column " + i);
+            panel.add(button);
+            button.addActionListener(actionListener2);
+        }
+
+        return panel;
+    }
+
+    private static JPanel createSectionPanel3(String label, int buttonCount, String buttonLabel, int columnLabel, ActionListener actionListener3) {
+        int rowcount;
+
+        if (columnLabel == 1) {
+            rowcount = 2;
+        }
+        else {
+            rowcount = 1;
+        }
+
+
+        JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
+        panel.setBorder(BorderFactory.createTitledBorder(label));
+        panel.setPreferredSize(new Dimension(300, 80));
+        if (columnLabel == 1) {
+        
+        for (int i = 0; i < buttonCount; i++) {
+            JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+            panel.add(labelComponent);
+        }
+        }
+
+        for (int i = 0; i < buttonCount; i++) {
+            JButton button = new JButton(buttonLabel + " Column " + i);
+            panel.add(button);
+            button.addActionListener(actionListener3);
+        }
+
+        return panel;
+    }
+    
+    
+    
+    
     public boolean commandAvailable() {
         return this.available;
     }
@@ -221,4 +606,9 @@ public class GuiTest implements ActionListener{
         available = false;
         return playerCommand;
     }
+
+
+    // private static JPanel createMajorSectionPanel(String string, int i, String string2, int j) {
+    //     return null;
+    // }
 }

@@ -180,7 +180,12 @@ public class UserInputLocal implements iUserInput {
                             break;
                     }   break;
                 case playerSummon:
-                    switch(args[2])       {
+                    switch(args[2])       {// return (slot)  
+                        //slot:                                             
+                        // 0: Slot                                                                                         
+                        // 1: Slot             
+                        // 2: slot                                                                                    
+                        // 3: Slot               
                         case "0":
                             cmd[0] = 0;
                             cmd[1] = 0;

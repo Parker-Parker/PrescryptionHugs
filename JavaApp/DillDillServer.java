@@ -1,7 +1,11 @@
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class DillDillServer
 {
+    static LinkedList<Card> mDeck = new LinkedList<Card>(Arrays.asList(new Stoat(), new Squirrel(), new WolfCub(), new Coyote(), new Mantis(), new Bullfrog(), new RiverSnapper(), new Alpha(), new Grizzly(), new WolfCub(), new Adder(), new Grizzly(), new Sparrow(), new Bat(), new Grizzly()));
+        
     public static void main(String []args)
     {
         System.out.println("Welcome to Inscryption. Server running");
@@ -41,8 +45,11 @@ public class DillDillServer
         System.out.println("Hit enter when all connections established...");
         System.out.println(cmdIn.nextLine());
         
+    
+        
         String handsString = "";
         int loopctr = 0;
+        /////TODO while true in the future
         for(int i = 0;i<450;i++){
             //update other controllers
             turnCon.executeState();
@@ -63,6 +70,5 @@ public class DillDillServer
             
         }
         
-
     }
 };
