@@ -2,17 +2,17 @@ import java.util.ArrayList;
 
 public class SafeRingBuffer<E> { // Class to allow threadsafe asynchronous access to a ringbuffer
 
-    ArrayList<E> buffer;    // Array in which everything is stored 
-    int head = 0;           //most recent entry
-    int tail = 0;           //oldest entry
+    volatile ArrayList<E> buffer;    // Array in which everything is stored 
+    volatile int head = 0;           //most recent entry
+    volatile int tail = 0;           //oldest entry
 
     // LinkedList<int> x; //just for demo purposes
     // LinkedList<int[]> y;
 
 
-    boolean windowAvail = false; 
-    int lastTicket = 0; 
-    int nowServing = 1;
+    volatile boolean windowAvail = false; 
+    volatile int lastTicket = 0; 
+    volatile int nowServing = 1;
 
     public SafeRingBuffer() {
         this(10);

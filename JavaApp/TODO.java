@@ -1,6 +1,31 @@
 public class TODO{
 int stuff;
 
+    //////////////////////////////////////////////////////
+    //6-30
+    //////////////////////////////////////////////////////
+
+    //TODO:animation class
+        //TODO: holds: field, CardAnimationType(enum), int row, int colunm
+    //add saferingbuffer<animation> to renderer panel
+    //animation function
+    //sigil rendering
+    //calibrate renderer constants to table
+    //fire effect on slot thing
+    //sacrifice/damage effects on slots
+
+    //add animation output handler?
+    //add animation triggers in main
+
+    // Handless mode
+    // 
+    //win/loss condition interrupt
+    //controller to play for carkin on his behalf
+
+    /////////////////////////////////////////////////////
+    //pre 6/30
+    ////////////////////////////////////////////////////
+    
     //TODO:animation queue
     //TODO:Projector Field Output Render client
     //TODO:Projector Field Output Render iNetworkInput that extends GenericNetworkInput and has config cmd in TCPServerMaster

@@ -83,6 +83,10 @@ public class Field {
             playerCards[slot] = card;
             playerCards[slot].setField(this);//not sure why this was commented out?
             playerCards[slot].onSummon(this);
+
+            if(playerCards[slot]!=null){
+                playerCards[slot].setPos(2, slot);
+            }
             // for i 0-3 enemyCards[i].reactSummon()
             return true;
         }
@@ -97,6 +101,10 @@ public class Field {
     
     String blank = "          ";
     String horiz = "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+" + blank.replace(' ', '-') + "+";
+    private TurnController turnController;
+    public void setTurnController(TurnController tc){
+        this.turnController=tc;
+    }
     private String makeLineTitle(Card[] rowCards) {
         String outputString = "|";
         int i;
@@ -350,6 +358,11 @@ public class Field {
             }
         }
 
+        for(int c = 0 ; c< 4;c++){
+            if(enemyCardsBack[c]!=null){enemyCardsBack[c].setPos(0, c);}
+            if(enemyCards[c]!=null){enemyCards[c].setPos(1, c);}
+            if(playerCards[c]!=null){playerCards[c].setPos(2, c);}
+        }
         for(int i = 0; i<25;i++){
             for(int k = 0; k<4;k++){
                 enemyPlannedMoves.get(k).add(new Card("LDeck "+k+" "+i));
@@ -361,7 +374,34 @@ public class Field {
 
     public void enemyPreSummon(Card card, int i) {
     }
+    public void updateCardStats(){
+        for(int i = 0;i<4;i++){
+            if(enemyCards[i]!=null){
+                //buff enemy
+                //get buffs
+                int left  = i>0  ? (enemyCards[i-1]== null ? 0 :  enemyCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                int up    = true ? (playerCards[i] == null ? 0 :  playerCards[i].getBuff(0))  : 0;     // come back and add null handling
+                int right = i<3  ? (enemyCards[i+1]== null ? 0 :  enemyCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                
+                int buff  = left + up + right;
+                enemyCards[i].setAttack(enemyCards[i].getBaseAttack()+buff);
+            }
+            if(playerCards[i]!=null){
+               
+                //get player buffs
+                int left  = i>0  ? (playerCards[i-1]== null ? 0 :  playerCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                int up    = true ? (enemyCards[i]   == null ? 0 :  enemyCards[i].getBuff(0)   ) : 0;     // come back and add null handling
+                int right = i<3  ? (playerCards[i+1]== null ? 0 :  playerCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                
+                int buff  = left + up + right;
+                //this.cardAttack(dmg,source, target)
+                playerCards[i].setAttack(playerCards[i].getBaseAttack()+buff);
 
+            }
+    
+        }
+
+    }
     public void enemyAttack(int i) {
         this.nullCard.setTurn(false);     
         if(enemyCards[i]!=null){
@@ -375,14 +415,23 @@ public class Field {
                     // int up    = enemyCards[i]   == null ? 0 : (true ? enemyCards[i].getBuff(0)    : 0);     // come back and add null handling
                     // int right = playerCards[i+1]== null ? 0 : (i<3  ? playerCards[i+1].getBuff(1) : 0);     // come back and add null handlinge
                     
-                    //get buffs
-                    int left  = i>0  ? (enemyCards[i-1]== null ? 0 :  enemyCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
-                    int up    = true ? (playerCards[i]   == null ? 0 :  playerCards[i].getBuff(0)   ) : 0;     // come back and add null handling
-                    int right = i<3  ? (enemyCards[i+1]== null ? 0 :  enemyCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
-                    
-                    int buff  = left + up + right;
+                            // //get buffs
+                            // int left  = i>0  ? (enemyCards[i-1]== null ? 0 :  enemyCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                            // int up    = true ? (playerCards[i]   == null ? 0 :  playerCards[i].getBuff(0)   ) : 0;     // come back and add null handling
+                            // int right = i<3  ? (enemyCards[i+1]== null ? 0 :  enemyCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                            
+                            // int buff  = left + up + right;
+                            // //this.cardAttack(dmg,source, target)
+                            // int damage = enemyCards[i].getBaseAttack()+buff;
+                        
+                    this.updateCardStats();
+                    this.updateCardStats();
                     //this.cardAttack(dmg,source, target)
-                    int damage = enemyCards[i].getBaseAttack()+buff;
+                    int damage = enemyCards[i].getAttack();
+                   
+                   
+                   
+                   
                     //can actually move i+t(valid target slot 0-3) up here or earlier
                     Card target;
                     if (playerCards[i+t]==null) {target = this.nullCard;} else{target = playerCards[i+t];}//handles null target, code below handles valid case...need to add handling for i+t oob
@@ -396,8 +445,13 @@ public class Field {
                     //              1               x       1       0       hit
                     //              0               x       0       0       
                     //sigils: atk~ airborne def~repulsive leap waterborne // repulsive(prevent attack) should be checked on takeDamage(int,card), i think; only actually takes damage if sourcecard is null, since that would be revenge damagefrom spikes 
-            
                     
+                    if(turnController!=null&&damage>0){
+                        turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Attack);
+                    }
+                    
+
+
                     if(target.checkSigil(Sigils.Waterborne)){// if waterborne, automatic miss(direct HP damage)
                         target = this.nullCard;
                     }
@@ -430,6 +484,15 @@ public class Field {
         if(enemyCards[i]==null){
             enemyCards[i]=enemyCardsBack[i];
             enemyCardsBack[i]=null;
+            if(enemyCards[i]!=null){
+                enemyCards[i].setPos(1, i);
+                this.updateCardStats();
+            }
+
+
+            if(turnController!=null){
+                turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.MoveDown);
+            }
         }
     }
 
@@ -446,14 +509,21 @@ public class Field {
                     // int up    = enemyCards[i]   == null ? 0 : (true ? enemyCards[i].getBuff(0)    : 0);     // come back and add null handling
                     // int right = playerCards[i+1]== null ? 0 : (i<3  ? playerCards[i+1].getBuff(1) : 0);     // come back and add null handlinge
                     
-                    //get buffs
-                    int left  = i>0  ? (playerCards[i-1]== null ? 0 :  playerCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
-                    int up    = true ? (enemyCards[i]   == null ? 0 :  enemyCards[i].getBuff(0)   ) : 0;     // come back and add null handling
-                    int right = i<3  ? (playerCards[i+1]== null ? 0 :  playerCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
-                    
-                    int buff  = left + up + right;
-                    //this.cardAttack(dmg,source, target)
-                    int damage = playerCards[i].getBaseAttack()+buff;
+                            // //get buffs
+                            // int left  = i>0  ? (playerCards[i-1]== null ? 0 :  playerCards[i-1].getBuff(-1))  : 0;     // come back and add null handling
+                            // int up    = true ? (enemyCards[i]   == null ? 0 :  enemyCards[i].getBuff(0)   ) : 0;     // come back and add null handling
+                            // int right = i<3  ? (playerCards[i+1]== null ? 0 :  playerCards[i+1].getBuff(1)) : 0;     // come back and add null handlinge
+                            
+                            // int buff  = left + up + right;
+                            // //this.cardAttack(dmg,source, target)
+                            // int damage = playerCards[i].getBaseAttack()+buff;
+
+
+                    this.updateCardStats();
+                    this.updateCardStats();
+                    int damage = playerCards[i].getAttack();
+
+
                     //can actually move i+t(valid target slot 0-3) up here or earlier
                     Card target;
                     if (enemyCards[i+t]==null) {target = this.nullCard;} else{target = enemyCards[i+t];}//handles null target, code below handles valid case...need to add handling for i+t oob
@@ -546,6 +616,9 @@ public class Field {
         
     }
     public boolean playCard(int i, int slot) {
+        if(hand.size()>i && hand.get(i)!=null){
+            hand.get(i).setPos(2, slot);
+        }
         return hand.size()>i ?playCard(hand.get(i), slot):false;
     }
     
@@ -645,6 +718,12 @@ public class Field {
                     enemyCardsBack[i] = enemyPlannedMoves.get(i).pop();
                     if(enemyCardsBack[i] != null){
                         enemyCardsBack[i].setField(this);
+                        enemyCardsBack[i].setPos(0,i);
+
+
+                        if(turnController!=null){
+                            turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 0, i, Animations.EnterTop);
+                        }
                     }
                     
                 }
@@ -733,6 +812,9 @@ public class Field {
     }
     public void setHoriz(String horiz) {
         this.horiz = horiz;
+    }
+    public TurnController getTurnController() {
+        return turnController;
     }    
     public LinkedList<Card> deepCopyDeck(LinkedList<Card> deck){
         LinkedList<Card> newDeck = new LinkedList<Card>();

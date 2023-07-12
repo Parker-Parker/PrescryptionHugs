@@ -23,6 +23,9 @@ public class Card implements iCard {
     String imgFileLoc = "";
     Object image = null;
     public int value = 1;
+
+    int row = 0;
+    int col = 0;
     
 
     boolean dead = false;
@@ -113,6 +116,8 @@ public class Card implements iCard {
 
     public void onSummon(Field field) {
         this.field = field;
+
+        this.field.updateCardStats();
     }
 
 
@@ -150,8 +155,13 @@ public class Card implements iCard {
     public int takeDamage(int damage, Card card) {
         int overflow = damage>health ? damage-health : 0;
         if(damage>0){
-
             this.health = this.health - damage;
+
+
+            if(this.field!=null&&this.field.getTurnController()!=null){
+                field.getTurnController().ioHandler.getObserverOutputHandler().publishAnim(this.field, row, col, Animations.Hurt);
+            }
+
             if(this.health <= 0){this.die();}
             if(checkSigil(Sigils.SharpQuills)){
                 if(!(card == null)){
@@ -179,11 +189,17 @@ public class Card implements iCard {
         return dead;
     }
     public void die(){
+
+        if(this.field!=null&&this.field.getTurnController()!=null){
+            field.getTurnController().ioHandler.getObserverOutputHandler().publishAnim(this.field, row, col, Animations.Die);
+        }
+
         //do ouroboros
         this.dead = true;
         //field.purgeDead();//we can try a field.purgeThis(Card) too
         System.out.println(title+" has perished");
         field.purge(this);
+        field.updateCardStats();
     }
     public void setField(Field field){
         this.field = field;
@@ -283,5 +299,11 @@ public class Card implements iCard {
     public void setAttackLists(int[][] attackLists) {
         this.attackLists = attackLists;
     }
+
+    public void setPos(int r,int c){
+        row = r;
+        col = c;
+    }
+
 }
 

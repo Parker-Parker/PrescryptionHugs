@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.LinkedList;
 
@@ -38,6 +39,35 @@ public class ObserverOutputHandler {
         }
 
     }    
+    public void publishAnim(Field field,  int cardRow, int cardColumn, Animations animation){
+        EnumMap<ObserverTopics, String> animSerializedByTopic = new EnumMap<>(ObserverTopics.class);
+        animSerializedByTopic = this.serializeAnimation(field, cardRow, cardColumn, animation);
+        for(iObserverOutput output : observerOutputs){
+            if(output.checkSub(ObserverTopics.Animations)){
+                output.push(animSerializedByTopic);
+            }
+        }
+
+    }    
+    private EnumMap<ObserverTopics, String> serializeAnimation(Field field, int cardRow, int cardColumn, Animations animation) {
+        EnumMap<ObserverTopics, String> animSerializedByTopic = new EnumMap<>(ObserverTopics.class);
+        //Field/state
+        animSerializedByTopic.put(ObserverTopics.EnemyCardsBack,      this.serializeEnemyCardsBack(field)       );                     
+        animSerializedByTopic.put(ObserverTopics.EnemyCards,          this.serializeEnemyCards(field)           );             
+        animSerializedByTopic.put(ObserverTopics.PlayerCards,         this.serializePlayerCards(field)          );           
+        animSerializedByTopic.put(ObserverTopics.Hand,                this.serializeHand(field)                 );                          
+        animSerializedByTopic.put(ObserverTopics.Sacrifices,          this.serializeSacrifices(field)           );            
+        animSerializedByTopic.put(ObserverTopics.MainDeck,            this.serializeMainDeck(field)             );           
+        animSerializedByTopic.put(ObserverTopics.SideDeck,            this.serializeSideDeck(field)             );   
+        animSerializedByTopic.put(ObserverTopics.EnemyPlannedMoves,   this.serializeEnemyPlannedMoves(field)    );             
+        // fieldSerializedByTopic.put(ObserverTopics.scale,               this.serializescale(field)                );  //make all this state
+        // fieldSerializedByTopic.put(ObserverTopics.Candles,             this.serializeCandles(field)              );    
+        // fieldSerializedByTopic.put(ObserverTopics.TurnControllerState, this.serializeTurnControllerState(field)  ); 
+         
+        animSerializedByTopic.put(ObserverTopics.Animations,          this.serializeAnimationData(cardRow, cardColumn, animation)    );    
+        return animSerializedByTopic;
+    }
+
     public void requestLatest(iObserverOutput output){
         output.push(latest);
 
@@ -163,6 +193,13 @@ public class ObserverOutputHandler {
 
         return serMoves;
     }
+    
+    private String serializeAnimationData(int cardRow, int cardColumn, Animations animation){
+        return  animation==null?
+                    ("Animations:"+cardRow+" "+cardColumn+" "+Animations.Idle.ordinal()):
+                    ("Animations:"+cardRow+" "+cardColumn+" "+animation.ordinal());
+    }
+    
 
     
     public EnumMap<ObserverTopics, String> deserializeTopics(String messageString) {
@@ -523,10 +560,122 @@ public class ObserverOutputHandler {
         return null;
         
     }
+
+    public void deserializeAnim(EnumMap<ObserverTopics, String> topicStrings, Field resultField, Animations[][] animations) {
+            deserializeField(resultField, topicStrings);
+            deserializeAnimData(animations, topicStrings);
+    }
+
+    private Animations[][] deserializeAnimData(Animations[][] animations, EnumMap<ObserverTopics, String> topicStrings) {
+        if((animations==null)||(animations.length!=3)){
+            animations = new Animations[3][4];
+            for(int i = 0; i<3; i++){
+                animations[i] = null;
+            }
+        }
+        
+        for(int i = 0; i<3; i++){
+            if((animations[i]==null)||(animations[i].length!=4)){
+                animations[i] = new Animations[4];
+            }
+        }
+        //null checking^
+        //Actual func
+
+        String topicStr = topicStrings.get(ObserverTopics.Animations);
+        int row = 0;
+        int col = 0;
+        Animations anim = Animations.Idle;
+    
+        if(topicStr!=null){
+            String[] topStrs = topicStr.split(":");
+            if((topStrs!=null)&&(topStrs.length==2)&&(topStrs[0]!=null)&&(topStrs[1]!=null)&&(topStrs[0].equalsIgnoreCase(ObserverTopics.Animations.name())) ){
+                try{
+                    String[] args = topStrs[1].split(" ");
+                    if((args!=null)&&(args.length==3)&&(args[0]!=null)&&(!args[0].isEmpty())&&(args[1]!=null)&&(!args[1].isEmpty())&&(args[2]!=null)&&(!args[2].isEmpty())) {
+                        row = Integer.parseInt(args[0]);
+                        col = Integer.parseInt(args[1]);
+                        int ord = Integer.parseInt(args[2]);
+                        anim = Animations.Idle;
+                        for(Animations a : Animations.values()){
+                            anim = a.ordinal()==ord? a: anim;
+                        }
+                        
+                    }
+                    else{
+                        row = 0;
+                        col = 0;
+                        anim = Animations.Idle;
+                    }
+
+
+
+
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                    row = 0;
+                    col = 0;
+                    anim = Animations.Idle;
+                }
+            }
+            else{
+                row = 0;
+                col = 0;
+                anim = Animations.Idle;
+            }
+        } 
+        else{
+            row = 0;
+            col = 0;
+            anim = Animations.Idle;
+        }
+        ///finale
+        for(int r = 0; r<3; r++){
+            for(int c = 0; c<4; c++){
+                if(row==r && c == col){
+                    animations[r][c] = anim;
+                }
+                else{
+                    animations[r][c] = Animations.Idle;
+                }
+            }
+        }
+
+        return animations;
+
+    }
+    
+    // private String serializeAnimationData(int cardRow, int cardColumn, Animations animation){
+    //     return  animation==null?
+    //                 ("Animations:"+cardRow+" "+cardColumn+" "+Animations.Idle.ordinal()):
+    //                 ("Animations:"+cardRow+" "+cardColumn+" "+animation.ordinal());
+    // }
     
 
-
-
+    // public void deserializeField(Field field, EnumMap<ObserverTopics, String> fieldSerializedByTopic) {
+    //     //Field/state
+    //     Card[] setEnemyCardsBack =                            this.deserializeEnemyCardsBack(fieldSerializedByTopic.get(ObserverTopics.EnemyCardsBack));                     
+    //     Card[] setEnemyCards =                                this.deserializeEnemyCards(fieldSerializedByTopic.get(ObserverTopics.EnemyCards));             
+    //     Card[] setPlayerCards =                               this.deserializePlayerCards(fieldSerializedByTopic.get(ObserverTopics.PlayerCards));           
+    //     LinkedList<Card> setHand =                            this.deserializeHand(fieldSerializedByTopic.get(ObserverTopics.Hand));                          
+    //     LinkedList<Card> setSacrifices =                      this.deserializeSacrifices(fieldSerializedByTopic.get(ObserverTopics.Sacrifices));            
+    //     LinkedList<Card> setMainDeck =                        this.deserializeMainDeck(fieldSerializedByTopic.get(ObserverTopics.MainDeck));           
+    //     LinkedList<Card> setSideDeck =                        this.deserializeSideDeck(fieldSerializedByTopic.get(ObserverTopics.SideDeck));   
+    //     ArrayList<LinkedList<Card>> setEnemyPlannedMoves =    this.deserializeEnemyPlannedMoves(fieldSerializedByTopic.get(ObserverTopics.EnemyPlannedMoves));
+    //     //Field/state
+    //     field.setEnemyCardsBack(      (setEnemyCardsBack ==null)      ? field.getEnemyCardsBack(    ) : (setEnemyCardsBack)                 );                     
+    //     field.setEnemyCards(          (setEnemyCards ==null)          ? field.getEnemyCards(        ) : (setEnemyCards)                 );             
+    //     field.setPlayerCards(         (setPlayerCards ==null)         ? field.getPlayerCards(       ) : (setPlayerCards)                    );           
+    //     field.setHand(                (setHand ==null)                ? field.getHand(              ) : (setHand)                   );                          
+    //     field.setSacrifices(          (setSacrifices ==null)          ? field.getSacrifices(        ) : (setSacrifices)                 );            
+    //     field.setMainDeck(            (setMainDeck ==null)            ? field.getMainDeck(          ) : (setMainDeck)                   );           
+    //     field.setSideDeck(            (setSideDeck ==null)            ? field.getSideDeck(          ) : (setSideDeck)                   );   
+    //     field.setEnemyPlannedMoves(   (setEnemyPlannedMoves ==null)   ? field.getEnemyPlannedMoves( ) : (setEnemyPlannedMoves)                  );
+        
+                
+    // }
 
 
 

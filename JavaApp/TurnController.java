@@ -12,6 +12,7 @@ public class TurnController {
 
     public TurnController(Field inField){
         this.field = inField;
+        this.field.setTurnController(this);
         this.state = TurnState.playerDeal;
         // this.user = new UserInputHandler();
         this.ioHandler = new InputOutputHandler();
@@ -19,6 +20,10 @@ public class TurnController {
 
     public Field getField(){
         return this.field;
+    }
+    public void setField(Field f){
+        this.field = f;
+        this.field.setTurnController(this);
     }
 
     public void setState(TurnState newState){

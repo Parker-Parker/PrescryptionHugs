@@ -30,6 +30,12 @@
         },
         {
             "type": "java",
+            "name": "auto",
+            "request": "launch",
+            "mainClass": "autoplayClient"
+        },
+        {
+            "type": "java",
             "name": "TestNetServer",
             "request": "launch",
             "mainClass": "TestNetServer"
@@ -63,6 +69,12 @@
             "name": "DillonClient",
             "request": "launch",
             "mainClass": "DillDillClient"
+        },
+        {
+            "type": "java",
+            "name": "RendererAnimWindow",
+            "request": "launch",
+            "mainClass": "FieldRendererWindowAnimClient"
         }
     ],
     "compounds": [
@@ -85,6 +97,14 @@
         {
             "name": "TestDillDill",
             "configurations": ["DillonClient", "DillonServer", "RendererWindow"]
+        },
+        {
+            "name": "TestNetAnimRender",
+            "configurations": ["TestNetServer","TestNetClient", "RendererAnimWindow"]
+        },
+        {
+            "name": "TestNetAnimRenderAuto",
+            "configurations": ["TestNetServer","auto", "RendererAnimWindow"]
         }
     ]
     
