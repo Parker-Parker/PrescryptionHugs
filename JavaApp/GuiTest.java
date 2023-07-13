@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -33,6 +35,10 @@ public class GuiTest implements ActionListener{
     Object selDrop;
     int selDropLen;
     String selDropIndex;
+    private static String bckColor = "#181818";
+    private static String butColor = "#710C04";
+    private static String txtColor = "#DDDDDD";
+    
 
 
     public GuiTest() {
@@ -40,10 +46,18 @@ public class GuiTest implements ActionListener{
         frame = new JFrame();
 
         JButton drawMainButton = new JButton("Player Draw Main");
+        drawMainButton.setBackground(Color.decode(butColor));
+        drawMainButton.setForeground(Color.decode(txtColor));
         JButton drawSquirrelButton = new JButton("Player Draw Squirrel");
+        drawSquirrelButton.setBackground(Color.decode(butColor));
+        drawSquirrelButton.setForeground(Color.decode(txtColor));
         JButton readyButton = new JButton("Player Ready");
+        readyButton.setBackground(Color.decode(butColor));
+        readyButton.setForeground(Color.decode(txtColor));
         //JButton sacrificeButton = new JButton("Select Summon with Sacrifice");
         JButton cancelSacButton = new JButton("Cancel Sacrifice");
+        cancelSacButton.setBackground(Color.decode(butColor));
+        cancelSacButton.setForeground(Color.decode(txtColor));
         // // JButton null2Button = new JButton("");
 
         // //column 0
@@ -125,9 +139,11 @@ public class GuiTest implements ActionListener{
         grid = new GridLayout(0, 1);
         selGrid = new GridLayout(0, 2);
         label = new JLabel("");
+        label.setForeground(Color.decode(txtColor));
 
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        panel.setBackground(Color.decode(bckColor));
         panel.setLayout(grid);
         // panel.add(null2Button);
         // panel.add(sacThisButton0);
@@ -161,15 +177,21 @@ public class GuiTest implements ActionListener{
         }        
         ////////TODO populate mDeck with what tony has for cards
         dropdown = new JComboBox<>(options);
+        dropdown.setBackground(Color.decode(butColor));
+        dropdown.setForeground(Color.decode(txtColor));
 
         // Create the confirm button
         JButton confirmButton = new JButton("Confirm");
+        confirmButton.setBackground(Color.decode(butColor));
+        confirmButton.setForeground(Color.decode(txtColor));
 
 
 ////////////////////////////////////////////////////////////////////
         // panel.add(sacrificeSummonPanel);
         JPanel selPanel = new JPanel();
         selPanel.setLayout(selGrid);
+        selPanel.setBackground(Color.decode(bckColor));
+        selPanel.setForeground(Color.decode(txtColor));
         selPanel.add(dropdown);
         selPanel.add(confirmButton);
 
@@ -177,9 +199,14 @@ public class GuiTest implements ActionListener{
 
         panel.add(selPanel);
         sacInfo = new JLabel("Sacrifices Needed: " + 0);   //////////TODO link 0 with confirm button click with the actual sac cost of each of the cards in mdeck hashmap? array list?
+        sacInfo.setForeground(Color.decode(txtColor));
         JPanel sacNeededPanel = new JPanel();
         sacNeededPanel.setLayout(grid);
-        sacNeededPanel.setBorder(BorderFactory.createTitledBorder("Summoning Info"));
+        sacNeededPanel.setBackground(Color.decode(bckColor));
+        sacNeededPanel.setForeground(Color.decode(txtColor));
+        TitledBorder sumInfoBorder = BorderFactory.createTitledBorder("Summoning Info");
+        sacNeededPanel.setBorder(sumInfoBorder);
+        sumInfoBorder.setTitleColor(Color.decode(txtColor));
         sacNeededPanel.add(sacInfo);
         panel.add(sacNeededPanel);
 
@@ -228,6 +255,8 @@ public class GuiTest implements ActionListener{
         };
 
         JPanel directSummonPanel = createSectionPanel1("Direct Summon", 4, "Direct Summon Here", 1, actionListener1);
+        directSummonPanel.setBackground(Color.decode(bckColor));
+        directSummonPanel.setForeground(Color.decode(txtColor));
         panel.add(directSummonPanel);
 
         //panel.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing between sections
@@ -276,8 +305,14 @@ public class GuiTest implements ActionListener{
 
         JPanel sacPanel = new JPanel();
         sacPanel.setLayout(grid);
-        sacPanel.setBorder(BorderFactory.createTitledBorder("Sacrifice"));     
+        sacPanel.setBackground(Color.decode(bckColor));
+        sacPanel.setForeground(Color.decode(txtColor));
+        TitledBorder sacPanelBorder = BorderFactory.createTitledBorder("Sacrifice");
+        sacPanel.setBorder(sacPanelBorder);
+        sacPanelBorder.setTitleColor(Color.decode(txtColor));     
         JPanel sacrificeWhichCardPanel = createSectionPanel2("Sacrifice Which Cards", 4, "Sacrifice This Card", 0, actionListener2);
+        sacrificeWhichCardPanel.setBackground(Color.decode(bckColor));
+        sacrificeWhichCardPanel.setForeground(Color.decode(txtColor));
         sacPanel.add(sacrificeWhichCardPanel);
 
 ////////////////////////////////////////////////////////////////////
@@ -325,6 +360,8 @@ public class GuiTest implements ActionListener{
         };
 
         JPanel sacrificeSummonHerePanel = createSectionPanel3( "Summon From Sacrifices", 4,"Sac Summon Here", 0, actionListener3);
+        sacrificeSummonHerePanel.setBackground(Color.decode(bckColor));
+        sacrificeSummonHerePanel.setForeground(Color.decode(txtColor));
         sacPanel.add(sacrificeSummonHerePanel);
         
         sacPanel.add(cancelSacButton);
@@ -336,6 +373,8 @@ public class GuiTest implements ActionListener{
 // Bottom Buttons///////////////////////////////////////////////////
         
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        bottomPanel.setBackground(Color.decode(bckColor));
+        bottomPanel.setForeground(Color.decode(txtColor));
        
 ////////////////////////////////////////////////////////////////////
 
@@ -512,20 +551,24 @@ public class GuiTest implements ActionListener{
             rowcount = 1;
         }
 
-
         JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
-        panel.setBorder(BorderFactory.createTitledBorder(label));
+        TitledBorder panelBorder = BorderFactory.createTitledBorder(label);
+        panel.setBorder(panelBorder);
+        panelBorder.setTitleColor(Color.decode(txtColor));
         panel.setPreferredSize(new Dimension(300, 80));
         if (columnLabel == 1) {
         
         for (int i = 0; i < buttonCount; i++) {
             JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+            labelComponent.setForeground(Color.decode(txtColor));
             panel.add(labelComponent);
         }
         }
 
         for (int i = 0; i < buttonCount; i++) {
             JButton button = new JButton(buttonLabel + " Column " + i);
+            button.setBackground(Color.decode(butColor));
+            button.setForeground(Color.decode(txtColor));
             panel.add(button);
             button.addActionListener(actionListener1);
         }
@@ -545,7 +588,9 @@ public class GuiTest implements ActionListener{
 
 
         JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
-        panel.setBorder(BorderFactory.createTitledBorder(label));
+        TitledBorder panelBorder = BorderFactory.createTitledBorder(label);
+        panel.setBorder(panelBorder);
+        panelBorder.setTitleColor(Color.decode(txtColor));
         panel.setPreferredSize(new Dimension(300, 80));
         if (columnLabel == 1) {
         
@@ -557,6 +602,8 @@ public class GuiTest implements ActionListener{
 
         for (int i = 0; i < buttonCount; i++) {
             JButton button = new JButton(buttonLabel + " Column " + i);
+            button.setBackground(Color.decode(butColor));
+            button.setForeground(Color.decode(txtColor));
             panel.add(button);
             button.addActionListener(actionListener2);
         }
@@ -576,7 +623,9 @@ public class GuiTest implements ActionListener{
 
 
         JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
-        panel.setBorder(BorderFactory.createTitledBorder(label));
+        TitledBorder panelBorder = BorderFactory.createTitledBorder(label);
+        panel.setBorder(panelBorder);
+        panelBorder.setTitleColor(Color.decode(txtColor));
         panel.setPreferredSize(new Dimension(300, 80));
         if (columnLabel == 1) {
         
@@ -588,6 +637,8 @@ public class GuiTest implements ActionListener{
 
         for (int i = 0; i < buttonCount; i++) {
             JButton button = new JButton(buttonLabel + " Column " + i);
+            button.setBackground(Color.decode(butColor));
+            button.setForeground(Color.decode(txtColor));
             panel.add(button);
             button.addActionListener(actionListener3);
         }
