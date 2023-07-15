@@ -4,44 +4,56 @@ import java.util.Scanner;
 
 class DillDillClient {
     public static void main(String argv[]) throws Exception {
-        String hostName = "localhost";
-        int port = 5433;
-        //parse args?
+
+        // parse args?
         String sentence;
         // String modifiedSentence;
 
         Field field = new Field();
         ObserverOutputHandler observerParser = new ObserverOutputHandler();
-        
+
         GuiTest GUI = new GuiTest();
-        
-        // BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-        Scanner inFromUser = new Scanner(System.in);
-        
-        System.out.println("Press enter to connect to "+hostName+":"+port);
+        Ipguistarter IPGUI = new Ipguistarter("Controller Client IP and Port Connection");
+
+        // BufferedReader inFromUser = new BufferedReader(new
+        // InputStreamReader(System.in));
+        // Scanner inFromUser = new Scanner(System.in);
+
+        System.out.println("Waiting to connect");
         // sentence = inFromUser.readLine();
-        sentence = inFromUser.nextLine();
-        System.out.println("oy");
-        Socket clientSocket = new Socket("localhost", 5433);
+        // sentence = inFromUser.nextLine();
+
+        while (IPGUI.connectionReady != true) {
+            // System.out.println("no");
+        }
+
+        String hostName = IPGUI.getipaddress();
+        int port = IPGUI.getport();
+
+        System.out.println(hostName + " " + port);
+        Socket clientSocket = new Socket(hostName, port);
         System.out.println("yoooooooooooooooooo");
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
         Scanner inFromServer = new Scanner(clientSocket.getInputStream());
-        
-        String fieldString = "";
 
-        while(true){
+        String fieldString = "";
+        sentence = "bloop bloop please connect";
+        outToServer.writeBytes(sentence + '\n');
+        outToServer.flush();
+
+        while (true) {
 
             // if(inFromUser.hasNextLine()){
-            if(GUI.commandAvailable()){
+            if (GUI.commandAvailable()) {
 
-                System.out.println(System.in.available()+":"+clientSocket.getInputStream().available()); //debug
+                System.out.println(System.in.available() + ":" + clientSocket.getInputStream().available()); // debug
                 // sentence = inFromUser.readLine();
-                sentence = GUI.getCommand();             
+                sentence = GUI.getCommand();
                 outToServer.writeBytes(sentence + '\n');
                 outToServer.flush();
             }
             // if(inFromServer.hasNextLine()){
-            if(clientSocket.getInputStream().available()>0){
+            if (clientSocket.getInputStream().available() > 0) {
                 // sentence = inFromUser.readLine();
 
                 fieldString = inFromServer.nextLine();
@@ -49,25 +61,21 @@ class DillDillClient {
                 observerParser.deserializeField(field, observerParser.deserializeTopics(fieldString));
                 // System.out.println(fieldString);
 
-
-
                 // for(ObserverTopics top : ObserverTopics.values()){
-                //     System.out.println(top.name()+": "+observerParser.deserializeTopics(fieldString).get(top));
+                // System.out.println(top.name()+":
+                // "+observerParser.deserializeTopics(fieldString).get(top));
                 // }
 
-
-                // System.out.println( field.getEnemyCardsBack(    ) );                     
-                // System.out.println( field.getEnemyCards(        ) );             
-                // System.out.println( field.getPlayerCards(       ) );           
-                // System.out.println( field.getHand(              ) );                          
-                // System.out.println( field.getSacrifices(        ) );            
-                // System.out.println( field.getMainDeck(          ) );           
-                // System.out.println( field.getSideDeck(          ) );   
+                // System.out.println( field.getEnemyCardsBack( ) );
+                // System.out.println( field.getEnemyCards( ) );
+                // System.out.println( field.getPlayerCards( ) );
+                // System.out.println( field.getHand( ) );
+                // System.out.println( field.getSacrifices( ) );
+                // System.out.println( field.getMainDeck( ) );
+                // System.out.println( field.getSideDeck( ) );
                 // System.out.println( field.getEnemyPlannedMoves( ) );
 
                 field.printField();
-
-
 
             }
 

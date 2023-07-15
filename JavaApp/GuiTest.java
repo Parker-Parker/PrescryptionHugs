@@ -19,9 +19,8 @@ import javax.swing.border.TitledBorder;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+public class GuiTest implements ActionListener {
 
-public class GuiTest implements ActionListener{
-    
     private JLabel label;
     private JLabel sacInfo;
     private JFrame frame;
@@ -38,8 +37,6 @@ public class GuiTest implements ActionListener{
     private static String bckColor = "#181818";
     private static String butColor = "#710C04";
     private static String txtColor = "#DDDDDD";
-    
-
 
     public GuiTest() {
 
@@ -54,7 +51,7 @@ public class GuiTest implements ActionListener{
         JButton readyButton = new JButton("Player Ready");
         readyButton.setBackground(Color.decode(butColor));
         readyButton.setForeground(Color.decode(txtColor));
-        //JButton sacrificeButton = new JButton("Select Summon with Sacrifice");
+        // JButton sacrificeButton = new JButton("Select Summon with Sacrifice");
         JButton cancelSacButton = new JButton("Cancel Sacrifice");
         cancelSacButton.setBackground(Color.decode(butColor));
         cancelSacButton.setForeground(Color.decode(txtColor));
@@ -70,7 +67,8 @@ public class GuiTest implements ActionListener{
         // // JButton Button8 = new JButton("Other");
 
         // JButton sacThisButton0 = new JButton("Sacrifice This Column 0");
-        // JButton sacrificeSummonButton0 = new JButton("Sacrifice Summon Here Column 0");
+        // JButton sacrificeSummonButton0 = new JButton("Sacrifice Summon Here Column
+        // 0");
         // JButton directSummonButton0 = new JButton("Direct Summon Here Column 0");
         // //JButton Button11 = new JButton("Other");
 
@@ -84,7 +82,8 @@ public class GuiTest implements ActionListener{
         // // JButton Button81 = new JButton("Other");
 
         // JButton sacThisButton1 = new JButton("Sacrifice This Column 1");
-        // JButton sacrificeSummonButton1 = new JButton("Sacrifice Summon Here Column 1");
+        // JButton sacrificeSummonButton1 = new JButton("Sacrifice Summon Here Column
+        // 1");
         // JButton directSummonButton1 = new JButton("Direct Summon Here Column 1");
         // //JButton Button11 = new JButton("Other");
 
@@ -98,7 +97,8 @@ public class GuiTest implements ActionListener{
         // // JButton Button82 = new JButton("Other");
 
         // JButton sacThisButton2 = new JButton("Sacrifice This Column 2");
-        // JButton sacrificeSummonButton2 = new JButton("Sacrifice Summon Here Column 2");
+        // JButton sacrificeSummonButton2 = new JButton("Sacrifice Summon Here Column
+        // 2");
         // JButton directSummonButton2 = new JButton("Direct Summon Here Column 2");
         // //JButton Button11 = new JButton("Other");
 
@@ -112,9 +112,10 @@ public class GuiTest implements ActionListener{
         // // JButton Button83 = new JButton("Other");
 
         // JButton sacThisButton3 = new JButton("Sacrifice This Column 3");
-        // JButton sacrificeSummonButton3 = new JButton("Sacrifice Summon Here Column 3");
+        // JButton sacrificeSummonButton3 = new JButton("Sacrifice Summon Here Column
+        // 3");
         // JButton directSummonButton3 = new JButton("Direct Summon Here Column 3");
-        //JButton Button11 = new JButton("Other");
+        // JButton Button11 = new JButton("Other");
 
         // drawMainButton.addActionListener(this);
         // drawSquirrelButton.addActionListener(this);
@@ -134,8 +135,6 @@ public class GuiTest implements ActionListener{
         // directSummonButton2.addActionListener(this);
         // directSummonButton3.addActionListener(this);
 
-
-        
         grid = new GridLayout(0, 1);
         selGrid = new GridLayout(0, 2);
         label = new JLabel("");
@@ -155,7 +154,7 @@ public class GuiTest implements ActionListener{
         // panel.add(sacrificeSummonButton2);
         // panel.add(sacrificeSummonButton3);
         // panel.add(directSummonButton0);
-        // panel.add(directSummonButton1); 
+        // panel.add(directSummonButton1);
         // panel.add(directSummonButton2);
         // panel.add(directSummonButton3);
         // panel.add(drawMainButton);
@@ -173,9 +172,9 @@ public class GuiTest implements ActionListener{
             Card card = mDeckSacCopy.get(i);
             String name = card.title;
             int sacrificeCost = card.cost;
-            options[i] = i + ": " + name + " (Sacrifice Cost: " + sacrificeCost +")";
-        }        
-        ////////TODO populate mDeck with what tony has for cards
+            options[i] = i + ": " + name + " (Sacrifice Cost: " + sacrificeCost + ")";
+        }
+        //////// TODO populate mDeck with what tony has for cards
         dropdown = new JComboBox<>(options);
         dropdown.setBackground(Color.decode(butColor));
         dropdown.setForeground(Color.decode(txtColor));
@@ -185,8 +184,7 @@ public class GuiTest implements ActionListener{
         confirmButton.setBackground(Color.decode(butColor));
         confirmButton.setForeground(Color.decode(txtColor));
 
-
-////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////
         // panel.add(sacrificeSummonPanel);
         JPanel selPanel = new JPanel();
         selPanel.setLayout(selGrid);
@@ -198,7 +196,9 @@ public class GuiTest implements ActionListener{
         confirmButton.addActionListener(this);
 
         panel.add(selPanel);
-        sacInfo = new JLabel("Sacrifices Needed: " + 0);   //////////TODO link 0 with confirm button click with the actual sac cost of each of the cards in mdeck hashmap? array list?
+        sacInfo = new JLabel("Sacrifices Needed: " + 0); ////////// TODO link 0 with confirm button click with the
+                                                         ////////// actual sac cost of each of the cards in mdeck
+                                                         ////////// hashmap? array list?
         sacInfo.setForeground(Color.decode(txtColor));
         JPanel sacNeededPanel = new JPanel();
         sacNeededPanel.setLayout(grid);
@@ -210,17 +210,18 @@ public class GuiTest implements ActionListener{
         sacNeededPanel.add(sacInfo);
         panel.add(sacNeededPanel);
 
-        //panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between sections
-////////////////////////////////////////////////////////////////////
-// First Section - Direct Summon Cards//////////////////////////////
-        
+        // panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between
+        // sections
+        ////////////////////////////////////////////////////////////////////
+        // First Section - Direct Summon Cards//////////////////////////////
+
         ActionListener actionListener1 = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String actionCommand1 = e.getActionCommand();
                 if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
                     switch (actionCommand1) {
-                        case "Direct Summon Here Column 0": 
+                        case "Direct Summon Here Column 0":
                             playerCommand = "user rdy 1 " + selDropIndex + " 0";
                             label.setText(playerCommand);
                             available = true;
@@ -247,8 +248,7 @@ public class GuiTest implements ActionListener{
                         default:
                             break;
                     }
-                }
-                else {
+                } else {
 
                 }
             }
@@ -259,10 +259,11 @@ public class GuiTest implements ActionListener{
         directSummonPanel.setForeground(Color.decode(txtColor));
         panel.add(directSummonPanel);
 
-        //panel.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing between sections
-//////////////////////////////////////////////////////////////////
-// Second Section - Sacrifice Which Card////////////////////////////
-        
+        // panel.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing between
+        // sections
+        //////////////////////////////////////////////////////////////////
+        // Second Section - Sacrifice Which Card////////////////////////////
+
         ActionListener actionListener2 = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -296,8 +297,7 @@ public class GuiTest implements ActionListener{
                         default:
                             break;
                     }
-                }
-                else {
+                } else {
 
                 }
             }
@@ -309,19 +309,20 @@ public class GuiTest implements ActionListener{
         sacPanel.setForeground(Color.decode(txtColor));
         TitledBorder sacPanelBorder = BorderFactory.createTitledBorder("Sacrifice");
         sacPanel.setBorder(sacPanelBorder);
-        sacPanelBorder.setTitleColor(Color.decode(txtColor));     
-        JPanel sacrificeWhichCardPanel = createSectionPanel2("Sacrifice Which Cards", 4, "Sacrifice This Card", 0, actionListener2);
+        sacPanelBorder.setTitleColor(Color.decode(txtColor));
+        JPanel sacrificeWhichCardPanel = createSectionPanel2("Sacrifice Which Cards", 4, "Sacrifice This Card", 0,
+                actionListener2);
         sacrificeWhichCardPanel.setBackground(Color.decode(bckColor));
         sacrificeWhichCardPanel.setForeground(Color.decode(txtColor));
         sacPanel.add(sacrificeWhichCardPanel);
 
-////////////////////////////////////////////////////////////////////
-// Third Section - Sacrifice Summon Here////////////////////////////
+        ////////////////////////////////////////////////////////////////////
+        // Third Section - Sacrifice Summon Here////////////////////////////
 
         ActionListener actionListener3 = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 String actionCommand3 = e.getActionCommand();
                 if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
                     switch (actionCommand3) {
@@ -352,51 +353,49 @@ public class GuiTest implements ActionListener{
                         default:
                             break;
                     }
-                }
-                else {
+                } else {
 
                 }
             }
         };
 
-        JPanel sacrificeSummonHerePanel = createSectionPanel3( "Summon From Sacrifices", 4,"Sac Summon Here", 0, actionListener3);
+        JPanel sacrificeSummonHerePanel = createSectionPanel3("Summon From Sacrifices", 4, "Sac Summon Here", 0,
+                actionListener3);
         sacrificeSummonHerePanel.setBackground(Color.decode(bckColor));
         sacrificeSummonHerePanel.setForeground(Color.decode(txtColor));
         sacPanel.add(sacrificeSummonHerePanel);
-        
+
         sacPanel.add(cancelSacButton);
         cancelSacButton.addActionListener(this);
 
         panel.add(sacPanel);
 
-////////////////////////////////////////////////////////////////////
-// Bottom Buttons///////////////////////////////////////////////////
-        
+        ////////////////////////////////////////////////////////////////////
+        // Bottom Buttons///////////////////////////////////////////////////
+
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomPanel.setBackground(Color.decode(bckColor));
         bottomPanel.setForeground(Color.decode(txtColor));
-       
-////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////////
 
         panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between sections
         bottomPanel.add(drawMainButton);
         bottomPanel.add(drawSquirrelButton);
         bottomPanel.add(readyButton);
-        
+
         drawMainButton.addActionListener(this);
         drawSquirrelButton.addActionListener(this);
         readyButton.addActionListener(this);
-        
+
         panel.add(bottomPanel);
 
-        
-        
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Field Control GUI");
         frame.pack();
         frame.setVisible(true);
-
+        frame.setAlwaysOnTop(true);
 
     }
 
@@ -409,7 +408,7 @@ public class GuiTest implements ActionListener{
 
         String actionCommand = e.getActionCommand();
         JButton bText = (JButton) e.getSource();
-        label.setText(bText.getText());        
+        label.setText(bText.getText());
 
         switch (actionCommand) {
             case "Confirm":
@@ -424,15 +423,16 @@ public class GuiTest implements ActionListener{
                     available = false;
                     System.out.println(playerCommand);
                     break;
-                }
-                else {
-                    viewedText = "Sacrificing " + selDrop.toString(); // + " Sacrifices Needed: " + dropdown.getSelectedItem().toString().charAt(selDropLen - 2);
+                } else {
+                    viewedText = "Sacrificing " + selDrop.toString(); // + " Sacrifices Needed: " +
+                                                                      // dropdown.getSelectedItem().toString().charAt(selDropLen
+                                                                      // - 2);
                     sacInfo.setText(viewedText);
                     playerCommand = "user rdy 2 " + selDropIndex;
                     label.setText(playerCommand);
                     System.out.println(playerCommand);
                     available = true;
-                break;
+                    break;
                 }
             case "Cancel Sacrifice":
                 if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
@@ -442,11 +442,10 @@ public class GuiTest implements ActionListener{
                     label.setText(playerCommand);
                     available = true;
                     System.out.println(playerCommand);
+                } else {
+
                 }
-                else {
-                    
-                }
-                break;    
+                break;
             case "Player Draw Main":
                 playerCommand = "user dra 1";
                 label.setText(playerCommand);
@@ -465,89 +464,90 @@ public class GuiTest implements ActionListener{
                 available = true;
                 System.out.println(playerCommand);
                 break;
-            // case "Select Summon with Sacrifice": ////i sacrifice this  dropdown name index sacrifice cost
-            //     playerCommand = "user rdy 2 " + cardIndexInHand;
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
-            
+            // case "Select Summon with Sacrifice": ////i sacrifice this dropdown name index
+            // sacrifice cost
+            // playerCommand = "user rdy 2 " + cardIndexInHand;
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
+
             // case "Sacrifice This Column 0":
-            //     playerCommand = "user sac 1 0";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user sac 1 0";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Sacrifice This Column 1":
-            //     playerCommand = "user sac 1 1";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user sac 1 1";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Sacrifice This Column 2":
-            //     playerCommand = "user sac 1 2";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user sac 1 2";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Sacrifice This Column 3":
-            //     playerCommand = "user sac 1 3";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user sac 1 3";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
 
             // case "Sacrifice Summon Here Column 0":
-            //     playerCommand = "user sum 0";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user sum 0";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Sacrifice Summon Here Column 1":
-            //     playerCommand = "user sum 1";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user sum 1";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Sacrifice Summon Here Column 2":
-            //     playerCommand = "user sum 2";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user sum 2";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Sacrifice Summon Here Column 3":
-            //     playerCommand = "user sum 3";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
-            
-            // case "Direct Summon Here Column 0": 
-            //     playerCommand = "user rdy 1 " + cardIndexInHand + " 0";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user sum 3";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
+
+            // case "Direct Summon Here Column 0":
+            // playerCommand = "user rdy 1 " + cardIndexInHand + " 0";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Direct Summon Here Column 1":
-            //     playerCommand = "user rdy 1 " + cardIndexInHand + " 1";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user rdy 1 " + cardIndexInHand + " 1";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Direct Summon Here Column 2":
-            //     playerCommand = "user rdy 1 " + cardIndexInHand + " 2";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user rdy 1 " + cardIndexInHand + " 2";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
             // case "Direct Summon Here Column 3":
-            //     playerCommand = "user rdy 1 " + cardIndexInHand + " 3";
-            //     label.setText(playerCommand);
-            //     available = true;
-            //     break;
+            // playerCommand = "user rdy 1 " + cardIndexInHand + " 3";
+            // label.setText(playerCommand);
+            // available = true;
+            // break;
 
             default:
                 break;
         }
     }
 
-
-    // Helper method to create a section panel with specified label, button count, and button label
-    private static JPanel createSectionPanel1(String label, int buttonCount, String buttonLabel, int columnLabel, ActionListener actionListener1) {
+    // Helper method to create a section panel with specified label, button count,
+    // and button label
+    private static JPanel createSectionPanel1(String label, int buttonCount, String buttonLabel, int columnLabel,
+            ActionListener actionListener1) {
         int rowcount;
 
         if (columnLabel == 1) {
             rowcount = 2;
-        }
-        else {
+        } else {
             rowcount = 1;
         }
 
@@ -557,12 +557,12 @@ public class GuiTest implements ActionListener{
         panelBorder.setTitleColor(Color.decode(txtColor));
         panel.setPreferredSize(new Dimension(300, 80));
         if (columnLabel == 1) {
-        
-        for (int i = 0; i < buttonCount; i++) {
-            JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
-            labelComponent.setForeground(Color.decode(txtColor));
-            panel.add(labelComponent);
-        }
+
+            for (int i = 0; i < buttonCount; i++) {
+                JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+                labelComponent.setForeground(Color.decode(txtColor));
+                panel.add(labelComponent);
+            }
         }
 
         for (int i = 0; i < buttonCount; i++) {
@@ -576,16 +576,15 @@ public class GuiTest implements ActionListener{
         return panel;
     }
 
-    private static JPanel createSectionPanel2(String label, int buttonCount, String buttonLabel, int columnLabel, ActionListener actionListener2) {
+    private static JPanel createSectionPanel2(String label, int buttonCount, String buttonLabel, int columnLabel,
+            ActionListener actionListener2) {
         int rowcount;
 
         if (columnLabel == 1) {
             rowcount = 2;
-        }
-        else {
+        } else {
             rowcount = 1;
         }
-
 
         JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
         TitledBorder panelBorder = BorderFactory.createTitledBorder(label);
@@ -593,11 +592,11 @@ public class GuiTest implements ActionListener{
         panelBorder.setTitleColor(Color.decode(txtColor));
         panel.setPreferredSize(new Dimension(300, 80));
         if (columnLabel == 1) {
-        
-        for (int i = 0; i < buttonCount; i++) {
-            JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
-            panel.add(labelComponent);
-        }
+
+            for (int i = 0; i < buttonCount; i++) {
+                JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+                panel.add(labelComponent);
+            }
         }
 
         for (int i = 0; i < buttonCount; i++) {
@@ -611,16 +610,15 @@ public class GuiTest implements ActionListener{
         return panel;
     }
 
-    private static JPanel createSectionPanel3(String label, int buttonCount, String buttonLabel, int columnLabel, ActionListener actionListener3) {
+    private static JPanel createSectionPanel3(String label, int buttonCount, String buttonLabel, int columnLabel,
+            ActionListener actionListener3) {
         int rowcount;
 
         if (columnLabel == 1) {
             rowcount = 2;
-        }
-        else {
+        } else {
             rowcount = 1;
         }
-
 
         JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
         TitledBorder panelBorder = BorderFactory.createTitledBorder(label);
@@ -628,11 +626,11 @@ public class GuiTest implements ActionListener{
         panelBorder.setTitleColor(Color.decode(txtColor));
         panel.setPreferredSize(new Dimension(300, 80));
         if (columnLabel == 1) {
-        
-        for (int i = 0; i < buttonCount; i++) {
-            JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
-            panel.add(labelComponent);
-        }
+
+            for (int i = 0; i < buttonCount; i++) {
+                JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+                panel.add(labelComponent);
+            }
         }
 
         for (int i = 0; i < buttonCount; i++) {
@@ -645,10 +643,7 @@ public class GuiTest implements ActionListener{
 
         return panel;
     }
-    
-    
-    
-    
+
     public boolean commandAvailable() {
         return this.available;
     }
@@ -658,8 +653,8 @@ public class GuiTest implements ActionListener{
         return playerCommand;
     }
 
-
-    // private static JPanel createMajorSectionPanel(String string, int i, String string2, int j) {
-    //     return null;
+    // private static JPanel createMajorSectionPanel(String string, int i, String
+    // string2, int j) {
+    // return null;
     // }
 }
