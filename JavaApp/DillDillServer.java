@@ -67,8 +67,9 @@ public class DillDillServer
                 loopctr++;
             }
             System.out.println(handsString);
-            turnCon.ioHandler.observerOutputHandler.publishField(testField);
-            
+            // turnCon.ioHandler.observerOutputHandler.publishField(testField);
+            turnCon.ioHandler.getObserverOutputHandler().publishAnim(testField, 1, 3, Animations.Idle);
+            turnCon.getField().updateCardStats();
         }
         
     }

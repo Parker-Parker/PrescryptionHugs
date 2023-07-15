@@ -3,8 +3,6 @@ public class Lib extends Card {
 }
 // anything -1 is something to check later
 
-
-
 class Stoat extends Card {
 
     public Stoat() {
@@ -24,7 +22,8 @@ class Wolf extends Card {
 class WolfCub extends Card {
 
     public WolfCub() {
-        super("Wolf Cub", 1, 1, 1, "Blood", "Canine", "Fledgling", null, "JavaApp/resources/Portraits/portait_wolf_cub.jpg");
+        super("Wolf Cub", 1, 1, 1, "Blood", "Canine", "Fledgling", null,
+                "JavaApp/resources/Portraits/portait_wolf_cub.jpg");
     }
 
 }
@@ -32,7 +31,8 @@ class WolfCub extends Card {
 class Adder extends Card {
 
     public Adder() {
-        super("Adder", 1, 1, 2, "Blood", "Reptile", "Touch of Death", "Kills Survivors", "JavaApp/resources/Portraits/portait_adder.jpg");
+        super("Adder", 1, 1, 2, "Blood", "Reptile", "DeathTouch", "Kills Survivors",
+                "JavaApp/resources/Portraits/portait_adder.jpg");
     }
 
 }
@@ -65,7 +65,8 @@ class Amoeba extends Card {
 class WorkerAnt extends Card {
 
     public WorkerAnt() {
-        super("Worker Ant", 2, 1, 1, "Blood", "Insect", null, "Ant", "JavaApp/resources/Portraits/portait_worker_ant.jpg");
+        super("Worker Ant", 2, 1, 1, "Blood", "Insect", null, "Ant",
+                "JavaApp/resources/Portraits/portait_worker_ant.jpg");
     }
 
 }
@@ -73,7 +74,8 @@ class WorkerAnt extends Card {
 class AntQueen extends Card {
 
     public AntQueen() {
-        super("Ant Queen", 3, 2, 2, "Blood", "Insect", "Ant Spawner", "Ant", "JavaApp/resources/Portraits/portait_ant_queen.jpg");
+        super("Ant Queen", 3, 2, 2, "Blood", "Insect", "Ant Spawner", "Ant",
+                "JavaApp/resources/Portraits/portait_ant_queen.jpg");
     }
 
 }
@@ -105,7 +107,8 @@ class Bee extends Card {
 class Beehive extends Card {
 
     public Beehive() {
-        super("Beehive", 0, 2, 1, "Blood", "Insect", "Bees Within", null, "JavaApp/resources/Portraits/portait_beehive.jpg");
+        super("Beehive", 0, 2, 1, "Blood", "Insect", "Bees Within", null,
+                "JavaApp/resources/Portraits/portait_beehive.jpg");
     }
 
 }
@@ -113,7 +116,8 @@ class Beehive extends Card {
 class Bloodhound extends Card {
 
     public Bloodhound() {
-        super("Bloodhound", 2, 3, 2, "Blood", "Canine", "Guardian", null, "JavaApp/resources/Portraits/portait_bloodhound.jpg");
+        super("Bloodhound", 2, 3, 2, "Blood", "Canine", "Guardian", null,
+                "JavaApp/resources/Portraits/portait_bloodhound.jpg");
     }
 
 }
@@ -121,7 +125,8 @@ class Bloodhound extends Card {
 class Bullfrog extends Card {
 
     public Bullfrog() {
-        super("Bullfrog", 1, 2, 1, "Blood", "Reptile", "Mighty Leap", null, "JavaApp/resources/Portraits/portait_bullfrog.jpg");
+        super("Bullfrog", 1, 2, 1, "Blood", "Reptile", "Mighty Leap", null,
+                "JavaApp/resources/Portraits/portait_bullfrog.jpg");
     }
 
 }
@@ -129,7 +134,8 @@ class Bullfrog extends Card {
 class CagedWolf extends Card {
 
     public CagedWolf() {
-        super("Caged Wolf", 0, 6, 2, "Blood", "Canine", null, "Terrain, No Deathcard", "JavaApp/resources/Portraits/portait_caged_wolf.jpg");
+        super("Caged Wolf", 0, 6, 2, "Blood", "Canine", null, "Terrain, No Deathcard",
+                "JavaApp/resources/Portraits/portait_caged_wolf.jpg");
     }
 
 }
@@ -153,7 +159,8 @@ class UndeadCat extends Card {
 class Cockroach extends Card {
 
     public Cockroach() {
-        super("Cockroach", 1, 1, 4, "Bones", "Insect", "Unkillable", null, "JavaApp/resources/Portraits/portait_cockroach.jpg");
+        super("Cockroach", 1, 1, 4, "Bones", "Insect", "Unkillable", null,
+                "JavaApp/resources/Portraits/portait_cockroach.jpg");
     }
 
 }
@@ -193,7 +200,8 @@ class Elk extends Card {
 class ElkFawn extends Card {
 
     public ElkFawn() {
-        super("Elk Fawn", 1, 1, 1, "Blood", "Hooved", "Sprinter", "Fledgling", "JavaApp/resources/Portraits/portait_elk_fawn.jpg");
+        super("Elk Fawn", 1, 1, 1, "Blood", "Hooved", "Sprinter", "Fledgling",
+                "JavaApp/resources/Portraits/portait_elk_fawn.jpg");
     }
 
 }
@@ -201,7 +209,8 @@ class ElkFawn extends Card {
 class FieldMice extends Card {
 
     public FieldMice() {
-        super("Field Mice", 2, 2, 2, "Blood", null, "Fecundity", null, "JavaApp/resources/Portraits/portait_field_mice.jpg");
+        super("Field Mice", 2, 2, 2, "Blood", null, "Fecundity", null,
+                "JavaApp/resources/Portraits/portait_field_mice.jpg");
     }
 
 }
@@ -217,7 +226,8 @@ class Geck extends Card {
 class BlackGoat extends Card {
 
     public BlackGoat() {
-        super("Black Goat", 0, 1, 1, "Blood", "Hooved", "Worthy Sacrifice", "Goat", "JavaApp/resources/Portraits/portait_black_goat.jpg");
+        super("Black Goat", 0, 1, 1, "Blood", "Hooved", "Worthy Sacrifice", "Goat",
+                "JavaApp/resources/Portraits/portait_black_goat.jpg");
     }
 
 }
@@ -233,7 +243,8 @@ class Grizzly extends Card {
 class Child13 extends Card {
 
     public Child13() {
-        super("Child 13", 0, 1, 1, "Blood", "Hooved", "Many Lives", null, "JavaApp/resources/Portraits/portait_child_13.jpg");
+        super("Child 13", 0, 1, 1, "Blood", "Hooved", "Many Lives", null,
+                "JavaApp/resources/Portraits/portait_child_13.jpg");
     }
 
 }
@@ -241,7 +252,8 @@ class Child13 extends Card {
 class Kingfisher extends Card {
 
     public Kingfisher() {
-        super("Kingfisher", 1, 1, 1, "Blood", "Avian", "Airborne", "Waterborne", "JavaApp/resources/Portraits/portait_kingfisher.jpg");
+        super("Kingfisher", 1, 1, 1, "Blood", "Avian", "Airborne", "Waterborne",
+                "JavaApp/resources/Portraits/portait_kingfisher.jpg");
     }
 
 }
@@ -249,7 +261,8 @@ class Kingfisher extends Card {
 class CorpseMaggots extends Card {
 
     public CorpseMaggots() {
-        super("Corpse Maggots", 1, 2, 5, "Bones", "Insect", "Corpse Eater", null, "JavaApp/resources/Portraits/portait_corpse_maggots.jpg");
+        super("Corpse Maggots", 1, 2, 5, "Bones", "Insect", "Corpse Eater", null,
+                "JavaApp/resources/Portraits/portait_corpse_maggots.jpg");
     }
 
 }
@@ -257,7 +270,8 @@ class CorpseMaggots extends Card {
 class Magpie extends Card {
 
     public Magpie() {
-        super("Magpie", 1, 1, 2, "Blood", "Avian", "Airborne", "Hoarder", "JavaApp/resources/Portraits/portait_magpie.jpg");
+        super("Magpie", 1, 1, 2, "Blood", "Avian", "Airborne", "Hoarder",
+                "JavaApp/resources/Portraits/portait_magpie.jpg");
     }
 
 }
@@ -265,7 +279,8 @@ class Magpie extends Card {
 class Mantis extends Card {
 
     public Mantis() {
-        super("Mantis", 1, 1, 1, "Blood", "Insect", "Bifurcated Strike", null, "JavaApp/resources/Portraits/portait_mantis.jpg");
+        super("Mantis", 1, 1, 1, "Blood", "Insect", "Bifurcated Strike", null,
+                "JavaApp/resources/Portraits/portait_mantis.jpg");
     }
 
 }
@@ -273,7 +288,8 @@ class Mantis extends Card {
 class MantisGod extends Card {
 
     public MantisGod() {
-        super("Mantis God", 1, 1, 1, "Blood", "Insect", "Trifurcated Strike", null, "JavaApp/resources/Portraits/portait_mantis_god.jpg");
+        super("Mantis God", 1, 1, 1, "Blood", "Insect", "Trifurcated Strike", null,
+                "JavaApp/resources/Portraits/portait_mantis_god.jpg");
     }
 
 }
@@ -289,7 +305,8 @@ class Mole extends Card {
 class MoleMan extends Card {
 
     public MoleMan() {
-        super("Mole Man", 0, 6, 1, "Blood", null, "Burrower", "Mighty Leap", "JavaApp/resources/Portraits/portait_mole_man.jpg");
+        super("Mole Man", 0, 6, 1, "Blood", null, "Burrower", "Mighty Leap",
+                "JavaApp/resources/Portraits/portait_mole_man.jpg");
     }
 
 }
@@ -297,7 +314,8 @@ class MoleMan extends Card {
 class MooseBuck extends Card {
 
     public MooseBuck() {
-        super("Moose Buck", 3, 7, 3, "Blood", "Hooved", "Hefty", null, "JavaApp/resources/Portraits/portait_moose_buck.jpg");
+        super("Moose Buck", 3, 7, 3, "Blood", "Hooved", "Hefty", null,
+                "JavaApp/resources/Portraits/portait_moose_buck.jpg");
     }
 
 }
@@ -305,7 +323,8 @@ class MooseBuck extends Card {
 class StrangeLarva extends Card {
 
     public StrangeLarva() {
-        super("Strange Larva", 0, 3, 1, "Blood", "Insect", "Fledgling", null, "JavaApp/resources/Portraits/portait_strange_larva.jpg");
+        super("Strange Larva", 0, 3, 1, "Blood", "Insect", "Fledgling", null,
+                "JavaApp/resources/Portraits/portait_strange_larva.jpg");
     }
 
 }
@@ -313,7 +332,8 @@ class StrangeLarva extends Card {
 class StrangePupa extends Card {
 
     public StrangePupa() {
-        super("Strange Pupa", 0, 3, 1, "Blood", "Insect", "Fledgling", null, "JavaApp/resources/Portraits/portait_strange_pupa.jpg");
+        super("Strange Pupa", 0, 3, 1, "Blood", "Insect", "Fledgling", null,
+                "JavaApp/resources/Portraits/portait_strange_pupa.jpg");
     }
 
 }
@@ -321,7 +341,8 @@ class StrangePupa extends Card {
 class Mothman extends Card {
 
     public Mothman() {
-        super("Mothman", 7, 3, 1, "Blood", "Insect", "Airborne", null, "JavaApp/resources/Portraits/portait_mothman.jpg");
+        super("Mothman", 7, 3, 1, "Blood", "Insect", "Airborne", null,
+                "JavaApp/resources/Portraits/portait_mothman.jpg");
     }
 
 }
@@ -329,7 +350,8 @@ class Mothman extends Card {
 class PackMule extends Card {
 
     public PackMule() {
-        super("Pack Mule", 0, 5, 0, null, "Hooved", "Sprinter", "Uncuttable", "JavaApp/resources/Portraits/portait_pack_mule.jpg");
+        super("Pack Mule", 0, 5, 0, null, "Hooved", "Sprinter", "Uncuttable",
+                "JavaApp/resources/Portraits/portait_pack_mule.jpg");
     }
 
 }
@@ -345,7 +367,8 @@ class Opossum extends Card {
 class RiverOtter extends Card {
 
     public RiverOtter() {
-        super("River Otter", 1, 1, 1, "Blood", null, "Waterborne", null, "JavaApp/resources/Portraits/portait_river_otter.jpg");
+        super("River Otter", 1, 1, 1, "Blood", null, "Waterborne", null,
+                "JavaApp/resources/Portraits/portait_river_otter.jpg");
     }
 
 }
@@ -362,7 +385,8 @@ class Ouroboros extends Card {
 class PackRat extends Card {
 
     public PackRat() {
-        super("Pack Rat", 2, 2, 2, "Blood", null, "Trinket Bearer", null, "JavaApp/resources/Portraits/portait_pack_rat.jpg");
+        super("Pack Rat", 2, 2, 2, "Blood", null, "Trinket Bearer", null,
+                "JavaApp/resources/Portraits/portait_pack_rat.jpg");
     }
 
 }
@@ -370,7 +394,8 @@ class PackRat extends Card {
 class Porcupine extends Card {
 
     public Porcupine() {
-        super("Porcupine", 1, 2, 1, "Blood", null, "Sharp Quills", null, "JavaApp/resources/Portraits/portait_porcupine.jpg");
+        super("Porcupine", 1, 2, 1, "Blood", null, "Sharp Quills", null,
+                "JavaApp/resources/Portraits/portait_porcupine.jpg");
     }
 
 }
@@ -378,7 +403,8 @@ class Porcupine extends Card {
 class Pronghorn extends Card {
 
     public Pronghorn() {
-        super("Pronghorn", 1, 3, 2, "Blood", "Hooved", "Sprinter", "Bifurcated Strike", "JavaApp/resources/Portraits/portait_pronghorn.jpg");
+        super("Pronghorn", 1, 3, 2, "Blood", "Hooved", "Sprinter", "Bifurcated Strike",
+                "JavaApp/resources/Portraits/portait_pronghorn.jpg");
     }
 
 }
@@ -394,7 +420,8 @@ class Rabbit extends Card {
 class RatKing extends Card {
 
     public RatKing() {
-        super("Rat King", 2, 1, 2, "Blood", null, "Bone King", null, "JavaApp/resources/Portraits/portait_rat_king.jpg");
+        super("Rat King", 2, 1, 2, "Blood", null, "Bone King", null,
+                "JavaApp/resources/Portraits/portait_rat_king.jpg");
     }
 
 }
@@ -418,7 +445,8 @@ class Raven extends Card {
 class RavenEgg extends Card {
 
     public RavenEgg() {
-        super("Raven Egg", 0, 2, 1, "Blood", "Avian", "Fledgling", null, "JavaApp/resources/Portraits/portait_raven_egg.jpg");
+        super("Raven Egg", 0, 2, 1, "Blood", "Avian", "Fledgling", null,
+                "JavaApp/resources/Portraits/portait_raven_egg.jpg");
     }
 
 }
@@ -426,7 +454,8 @@ class RavenEgg extends Card {
 class GreatWhite extends Card {
 
     public GreatWhite() {
-        super("Great White", 4, 2, 3, "Blood", null, "Waterborne", null, "JavaApp/resources/Portraits/portait_great_white.jpg");
+        super("Great White", 4, 2, 3, "Blood", null, "Waterborne", null,
+                "JavaApp/resources/Portraits/portait_great_white.jpg");
     }
 
 }
@@ -434,7 +463,8 @@ class GreatWhite extends Card {
 class Skink extends Card {
 
     public Skink() {
-        super("Skink", 1, 2, 1, "Blood", "Reptile", "Loose Tail", null, "JavaApp/resources/Portraits/portait_skink.jpg");
+        super("Skink", 1, 2, 1, "Blood", "Reptile", "Loose Tail", null,
+                "JavaApp/resources/Portraits/portait_skink.jpg");
     }
 
 }
@@ -442,7 +472,8 @@ class Skink extends Card {
 class WrigglingTail extends Card {
 
     public WrigglingTail() {
-        super("Wriggling Tail", 0, 2, 0, null, "Reptile", null, null, "JavaApp/resources/Portraits/portait_wriggling_tail.jpg");
+        super("Wriggling Tail", 0, 2, 0, null, "Reptile", null, null,
+                "JavaApp/resources/Portraits/portait_wriggling_tail.jpg");
     }
 
 }
@@ -458,7 +489,8 @@ class Skunk extends Card {
 class RiverSnapper extends Card {
 
     public RiverSnapper() {
-        super("River Snapper", 1, 6, 2, "Blood", "Reptile", null, null, "JavaApp/resources/Portraits/portait_river_snapper.jpg");
+        super("River Snapper", 1, 6, 2, "Blood", "Reptile", null, null,
+                "JavaApp/resources/Portraits/portait_river_snapper.jpg");
     }
 
 }
@@ -466,7 +498,8 @@ class RiverSnapper extends Card {
 class LongElk extends Card {
 
     public LongElk() {
-        super("Long Elk", 1, 2, 4, "Bones", "Hooved", "Sprinter", "Touch of Death", "JavaApp/resources/Portraits/portait_long_elk.jpg");
+        super("Long Elk", 1, 2, 4, "Bones", "Hooved", "Sprinter", "DeathTouch",
+                "JavaApp/resources/Portraits/portait_long_elk.jpg");
     }
 
 }
@@ -474,7 +507,8 @@ class LongElk extends Card {
 class Sparrow extends Card {
 
     public Sparrow() {
-        super("Sparrow", 1, 2, 1, "Blood", "Avian", "Airborne", null, "JavaApp/resources/Portraits/portait_sparrow.jpg");
+        super("Sparrow", 1, 2, 1, "Blood", "Avian", "Airborne", null,
+                "JavaApp/resources/Portraits/portait_sparrow.jpg");
     }
 
 }
@@ -482,7 +516,8 @@ class Sparrow extends Card {
 class BellTentacle extends Card {
     // bell ringer
     public BellTentacle() {
-        super("Bell Tentacle", -1, 3, 2, "Blood", null, null, null, "JavaApp/resources/Portraits/portait_bell_tentacle.jpg");
+        super("Bell Tentacle", -1, 3, 2, "Blood", null, null, null,
+                "JavaApp/resources/Portraits/portait_bell_tentacle.jpg");
     }
 
 }
@@ -490,7 +525,8 @@ class BellTentacle extends Card {
 class CardTentacle extends Card {
     // card counter
     public CardTentacle() {
-        super("Card Tentacle", -1, 1, 1, "Blood", null, null, null, "JavaApp/resources/Portraits/portait_card_tentacle.jpg");
+        super("Card Tentacle", -1, 1, 1, "Blood", null, null, null,
+                "JavaApp/resources/Portraits/portait_card_tentacle.jpg");
     }
 
 }
@@ -498,7 +534,8 @@ class CardTentacle extends Card {
 class MirrorTentacle extends Card {
     // M!rror r0rriM
     public MirrorTentacle() {
-        super("Mirror Tentacle", -1, 3, 1, "Blood", null, null, null, "JavaApp/resources/Portraits/portait_mirror_tentacle.jpg");
+        super("Mirror Tentacle", -1, 3, 1, "Blood", null, null, null,
+                "JavaApp/resources/Portraits/portait_mirror_tentacle.jpg");
     }
 
 }
@@ -514,7 +551,8 @@ class Squirrel extends Card {
 class TailFeathers extends Card {
 
     public TailFeathers() {
-        super("Tail Feathers", 0, 2, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_tail_feathers.jpg");
+        super("Tail Feathers", 0, 2, 0, null, null, null, null,
+                "JavaApp/resources/Portraits/portait_tail_feathers.jpg");
     }
 
 }
@@ -530,7 +568,8 @@ class FurryTail extends Card {
 class WrigglingLeg extends Card {
 
     public WrigglingLeg() {
-        super("Wriggling Leg", 0, 2, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_wriggling_leg.jpg");
+        super("Wriggling Leg", 0, 2, 0, null, null, null, null,
+                "JavaApp/resources/Portraits/portait_wriggling_leg.jpg");
     }
 
 }
@@ -546,7 +585,8 @@ class Urayuli extends Card {
 class TurkeyVulture extends Card {
 
     public TurkeyVulture() {
-        super("Turkey Vulture", 3, 3, 8, "Bones", "Avian", "Airborne", null, "JavaApp/resources/Portraits/portait_turkey_vulture.jpg");
+        super("Turkey Vulture", 3, 3, 8, "Bones", "Avian", "Airborne", null,
+                "JavaApp/resources/Portraits/portait_turkey_vulture.jpg");
     }
 
 }
@@ -571,7 +611,8 @@ class RingWorm extends Card {
 class GlitchedCard extends Card {
 
     public GlitchedCard() {
-        super("Glitched Card", 0, 0, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_glitched_card.jpg");
+        super("Glitched Card", 0, 0, 0, null, null, null, null,
+                "JavaApp/resources/Portraits/portait_glitched_card.jpg");
     }
 
 }
@@ -584,13 +625,12 @@ class Stump extends Card {
 
 }
 
-
 class Boulder extends Card {
 
     public Boulder() {
         super("Boulder", 0, 5, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_boulder.jpg");
     }
-    
+
 }
 
 class GrandFir extends Card {
@@ -598,7 +638,7 @@ class GrandFir extends Card {
     public GrandFir() {
         super("Boulder", 0, 5, 0, null, null, "Guardian", null, "JavaApp/resources/Portraits/portait_boulder.jpg");
     }
-    
+
 }
 
 class Dwayne extends Card {
@@ -606,7 +646,7 @@ class Dwayne extends Card {
     public Dwayne() {
         super("Dwayne", 0, 1, 0, null, null, "Repulsive", null, "JavaApp/resources/Portraits/portait_boulder.jpg");
     }
-    
+
 }
 
 class Debile extends Card {
@@ -614,6 +654,5 @@ class Debile extends Card {
     public Debile() {
         super("Debile", -1, 69, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_Debile.jpg");
     }
-    
-}
 
+}
