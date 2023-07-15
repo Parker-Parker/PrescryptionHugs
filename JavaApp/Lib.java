@@ -125,7 +125,7 @@ class Bloodhound extends Card {
 class Bullfrog extends Card {
 
     public Bullfrog() {
-        super("Bullfrog", 1, 2, 1, "Blood", "Reptile", "Mighty Leap", null,
+        super("Bullfrog", 1, 2, 1, "Blood", "Reptile", "MightyLeap", null,
                 "JavaApp/resources/Portraits/portait_bullfrog.jpg");
     }
 
@@ -279,7 +279,7 @@ class Magpie extends Card {
 class Mantis extends Card {
 
     public Mantis() {
-        super("Mantis", 1, 1, 1, "Blood", "Insect", "Bifurcated Strike", null,
+        super("Mantis", 1, 1, 1, "Blood", "Insect", "BifurcatedStrike", null,
                 "JavaApp/resources/Portraits/portait_mantis.jpg");
     }
 
@@ -305,7 +305,7 @@ class Mole extends Card {
 class MoleMan extends Card {
 
     public MoleMan() {
-        super("Mole Man", 0, 6, 1, "Blood", null, "Burrower", "Mighty Leap",
+        super("Mole Man", 0, 6, 1, "Blood", null, "Burrower", "MightyLeap",
                 "JavaApp/resources/Portraits/portait_mole_man.jpg");
     }
 
@@ -403,7 +403,7 @@ class Porcupine extends Card {
 class Pronghorn extends Card {
 
     public Pronghorn() {
-        super("Pronghorn", 1, 3, 2, "Blood", "Hooved", "Sprinter", "Bifurcated Strike",
+        super("Pronghorn", 1, 3, 2, "Blood", "Hooved", "Sprinter", "BifurcatedStrike",
                 "JavaApp/resources/Portraits/portait_pronghorn.jpg");
     }
 
