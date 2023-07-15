@@ -105,6 +105,14 @@
         {
             "name": "TestNetAnimRenderAuto",
             "configurations": ["TestNetServer","auto", "RendererAnimWindow"]
+        },
+        {
+            "name": "ShowJenkString",
+            "configurations": ["DillonServer","TestNetClient"]
+        },
+        {
+            "name": "FinalV1",
+            "configurations": ["DillonServer","DillonClient", "RendererAnimWindow"]
         }
     ]
     
