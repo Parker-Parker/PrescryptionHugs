@@ -41,20 +41,32 @@ public class DillDillServer
         TCPServerMaster serverMaster = new TCPServerMaster(turnCon.ioHandler);
         serverMaster.start();
         
-        Scanner cmdIn = new Scanner(System.in);
-        System.out.println("Hit enter when all connections established...");
-        System.out.println(cmdIn.nextLine());
+        // Scanner cmdIn = new Scanner(System.in);
+        // System.out.println("Hit enter when all connections established...");
+        // System.out.println(cmdIn.nextLine());
         
     
+        //get first field
+        //wait for clients
+        GuiFieldPicker fieldPicker = new GuiFieldPicker(0);
+        while(fieldPicker.waiting()){
+        }
+        testField = fieldPicker.getField();
+        turnCon.setField(testField);
+        fieldPicker.close();
+
+        boolean itsGameTime = true;
+
+
+
         
         String handsString = "";
         int loopctr = 0;
-        boolean itsGameTime = false;
         int score = 0;
         /////TODO while true in the future
         // for(int i = 0;i<450;i++){
         while(true){
-
+            fieldPicker = null;
             while(itsGameTime){
                 //update other controllers
                 turnCon.executeState();
@@ -80,7 +92,7 @@ public class DillDillServer
             turnCon.ioHandler.getObserverOutputHandler().publishAnim(testField, 1, 3, Animations.Idle);
                 
             //get next field
-            GuiFieldPicker fieldPicker = new GuiFieldPicker(score);
+            fieldPicker = new GuiFieldPicker(score);
             while(fieldPicker.waiting()){
             }
             testField = fieldPicker.getField();

@@ -11,7 +11,10 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 
 
 public class GuiFieldPicker {
@@ -19,12 +22,9 @@ public class GuiFieldPicker {
     private static String butColor = "#710C04";
     private static String txtColor = "#DDDDDD";
     JFrame frame;
-    public Field field = null;
-    private boolean ready = false;
+    public volatile Field field = null;
+    private volatile boolean ready = false;
 
-    public static void main(String argv[]){
-        new GuiFieldPicker( 0 );
-    }
 
     public GuiFieldPicker(int score){
 
@@ -41,8 +41,40 @@ public class GuiFieldPicker {
         panel.setBackground(Color.decode(bckColor));
         panel.setLayout(new GridLayout(0, 1));
 
-        // add panel for score/"last games winner:"" 
 
+        ////////////////////////////////////////////////////
+        // Info panel
+        ////////////////////////////////////////////////////
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new GridLayout(0, 1));
+        infoPanel.setBackground(Color.decode(bckColor));
+        infoPanel.setForeground(Color.decode(txtColor));
+        
+        String title;
+        String info;
+
+        if(score == 0){
+            title = "Server Initializing:";
+            info = "Select field and press Confirm after all clients have been connected";
+        }
+        else{
+            title = "Last Round's Winner:";
+            info = score<0?"Leshy: ("+score+")":"Player: ("+score+")";
+        }
+
+        TitledBorder panelBorder = BorderFactory.createTitledBorder(title);
+        infoPanel.setBorder(panelBorder);
+        panelBorder.setTitleColor(Color.decode(txtColor));
+        infoPanel.setPreferredSize(new Dimension(300, 80));
+        
+        JTextArea infoText = new JTextArea(info);
+        infoText.setForeground(Color.decode(txtColor));
+        infoPanel.add(infoText);
+        infoText.setBackground(Color.decode(bckColor));
+        infoText.setLineWrap(true);
+
+        panel.add(infoPanel);
         ////////////////////////////////////////////////////
         // Selection panel
         ////////////////////////////////////////////////////
@@ -82,10 +114,10 @@ public class GuiFieldPicker {
         // Assemble frame
         ////////////////////////////////////////////////////
         
-        panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between sections
+        // panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between sections
         
         frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Field Control GUI");
         frame.pack();
         frame.setVisible(true);
