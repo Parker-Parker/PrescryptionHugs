@@ -85,7 +85,8 @@ public class DillDillServer
             }
             testField = fieldPicker.getField();
             turnCon.setField(testField);
-
+            fieldPicker.close();
+            itsGameTime = true;
         }
         
         
