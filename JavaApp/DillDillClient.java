@@ -41,6 +41,7 @@ class DillDillClient {
         outToServer.writeBytes(sentence + '\n');
         outToServer.flush();
 
+        IPGUI.close();
         while (true) {
 
             // if(inFromUser.hasNextLine()){

@@ -15,11 +15,11 @@ public class Ipguistarter {
     // public static void main(String[] args) {
     // new Ipguistarter();
     // }
-
+    JFrame frame;
     public Ipguistarter(String title) {
 
-        JFrame frame = new JFrame(title);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame = new JFrame(title);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -64,4 +64,9 @@ public class Ipguistarter {
         return portF;
     }
 
+
+
+    public void close() {
+        frame.dispose();
+    }
 }

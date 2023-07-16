@@ -48,6 +48,8 @@ public class FieldRendererWindowAnimClient {
 
         String fieldString = "";
 
+
+        IPGUIfield.close();
         while (true) {
 
             // if(inFromServer.hasNextLine()){
