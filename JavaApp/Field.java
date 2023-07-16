@@ -823,4 +823,12 @@ public class Field {
         }
         return newDeck;
     }
+
+    public void clear() {
+        for(int i = 0; i<4;i++){
+            enemyCards[i] = null;
+            enemyCardsBack[i] = null;
+            playerCards[i] = null;
+        }
+    }
 }

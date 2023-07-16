@@ -49,28 +49,45 @@ public class DillDillServer
         
         String handsString = "";
         int loopctr = 0;
+        boolean itsGameTime = false;
+        int score = 0;
         /////TODO while true in the future
-        for(int i = 0;i<450;i++){
-            //update other controllers
-            turnCon.executeState();
-            turnCon.getField().printField();
+        // for(int i = 0;i<450;i++){
+        while(true){
 
-            turnCon.getField().setHand(turnCon.getField().deepCopyDeck(mDeck) );
-            //////////////////////////////////////////////////////
-            //dillon add thing that sets hand = to  carkins deck//
-            ////////////////////////////////////////////////////// make it so his hand never gets cards taken away.
-
-            loopctr = 0;
-            handsString = "hand: ";
-            for (Card c : turnCon.getField().getHand()){
-                handsString = handsString +" "+loopctr+") "+c.title+" "+c.cost+" "+c.attack+" "+c.health;
-                loopctr++;
+            while(itsGameTime){
+                //update other controllers
+                turnCon.executeState();
+                turnCon.getField().printField();
+    
+                turnCon.getField().setHand(turnCon.getField().deepCopyDeck(mDeck) );
+    
+                loopctr = 0;
+                handsString = "hand: ";
+                for (Card c : turnCon.getField().getHand()){
+                    handsString = handsString +" "+loopctr+") "+c.title+" "+c.cost+" "+c.attack+" "+c.health;
+                    loopctr++;
+                }
+                System.out.println(handsString);
+                // turnCon.ioHandler.observerOutputHandler.publishField(testField);
+                turnCon.ioHandler.getObserverOutputHandler().publishAnim(testField, 1, 3, Animations.Idle);
+                turnCon.getField().updateCardStats();
+                score = turnCon.getField().scale;
+                itsGameTime = score>=5? false : score>-5; 
             }
-            System.out.println(handsString);
-            // turnCon.ioHandler.observerOutputHandler.publishField(testField);
+            //clear field
+            turnCon.getField().clear();
             turnCon.ioHandler.getObserverOutputHandler().publishAnim(testField, 1, 3, Animations.Idle);
-            turnCon.getField().updateCardStats();
+                
+            //get next field
+            GuiFieldPicker fieldPicker = new GuiFieldPicker(score);
+            while(fieldPicker.waiting()){
+            }
+            testField = fieldPicker.getField();
+            turnCon.setField(testField);
+
         }
+        
         
     }
 };
