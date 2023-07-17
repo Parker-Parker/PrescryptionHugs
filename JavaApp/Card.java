@@ -57,14 +57,14 @@ public class Card implements iCard {
         health = baseHealth = def;
     }
 
-    public Card(String name, int power, int health, int costNumber, String cType, String trb, String sigs, String trts,
+    public Card(String name, int power, int hlth, int costNumber, String cType, String trb, String sigs, String trts,
             String imageFileLocation) {
         for (Sigils key : Sigils.values()) {
             sigils.put(key, false);
         }
         title = name;
         attack = baseAttack = power;
-        health = baseHealth = health;
+        health = baseHealth = hlth;
         cost = costNumber;
         costType = cType;
         tribe = trb;
