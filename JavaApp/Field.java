@@ -503,11 +503,9 @@ public class Field {
             if(enemyCards[i]!=null){
                 enemyCards[i].setPos(1, i);
                 this.updateCardStats();
-            }
-
-
-            if(turnController!=null){
-                turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.MoveDown);
+                if(turnController!=null){
+                    turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.MoveDown);
+                }
             }
         }
     }

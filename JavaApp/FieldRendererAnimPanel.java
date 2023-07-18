@@ -69,7 +69,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     
 
 
-    private int animTimer = 0;
+    private volatile int animTimer = 0;
     
     Font fontHeavyWeight;
     Font fontHeavyWeight_Stat;
@@ -97,7 +97,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
 
 
-    private int animLength = 0;
+    private volatile int animLength = 0;
 
 
 
@@ -254,6 +254,14 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         renderField(fieldCanvas, currentField);
         // renderFieldZBuffer(currentField);
         // drawBuffer(fieldCanvas);
+        Animations test=null;
+        for (Animations[] test2: currentAnimations){
+            for (Animations test3: test2){
+                test = test3==null||test3==Animations.Idle?test:test3;
+            }   
+        } 
+        fieldCanvas.drawString("Anim: "+test, 50,50);
+        fieldCanvas.drawString("AnimLen: "+animLength, 50,100);
 
         // drawDebug(fieldCanvas);
          g2d.drawImage(fieldImage, null, 0,0);
@@ -541,7 +549,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             case Hurt:
                 return 400/DELAY;
             case Idle:
-                return 0/DELAY;
+                return 0;
             case MoveDown:
                 return 350/DELAY;
             case MoveFail:
@@ -551,7 +559,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             case MoveRight:
                 return 0/DELAY;
             default:
-                return 0/DELAY;
+                return 0;
         }
     }
 
