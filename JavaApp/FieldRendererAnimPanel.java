@@ -37,7 +37,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     static final int GAP = 50;
 
     Timer timer;
-
+    float debugTime = 0;
 
     // ArrayList<LinkedList<BufferedImage>> zBuffer = new ArrayList<>();
 
@@ -242,26 +242,29 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
  
          // Game Over text
  
-         fieldCanvas.setColor(Color.red);
+        //  fieldCanvas.setColor(Color.red);
  
         //  fieldCanvas.setFont(new Font("Ink Free", Font.BOLD, 75));
-         fieldCanvas.setFont(fontHeavyWeight);
+        //  fieldCanvas.setFont(fontHeavyWeight);
  
-         FontMetrics metrics2 = getFontMetrics(fieldCanvas.getFont());
+        //  FontMetrics metrics2 = getFontMetrics(fieldCanvas.getFont());
  
-         fieldCanvas.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
+        //  fieldCanvas.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
         renderField(fieldCanvas, currentField);
         // renderFieldZBuffer(currentField);
         // drawBuffer(fieldCanvas);
-        Animations test=null;
-        for (Animations[] test2: currentAnimations){
-            for (Animations test3: test2){
-                test = test3==null||test3==Animations.Idle?test:test3;
-            }   
-        } 
-        fieldCanvas.drawString("Anim: "+test, 50,50);
-        fieldCanvas.drawString("AnimLen: "+animLength, 50,100);
+
+        // Animations test=null;
+        // for (Animations[] test2: currentAnimations){
+        //     for (Animations test3: test2){
+        //         test = test3==null||test3==Animations.Idle?test:test3;
+        //     }   
+        // } 
+        // fieldCanvas.drawString("Anim: "+test, 50,50);
+        // fieldCanvas.drawString("AnimLen: "+animLength, 50,100);
+        // fieldCanvas.drawString("DeserTime: "+debugTime, 50,150);
+        fieldCanvas.drawString("waiting for: "+waitCause, 50,150);
 
         // drawDebug(fieldCanvas);
          g2d.drawImage(fieldImage, null, 0,0);
@@ -513,26 +516,33 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                 g.drawImage(zBuffer.get(i), null, 0, 0);
         }
     }
-
+    String waitCause = "";
     @Override
     public void actionPerformed(ActionEvent arg0) {
         repaint();//every DELAY ms draw new frame?
         animTimer++;
         if(animTimer>animLength){
             if(animQueue.checkAvailable()){
+                // long startTime = System.currentTimeMillis();
                 EnumMap<ObserverTopics, String> topicStrings = animQueue.popOld();
                 // observerParser.deserializeField(currentField, topicStrings);
                 observerParser.deserializeAnim(topicStrings, currentField, currentAnimations);
+                // long finTime =System.currentTimeMillis();
+                // debugTime = (finTime-startTime);//1000f;
                 animTimer = 0;
-                int x;
+                int x = 0;
+                animLength = 3;
                 for(Animations[] arr:currentAnimations){
                     for(Animations anim:arr){
                         x = getAnimLength(anim);
                         animLength = x > animLength?x:animLength;
                     }
                 }
+                waitCause = "unknown";
             }
+            else{waitCause = "emptyQueue";}
         }
+        else{waitCause = "animRunning";}
     }
 
     private int getAnimLength(Animations anim) {
