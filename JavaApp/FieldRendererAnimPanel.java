@@ -39,6 +39,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     static final int GAP = 50;
 
     boolean DRAW_SLOTS = false;
+    boolean OPAQUE_HAND_CARDS = false;
+    float HAND_CARD_OPACITY = 0.3f;
 
     Timer timer;
     float debugTime = 0;
@@ -225,8 +227,16 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
             @Override
             public void mouseClicked(MouseEvent event) {
-                if(event.getClickCount()==2){
+                // System.out.println(event.getButton());
+                if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON1){
+                    OPAQUE_HAND_CARDS = !OPAQUE_HAND_CARDS;
+                    System.out.println("OPAQUE_HAND_CARDS: "+ OPAQUE_HAND_CARDS);
+
+                }
+                if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON3){
                     DRAW_SLOTS = !DRAW_SLOTS;
+                    System.out.println("DRAW_SLOTS: " + DRAW_SLOTS);
+
                 }
             }
 
@@ -641,6 +651,9 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             return cardImage;
         }else{
 
+            // float opacity = 0.5f;
+            // g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+
             FontMetrics metrics = getFontMetrics(fontHeavyWeight);
             FontMetrics metrics2 = getFontMetrics(fontHeavyWeight_Stat);
 
@@ -649,6 +662,35 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             g.setColor(Color.BLACK);
             g.setFont(fontHeavyWeight);
             g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2, metrics.getHeight());//draw title
+
+            
+            BufferedImage portrait = getCardPortrait(c.getTitle());
+            g.drawImage(portrait,null,CARD_WIDTH/2-portrait.getWidth()/2,CARD_HEIGHT*8/19-portrait.getHeight()/2);//draw portrait
+            
+            BufferedImage cost = getCostIndicator(c.cost);
+            g.drawImage(cost,null,(CARD_WIDTH-cost.getWidth()),CARD_HEIGHT/13);//draw cost indicator
+            // g.drawImage(cost,null,0,0);//draw cost indicator
+            
+            BufferedImage sigil = getSigilImage(c.sigils);
+            g.drawImage(sigil,null,(CARD_WIDTH-sigil.getWidth())/2,(CARD_HEIGHT*25/30)-sigil.getHeight()/2);//draw cost indicator
+            // g.drawImage(cost,null,0,0);//draw cost indicator
+            
+            //  opacity = 0.5f;
+            // g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+
+            if((!OPAQUE_HAND_CARDS)&&c.isFromHand()){
+                BufferedImage cardImage2 = new BufferedImage(cardImage.getWidth(), cardImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = (Graphics2D) cardImage2.getGraphics();
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, HAND_CARD_OPACITY));
+                g2.drawImage(cardImage,null,0,0);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+                
+                cardImage = cardImage2;
+                g = g2;
+                
+      
+            }
+
 
             g.setFont(fontHeavyWeight_Stat);
             // g.drawString(""+c.getAttack(), CARD_WIDTH*19/120-metrics2.stringWidth(c.getAttack()+"")/2, CARD_HEIGHT*23/30+metrics2.getHeight()/2);//draw attack
@@ -665,17 +707,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             }
             g.drawString(c.getHealth()+"", (CARD_WIDTH*100/120 - metrics2.stringWidth(c.getHealth()+"")/2) , CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health
             
-            BufferedImage portrait = getCardPortrait(c.getTitle());
-            g.drawImage(portrait,null,CARD_WIDTH/2-portrait.getWidth()/2,CARD_HEIGHT*8/19-portrait.getHeight()/2);//draw portrait
-            
-            BufferedImage cost = getCostIndicator(c.cost);
-            g.drawImage(cost,null,(CARD_WIDTH-cost.getWidth()),CARD_HEIGHT/13);//draw cost indicator
-            // g.drawImage(cost,null,0,0);//draw cost indicator
-            
-            BufferedImage sigil = getSigilImage(c.sigils);
-            g.drawImage(sigil,null,(CARD_WIDTH-sigil.getWidth())/2,(CARD_HEIGHT*25/30)-sigil.getHeight()/2);//draw cost indicator
-            // g.drawImage(cost,null,0,0);//draw cost indicator
-            
+
+
             return cardImage;
         }
         

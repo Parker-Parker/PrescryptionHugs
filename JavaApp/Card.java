@@ -32,6 +32,7 @@ public class Card implements iCard {
     Field field = null;
 
     int[][] attackLists= {{0}, {-1,1}, {-1,0,1}, {-2,-1,0,1,2} };
+    private boolean isFromHand = false;
 
 
     public Card() {
@@ -303,6 +304,16 @@ public class Card implements iCard {
     public void setPos(int r,int c){
         row = r;
         col = c;
+    }
+
+    public boolean isFromHand() {
+        return this.checkSigil(Sigils.PlayedFromHand);
+        // return this.isFromHand;
+    }
+
+    public void setFromHand() {
+        this.giveSigil(Sigils.PlayedFromHand);
+        // this.isFromHand = true;
     }
 
 }

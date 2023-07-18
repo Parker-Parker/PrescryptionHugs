@@ -1,4 +1,7 @@
 public enum Sigils {//Need to make an encoder / decoder for this 
+    PlayedFromHand,
+    //im sorry^^ this is pretty hacky
+
     Rabbit,
     Bees,
     Sprinter,

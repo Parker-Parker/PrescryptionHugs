@@ -84,6 +84,7 @@ public class Field {
             playerCards[slot] = card;
             playerCards[slot].setField(this);//not sure why this was commented out?
             playerCards[slot].onSummon(this);
+            playerCards[slot].setFromHand();
 
             if(playerCards[slot]!=null){
                 playerCards[slot].setPos(2, slot);
