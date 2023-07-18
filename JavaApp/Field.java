@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Field {
     Card[] nullCards = {null, null, null, null};
@@ -372,6 +373,21 @@ public class Field {
         
     }
 
+
+
+    public void initPresetCards(){
+        for (Card[] r :Arrays.asList(playerCards,enemyCards,enemyCardsBack)){
+            for(Card c: r) {
+                if (c != null) {c.setField(this);}//should make this happen every all the time update
+            }
+        }
+
+        for(int c = 0 ; c< 4;c++){
+            if(enemyCardsBack[c]!=null){enemyCardsBack[c].setPos(0, c);}
+            if(enemyCards[c]!=null){enemyCards[c].setPos(1, c);}
+            if(playerCards[c]!=null){playerCards[c].setPos(2, c);}
+        }
+    }
     public void enemyPreSummon(Card card, int i) {
     }
     public void updateCardStats(){
