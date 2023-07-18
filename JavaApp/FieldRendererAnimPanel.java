@@ -2,6 +2,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -36,6 +38,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     // static final int GAP = 15;
     static final int GAP = 50;
 
+    boolean DRAW_SLOTS = false;
+
     Timer timer;
     float debugTime = 0;
 
@@ -54,6 +58,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     HashMap<String,BufferedImage> cardPortraits = new HashMap<>();
     BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage slotBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage slotBaseBlank = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage[] costs = {emptyImage,
                             emptyImage,
                             emptyImage,
@@ -180,18 +185,24 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        testCard0.setCost(1);
-        testCard1.setCost(2);
-        testCard2.setCost(3);
-        testCard3.setCost(4);
+        // if (!DRAW_SLOTS){
+        //     slotBase = new BufferedImage(slotBase.getWidth(), slotBase.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        // }
+        slotBaseBlank = new BufferedImage(slotBase.getWidth(), slotBase.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        
 
-        testCard2.setAttack(3);
-        testCard0.setAttack(1);
-        testCard3.setAttack(-1);
+        // testCard0.setCost(1);
+        // testCard1.setCost(2);
+        // testCard2.setCost(3);
+        // testCard3.setCost(4);
 
-        testCard2.setHealth(2);
-        testCard0.setHealth(3);
-        testCard3.setHealth(69);
+        // testCard2.setAttack(3);
+        // testCard0.setAttack(1);
+        // testCard3.setAttack(-1);
+
+        // testCard2.setHealth(2);
+        // testCard0.setHealth(3);
+        // testCard3.setHealth(69);
     
         importPortraits("JavaApp/resources/Portraits");
         importCosts("JavaApp/resources/Costs");
@@ -209,6 +220,42 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
 
         timer.start();
+
+        this.addMouseListener( new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                if(event.getClickCount()==2){
+                    DRAW_SLOTS = !DRAW_SLOTS;
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent event) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent event) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent event) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent event) {
+            }
+            
+        });
+
+        // this.addMouseListener(new MouseAdapter(){
+        //     @Override
+        //     public void mouseClicked(MouseEvent e){
+        //         if(e.getClickCount()==2){
+        //             // your code here
+        //         }
+        //     }
+        // });
 
     }
 
@@ -230,15 +277,15 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
          fieldCanvas.setColor(Color.BLACK);
          fieldCanvas.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-         fieldCanvas.setColor(Color.red);
+        //  fieldCanvas.setColor(Color.red);
 
         //  fieldCanvas.setFont(new Font("Ink Free", Font.BOLD, 40));
 
-        fieldCanvas.setFont(fontHeavyWeight);
+        // fieldCanvas.setFont(fontHeavyWeight);
  
-         FontMetrics metrics1 = getFontMetrics(fieldCanvas.getFont());
+        //  FontMetrics metrics1 = getFontMetrics(fieldCanvas.getFont());
  
-         fieldCanvas.drawString("Score: animTimer*Math.PI/180.0 = " + animTimer*Math.PI/180.0, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + 7)) / 2, fieldCanvas.getFont().getSize());
+        //  fieldCanvas.drawString("Score: animTimer*Math.PI/180.0 = " + animTimer*Math.PI/180.0, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + 7)) / 2, fieldCanvas.getFont().getSize());
  
          // Game Over text
  
@@ -264,7 +311,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         // fieldCanvas.drawString("Anim: "+test, 50,50);
         // fieldCanvas.drawString("AnimLen: "+animLength, 50,100);
         // fieldCanvas.drawString("DeserTime: "+debugTime, 50,150);
-        fieldCanvas.drawString("waiting for: "+waitCause, 50,150);
+        // fieldCanvas.drawString("waiting for: "+waitCause, 50,150);
 
         // drawDebug(fieldCanvas);
          g2d.drawImage(fieldImage, null, 0,0);
@@ -474,8 +521,14 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         BufferedImage cardAnimated = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
         Graphics2D slotGraphics2d = (Graphics2D)slot.getGraphics();
         Graphics2D cardAnimatedGraphics2d = (Graphics2D)cardAnimated.getGraphics();
+        if(DRAW_SLOTS){
+            slotGraphics2d.drawImage(slotBase, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
 
-        slotGraphics2d.drawImage(slotBase, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
+        }
+        else{
+            slotGraphics2d.drawImage(slotBaseBlank, null, (slot.getWidth()-slotBaseBlank.getWidth())/2, (slot.getHeight()-slotBaseBlank.getHeight())/2);
+
+        }
         
         cardAnimatedGraphics2d.drawImage(card, null, (slot.getWidth()-card.getWidth())/2, (slot.getHeight()-card.getHeight())/2);
         // if(animationTransform!=null){
@@ -581,10 +634,10 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         BufferedImage cardImage = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) cardImage.getGraphics();
         if(c==null){
-            g.setColor(Color.RED);
-            g.setFont(fontHeavyWeight);
-            FontMetrics metrics = getFontMetrics(fieldCanvas.getFont());
-            g.drawString("NULL", (CARD_WIDTH - metrics.stringWidth("NULL")) / 2, (CARD_HEIGHT - metrics.getHeight()) / 2);//draw title
+            // g.setColor(Color.RED);
+            // g.setFont(fontHeavyWeight);
+            // FontMetrics metrics = getFontMetrics(fieldCanvas.getFont());
+            // g.drawString("NULL", (CARD_WIDTH - metrics.stringWidth("NULL")) / 2, (CARD_HEIGHT - metrics.getHeight()) / 2);//draw title
             return cardImage;
         }else{
 
