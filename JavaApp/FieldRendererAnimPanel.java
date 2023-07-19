@@ -645,6 +645,10 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                 return 0/DELAY;
             case MoveRight:
                 return 0/DELAY;
+            case YeetIn:
+                return 400/DELAY;
+            case YeetOut:
+                return 400/DELAY;
             default:
                 return 0;
         }
