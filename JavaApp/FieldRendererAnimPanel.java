@@ -659,6 +659,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     public BufferedImage renderCard(Card c){
         
+        
         BufferedImage cardImage = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) cardImage.getGraphics();
         if(c==null){
@@ -679,8 +680,16 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
             g.setColor(Color.BLACK);
             g.setFont(fontHeavyWeight);
-            g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2, metrics.getHeight());//draw title
 
+            if((CARD_WIDTH*9/10<  metrics.stringWidth(c.getTitle()))){
+                Font newfont = fontHeavyWeight.deriveFont((22f*CARD_WIDTH)/metrics.stringWidth(c.getTitle()));
+                metrics = getFontMetrics(newfont);
+                g.setFont(newfont);
+            }
+            // g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2, metrics.getHeight());//draw title
+            // g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2, (CARD_HEIGHT*42)/190-metrics.getHeight()/2);//draw title
+            g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2, (CARD_HEIGHT*14)/190+metrics.getHeight()/2);//draw title
+            System.out.println(metrics.getHeight()/2+":"+(CARD_HEIGHT*42)/190);
             
             BufferedImage portrait = getCardPortrait(c.getTitle());
             g.drawImage(portrait,null,CARD_WIDTH/2-portrait.getWidth()/2,CARD_HEIGHT*8/19-portrait.getHeight()/2);//draw portrait
