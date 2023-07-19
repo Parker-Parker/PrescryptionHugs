@@ -95,6 +95,14 @@ public class UserInputHandler {
         System.out.println(out);
     }
 
+    public void clear() {
+        for (iUserInput in : userInputs){//xrashes if new input added midgame// maybe should clone and itereate thru clone?// TODO:
+            while(in.checkAvailable()){
+                System.out.println(in.popParsed(TurnState.playerReady));
+            }
+        }
+    }
+
 
 
 

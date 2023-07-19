@@ -82,11 +82,11 @@ public class FieldRendererWindowAnimClient {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setAlwaysOnTop(true);
-        // frame.setUndecorated(true);
+        frame.setUndecorated(true);
 
         frame.pack();
         frame.setVisible(true);
-        // frame.setLocationRelativeTo(null);// Uncomment me in production
+        frame.setLocationRelativeTo(null);// Uncomment me in production
 
         return frame;
     }
