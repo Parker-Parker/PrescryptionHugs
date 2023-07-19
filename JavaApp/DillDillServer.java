@@ -67,6 +67,8 @@ public class DillDillServer
         // for(int i = 0;i<450;i++){
         while(true){
             fieldPicker = null;
+            FieldStartupAnimator.animatePutdown(testField,turnCon.ioHandler.getObserverOutputHandler());
+
             while(itsGameTime){
                 //update other controllers
                 turnCon.executeState();
@@ -87,6 +89,9 @@ public class DillDillServer
                 score = turnCon.getField().scale;
                 itsGameTime = score>=5? false : score>-5; 
             }
+
+            FieldStartupAnimator.animatePickup(testField,turnCon.ioHandler.getObserverOutputHandler());
+
             //clear field
             turnCon.getField().clear();
             turnCon.ioHandler.getObserverOutputHandler().publishAnim(testField, 1, 3, Animations.Idle);

@@ -15,10 +15,14 @@ public enum Animations {
 
     MoveLeft,
     MoveRight,
-    MoveFail
+    MoveFail,
     //attackR/L
     //tunnel?
     //dive?
     //toss?
+
+    //field setup anims
+    YeetIn, 
+    YeetOut
     
 }
