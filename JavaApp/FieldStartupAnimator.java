@@ -16,19 +16,28 @@ public class FieldStartupAnimator {
 
 
             for(int col = 0;col <4;col++){
-                observerOutputHandler.publishAnim(tempField, 0, col, Animations.YeetOut);
-                tempField.getEnemyCardsBack()[col] = null;
-                sent++;
+                if(tempField.getEnemyCardsBack()[col]!=null){
+                    observerOutputHandler.publishAnim(tempField, 0, col, Animations.YeetOut);
+                    tempField.getEnemyCardsBack()[col] = null;
+                    sent++;
+                }
+                
+                
             }
             for(int col = 0;col <4;col++){
-                observerOutputHandler.publishAnim(tempField, 1, col, Animations.YeetOut);
-                tempField.getEnemyCards()[col] = null ;
-                sent++;
+                if(tempField.getEnemyCards()[col]!=null){
+                
+                    observerOutputHandler.publishAnim(tempField, 1, col, Animations.YeetOut);
+                    tempField.getEnemyCards()[col] = null ;
+                    sent++;
+                }
             }
             for(int col = 0;col <4;col++){
-                observerOutputHandler.publishAnim(tempField, 2, col, Animations.YeetOut);
-                tempField.getPlayerCards()[col] = null ;
-                sent++;
+                if(tempField.getPlayerCards()[col]!=null){
+                    observerOutputHandler.publishAnim(tempField, 2, col, Animations.YeetOut);
+                    tempField.getPlayerCards()[col] = null ;
+                    sent++;
+                }
             }
 
 
@@ -45,19 +54,26 @@ public class FieldStartupAnimator {
             tempField.clear();
             
             for(int col = 0;col <4;col++){
-                tempField.getPlayerCards()[col] = finalField.getPlayerCards()[col] ;
-                observerOutputHandler.publishAnim(tempField, 2, col, Animations.YeetIn);
-                sent++;
+                if(finalField.getPlayerCards()[col]!=null){
+                
+                    tempField.getPlayerCards()[col] = finalField.getPlayerCards()[col] ;
+                    observerOutputHandler.publishAnim(tempField, 2, col, Animations.YeetIn);
+                    sent++;
+                }
             }
             for(int col = 0;col <4;col++){
-                tempField.getEnemyCards()[col] = finalField.getEnemyCards()[col] ;
-                observerOutputHandler.publishAnim(tempField, 1, col, Animations.YeetIn);
-                sent++;
+                if(finalField.getEnemyCards()[col]!=null){
+                    tempField.getEnemyCards()[col] = finalField.getEnemyCards()[col] ;
+                    observerOutputHandler.publishAnim(tempField, 1, col, Animations.YeetIn);
+                    sent++;
+                }
             }
             for(int col = 0;col <4;col++){
-                tempField.getEnemyCardsBack()[col] = finalField.getEnemyCardsBack()[col] ;
-                observerOutputHandler.publishAnim(tempField, 0, col, Animations.YeetIn);
-                sent++;
+                if(finalField.getEnemyCardsBack()[col]!=null){
+                    tempField.getEnemyCardsBack()[col] = finalField.getEnemyCardsBack()[col] ;
+                    observerOutputHandler.publishAnim(tempField, 0, col, Animations.YeetIn);
+                    sent++;
+                }
             }
             
         }
