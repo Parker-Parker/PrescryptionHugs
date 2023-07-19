@@ -147,6 +147,20 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                                         new int[]{0,                    50,                         100,                        150,                        200,                    250,                       300}, 
                                         new int[]{0},  
                                         new int[]{0});
+        
+        addAnimation(Animations.YeetIn, new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{-CARD_HEIGHT*5,   -CARD_HEIGHT*5*9/10,    -CARD_HEIGHT*5*7/10,    -CARD_HEIGHT*5*4/10,    -CARD_HEIGHT*5*2/10,    -CARD_HEIGHT*5*2/10,  -CARD_HEIGHT*5/10,    0}, 
+                                        new int[]{0,                50,                     100,                    150,                    200,                    250,                300,                350}, 
+                                        new int[]{0},  
+                                        new int[]{0});
+
+        addAnimation(Animations.YeetOut,new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0,                -CARD_HEIGHT*5/10,      -CARD_HEIGHT*5*2/10,    -CARD_HEIGHT*5*2/10,    -CARD_HEIGHT*5*4/10,    -CARD_HEIGHT*5*7/10,-CARD_HEIGHT*5*9/10,-CARD_HEIGHT*5}, 
+                                        new int[]{0,                50,                     100,                    150,                    200,                    250,                300,                350}, 
+                                        new int[]{0},  
+                                        new int[]{0});
 
 
 
