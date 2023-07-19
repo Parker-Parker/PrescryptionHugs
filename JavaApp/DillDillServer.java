@@ -38,6 +38,7 @@ public class DillDillServer
         while(true){
             testField.initPresetCards();
             fieldPicker = null;
+            turnCon.ioHandler.getUserInputHandler().clear();
             while(itsGameTime){
                 //update other controllers
                 turnCon.executeState();

@@ -579,7 +579,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                 g.drawImage(zBuffer.get(i), null, 0, 0);
         }
     }
-    String waitCause = "";
+    // String waitCause = "";
     @Override
     public void actionPerformed(ActionEvent arg0) {
         repaint();//every DELAY ms draw new frame?
@@ -601,11 +601,11 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                         animLength = x > animLength?x:animLength;
                     }
                 }
-                waitCause = "unknown";
+                // waitCause = "unknown";
             }
-            else{waitCause = "emptyQueue";}
+            // else{waitCause = "emptyQueue";}
         }
-        else{waitCause = "animRunning";}
+        // else{waitCause = "animRunning";}
     }
 
     private int getAnimLength(Animations anim) {
