@@ -636,7 +636,7 @@ class Boulder extends Card {
 class GrandFir extends Card {
 
     public GrandFir() {
-        super("Boulder", 0, 5, 0, null, null, "Guardian", null, "JavaApp/resources/Portraits/portait_boulder.jpg");
+        super("Grand Fir", 0, 5, 0, null, null, "MightyLeap", null, "JavaApp/resources/Portraits/portait_boulder.jpg");
     }
 
 }
