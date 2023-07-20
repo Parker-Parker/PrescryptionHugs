@@ -23,6 +23,7 @@ public enum Animations {
 
     //field setup anims
     YeetIn, 
-    YeetOut
+    YeetOut,
+     PlayerAttack, Wiggle, AttackLeft, AttackRight
     
 }

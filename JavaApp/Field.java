@@ -463,11 +463,7 @@ public class Field {
                     //              0               x       0       0       
                     //sigils: atk~ airborne def~repulsive leap waterborne // repulsive(prevent attack) should be checked on takeDamage(int,card), i think; only actually takes damage if sourcecard is null, since that would be revenge damagefrom spikes 
                     
-                    if(turnController!=null&&damage>0){
-                        turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Attack);
-                    }
-                    
-
+                  
 
                     if(target.checkSigil(Sigils.Waterborne)){// if waterborne, automatic miss(direct HP damage)
                         target = this.nullCard;
@@ -485,6 +481,18 @@ public class Field {
                             //target = target;
                         }
                     }
+                    if(target.checkSigil(Sigils.Repulsive)){
+                        if (damage>0){
+                            turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Hurt);//Do a sad wiggle
+                            turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Wiggle);//Do a sad wiggle
+                        }
+                        damage = 0;
+                    }
+                    if(turnController!=null&&damage>0){
+                        Animations atkAnim = (t<0)?(Animations.AttackLeft): ((t>0)?(Animations.AttackRight):(Animations.Attack));
+                        turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, atkAnim);
+                    }
+                    
                     //this is only for the main case, on hit
                     int overflow = target.takeDamage(damage, enemyCards[i]);//the damage source is passed in so the spike sigil can be tested  in takeDamage and directly call the revenge target's .takeDamage(1,null); 
                 
@@ -570,6 +578,18 @@ public class Field {
                             //target = target;
                         }
                     }
+                    if(target.checkSigil(Sigils.Repulsive)){
+                        if (damage>0){
+                            turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Hurt);//Do a sad wiggle
+                            turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Wiggle);//Do a sad wiggle
+                        }
+                        damage = 0;
+                    }
+
+                    if(turnController!=null&&damage>0){
+                        turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.PlayerAttack);
+                    }
+
                     //this is only for the main case, on hit
                     int overflow = target.takeDamage(damage, playerCards[i]);//the damage source is passed in so the spike sigil can be tested  in takeDamage and directly call the revenge target's .takeDamage(1,null); 
                 
