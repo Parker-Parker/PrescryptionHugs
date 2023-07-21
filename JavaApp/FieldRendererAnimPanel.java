@@ -143,12 +143,24 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                                         new int[]{0},  
                                         new int[]{0});
 
-        addAnimation(Animations.Hurt,    new int[]{0}, 
+        addAnimation(Animations.Hurt,   new int[]{0}, 
                                         new int[]{0}, 
                                         new int[]{0}, 
                                         new int[]{0}, 
                                         new int[]{0,    5,  25,     33,     15, -5, -15,    -10,    0},  
                                         new int[]{0,    50, 100,    150,    200, 250,300,   350,    400});
+
+        // addAnimation(Animations.Wiggle, new int[]{0,-CARD_WIDTH/20,-CARD_WIDTH*4/20,-CARD_WIDTH*5/20,-CARD_WIDTH*3/20,CARD_WIDTH/20,CARD_WIDTH*4/20,CARD_WIDTH*6/20,CARD_WIDTH*5/20,CARD_WIDTH/20,-CARD_WIDTH*2/20,-CARD_WIDTH*5/20,-CARD_WIDTH*3/20,0},
+        addAnimation(Animations.Wiggle, new int[]{0,-CARD_WIDTH/30,-CARD_WIDTH*4/30,-CARD_WIDTH*5/30,-CARD_WIDTH*3/30,CARD_WIDTH/30,CARD_WIDTH*4/30,CARD_WIDTH*6/30,CARD_WIDTH*5/30,CARD_WIDTH/30,-CARD_WIDTH*2/30,-CARD_WIDTH*5/30,-CARD_WIDTH*3/30,0},
+        // addAnimation(Animations.Wiggle, new int[]{0,-CARD_WIDTH/40,-CARD_WIDTH*4/40,-CARD_WIDTH*5/40,-CARD_WIDTH*3/40,CARD_WIDTH/40,CARD_WIDTH*4/40,CARD_WIDTH*6/40,CARD_WIDTH*5/40,CARD_WIDTH/40,-CARD_WIDTH*2/40,-CARD_WIDTH*5/40,-CARD_WIDTH*3/40,0},
+                                        // new int[]{0,       30,          60,                90,          120,             150,             180,             210,             240,        270,       300,             330,             360,        390}, 
+                                        new int[]{0,        20,              40,                  60,       80,              100,              120,     140,              160,        180,              200,              220,       240,           260}, 
+                                        new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0},  
+                                        new int[]{0});
+                                        // new int[]{0,    5, 20, 22, 15,-3, -20, -24,-12,12, 19, 22, 14, 6,  0},  
+                                        // new int[]{0,    10,20, 30, 40, 50,60,70,80,90,100,110,120,130,140});
 
         addAnimation(Animations.MoveDown,    new int[]{0}, 
                                         new int[]{0}, 
@@ -662,6 +674,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                 return 400/DELAY;
             case YeetOut:
                 return 400/DELAY;
+            case Wiggle:
+                return 800/DELAY;
             default:
                 return 0;
         }

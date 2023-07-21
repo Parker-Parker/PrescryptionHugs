@@ -483,7 +483,7 @@ public class Field {
                     }
                     if(target.checkSigil(Sigils.Repulsive)){
                         if (damage>0){
-                            turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Hurt);//Do a sad wiggle
+                            // turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Hurt);//Do a sad wiggle
                             turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Wiggle);//Do a sad wiggle
                         }
                         damage = 0;
@@ -580,7 +580,7 @@ public class Field {
                     }
                     if(target.checkSigil(Sigils.Repulsive)){
                         if (damage>0){
-                            turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Hurt);//Do a sad wiggle
+                            // turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Hurt);//Do a sad wiggle
                             turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Wiggle);//Do a sad wiggle
                         }
                         damage = 0;
