@@ -129,6 +129,25 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                                         new int[]{0},  
                                         new int[]{0});
 
+        addAnimation(Animations.AttackLeft, new int[]{0,    0,  0,      0,      0,      0,      0,  -5,  -15,-33,   -65,    -82,   -90,    -70,    -50,     -35,   -15,    -10,   -5,    0}, 
+                                            new int[]{0,    50, 100,    150,    200,    250,    300, 350,400,450,   490,    540,    600,    650,    700,    750,    800,    850, 900,   950 }, 
+
+                                            new int[]{0,    -3, -17,    -20,    -21,    -19,    -8, 20, 70, 150,    170,    175,    180,    170,    155,    120,    80,     45, 10,     0}, 
+                                            new int[]{0,    50, 100,    150,    200,    250,    300, 350,400,450,   500,    550,    600,    650,    700,    750,    800,    850, 900,   950 }, 
+
+                                            new int[]{0,    0,  0,      0,      0,      0,      0,  0,   0,  10,    32,     37,     40,      30,    20,     5,       0,      0,   0,    0},  
+                                            new int[]{0,    50, 100,    150,    200,    250,    300, 350,400,450,   500,    550,    600,    650,    700,    750,    800,    850, 900,   950 });
+
+        addAnimation(Animations.AttackRight,new int[]{0,    0,  0,      0,      0,      0,      0,   5,   15, 33,    65,     82,    90,     70,     50,      35,    15,     10,    5,    0}, 
+                                            new int[]{0,    50, 100,    150,    200,    250,    300, 350,400,450,   490,    540,    600,    650,    700,    750,    800,    850, 900,   950 }, 
+
+                                            new int[]{0,    -3, -17,    -20,    -21,    -19,    -8, 20, 70, 150,    170,    175,    180,    170,    155,    120,    80,     45, 10,     0}, 
+                                            new int[]{0,    50, 100,    150,    200,    250,    300, 350,400,450,   500,    550,    600,    650,    700,    750,    800,    850, 900,   950 }, 
+
+                                            new int[]{0,    0,  0,      0,      0,      0,      0,  0,   0,  -10,   -32,    -37,    -40,    -30,   -20,     -5,       0,      0,   0,    0},  
+                                            new int[]{0,    50, 100,    150,    200,    250,    300, 350,400,450,   500,    550,    600,    650,    700,    750,    800,    850, 900,   950 });
+
+
         addAnimation(Animations.Die,    new int[]{0}, 
                                         new int[]{0}, 
                                         new int[]{0}, 
@@ -549,6 +568,19 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         }
         return 0;
     }
+    private float linearInterpolatePointsf( int time, int[] val, int[] times){
+        if((val!=null)&&(times!=null)&&(val.length==times.length)){
+            int i = 0;
+            while(i<val.length){
+                if(time<=times[i]){
+                    return i==0? 1.0f*val[i]: (((1.0f*(val[i]-val[i-1]))*(time-times[i-1]))/(times[i]-times[i-1]))+val[i-1];
+                }
+                i++;
+            }
+            return 1.0f*val[val.length-1];
+        }
+        return 0f;
+    }
 
     private void renderAtPos(Graphics2D g, BufferedImage img, int column, int row){//TODO: make this work with zbuffer, so animated cards can appear on top even if in back
 
@@ -653,6 +685,10 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         }
         switch(anim){
             case Attack:
+                return 900/DELAY;
+            case AttackLeft:
+                return 900/DELAY;
+            case AttackRight:
                 return 900/DELAY;
             case Die:
                 return 350/DELAY;
