@@ -169,6 +169,9 @@ public class Card implements iCard {
                     card.takeDamage(1, null);//realistically, if i wanted this to be robust, I would always pass the dmg src, and add a list of damage tags(poison, quill, etc). oh well
                 } 
             }
+            if(card!=null&&card.checkSigil(Sigils.DeathTouch)){
+                this.die();
+            }
         }
         if(card==null){
             System.out.println(title + " took " + damage + " point of revenge damage");
