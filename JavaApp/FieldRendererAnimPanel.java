@@ -39,7 +39,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     static final int GAP = 50;
 
     boolean DRAW_SLOTS = false;
-    boolean OPAQUE_HAND_CARDS = false;
+    // boolean OPAQUE_HAND_CARDS = false;
+    int HAND_CARDS_DRAW_MODE = 0;
     float HAND_CARD_OPACITY = 0.3f;
 
     Timer timer;
@@ -59,6 +60,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     HashMap<String,BufferedImage> cardPortraits = new HashMap<>();
     BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage cardWhite = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage slotBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage slotBaseBlank = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage[] costs = {emptyImage,
@@ -190,6 +192,11 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         }
         fontHeavyWeight_Stat = fontHeavyWeight.deriveFont(42f);
 
+
+        Graphics2D tempGR = cardWhite.createGraphics();
+        tempGR.setColor(Color.WHITE);
+        tempGR.drawRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
+
         try {
             cardBase = ImageIO.read(new File("JavaApp/resources/card_empty.png"));
         } catch (Exception e) {
@@ -241,10 +248,16 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
             @Override
             public void mouseClicked(MouseEvent event) {
+                // // System.out.println(event.getButton());
+                // if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON1){
+                //     OPAQUE_HAND_CARDS = !OPAQUE_HAND_CARDS;
+                //     System.out.println("OPAQUE_HAND_CARDS: "+ OPAQUE_HAND_CARDS);
+
+                // }
                 // System.out.println(event.getButton());
                 if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON1){
-                    OPAQUE_HAND_CARDS = !OPAQUE_HAND_CARDS;
-                    System.out.println("OPAQUE_HAND_CARDS: "+ OPAQUE_HAND_CARDS);
+                    HAND_CARDS_DRAW_MODE = (HAND_CARDS_DRAW_MODE+1)%4;
+                    // System.out.println("OPAQUE_HAND_CARDS: "+ OPAQUE_HAND_CARDS);
 
                 }
                 if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON3){
@@ -670,11 +683,19 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             return cardImage;
         }else{
 
+
+           
+                
+
+
+
             // float opacity = 0.5f;
             // g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
             FontMetrics metrics = getFontMetrics(fontHeavyWeight);
             FontMetrics metrics2 = getFontMetrics(fontHeavyWeight_Stat);
+
+            
 
             g.drawImage(cardBase,null,0,0);//draw background
 
@@ -705,7 +726,16 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             //  opacity = 0.5f;
             // g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
-            if((!OPAQUE_HAND_CARDS)&&c.isFromHand()){
+            if(HAND_CARDS_DRAW_MODE> 1&&c.isFromHand()){
+                // g.drawImage(cardWhite,null,0,0);//draw background
+
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
+                
+
+            }
+            // if((!OPAQUE_HAND_CARDS)&&c.isFromHand()){
+            if(HAND_CARDS_DRAW_MODE%2==0&&c.isFromHand()){
                 BufferedImage cardImage2 = new BufferedImage(cardImage.getWidth(), cardImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2 = (Graphics2D) cardImage2.getGraphics();
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, HAND_CARD_OPACITY));
@@ -718,7 +748,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
       
             }
 
-
+            
             g.setFont(fontHeavyWeight_Stat);
             // g.drawString(""+c.getAttack(), CARD_WIDTH*19/120-metrics2.stringWidth(c.getAttack()+"")/2, CARD_HEIGHT*23/30+metrics2.getHeight()/2);//draw attack
             // g.drawString(c.getHealth()+"", (CARD_WIDTH*101/120 - metrics2.stringWidth(c.getHealth()+"")/2) , CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health

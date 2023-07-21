@@ -18,6 +18,13 @@ public class FieldStartupAnimator {
 
 
             for(int col = 0;col <4;col++){
+                if(tempField.getPlayerCards()[col]!=null){
+                    tempField.getPlayerCards()[col] = tempField.getPlayerCards()[col].checkSigil(Sigils.PlayedFromHand)?null:tempField.getPlayerCards()[col] ;
+                    // sent++;
+                }
+            }
+            
+            for(int col = 0;col <4;col++){
                 if(tempField.getEnemyCardsBack()[col]!=null){
                     observerOutputHandler.publishAnim(tempField, 0, col, Animations.YeetOut);
                     tempField.getEnemyCardsBack()[col] = null;
@@ -34,6 +41,8 @@ public class FieldStartupAnimator {
                     // sent++;
                 }
             }
+            
+
             for(int col = 0;col <4;col++){
                 if(tempField.getPlayerCards()[col]!=null){
                     if(takeHandCards||!tempField.getPlayerCards()[col].checkSigil(Sigils.PlayedFromHand)){
