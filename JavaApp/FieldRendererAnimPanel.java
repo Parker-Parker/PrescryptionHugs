@@ -122,6 +122,13 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                                         new int[]{0},  
                                         new int[]{0});
 
+        addAnimation(Animations.PlayerAttack, new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0, -CARD_HEIGHT*20/800, -CARD_HEIGHT*70/800, -CARD_HEIGHT*150/800, -CARD_HEIGHT*180/800, -CARD_HEIGHT*190/800, -CARD_HEIGHT*195/800, -CARD_HEIGHT*180/800, -CARD_HEIGHT*160/800, -CARD_HEIGHT*120/800, -CARD_HEIGHT*80/800, -CARD_HEIGHT*45/800,-CARD_HEIGHT*10/800, -CARD_HEIGHT*0/800}, 
+                                        new int[]{0,        50,             100,                150,                200,                    250,                    300,                350,                400,                450,                500,                550,                 600,               650}, 
+                                        new int[]{0},  
+                                        new int[]{0});
+
         addAnimation(Animations.Attack, new int[]{0}, 
                                         new int[]{0}, 
                                         new int[]{0,    -3, -17,    -20,    -21,    -19,    -8, 20, 70, 150,    180,    190,    195,    180,    160,    120,    80,     45, 10, 0}, 
@@ -711,7 +718,9 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             case YeetOut:
                 return 400/DELAY;
             case Wiggle:
-                return 800/DELAY;
+                return 600/DELAY;
+            case PlayerAttack:
+                return 650/DELAY;
             default:
                 return 0;
         }
