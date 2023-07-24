@@ -33,6 +33,8 @@ public class Card implements iCard {
 
     int[][] attackLists= {{0}, {-1,1}, {-1,0,1}, {-2,-1,0,1,2} };
     private boolean isFromHand = false;
+    private boolean moveDir = true;
+    private boolean hasMoved = false;
 
 
     public Card() {
@@ -317,6 +319,23 @@ public class Card implements iCard {
     public void setFromHand() {
         this.giveSigil(Sigils.PlayedFromHand);
         // this.isFromHand = true;
+    }
+
+    public boolean getMoveDirection() {
+        return this.moveDir;
+    }
+
+    public boolean checkMoved() {
+        return this.hasMoved;
+    }
+
+    public void setMoveDirection(boolean dir) {
+    
+        this.moveDir = dir;
+    }
+
+    public void setMoved(boolean b) {
+        this.hasMoved = b;
     }
 
 }

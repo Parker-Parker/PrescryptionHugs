@@ -205,6 +205,13 @@ public class TurnController {
             case interruptEvent:
                 break;
             case leshyBegin:
+                
+                for(int i = 0; i<4; i++){
+                    // field.playerCardSubmerge(i);
+                    field.playerCardMove(i);//reset enemy move flag
+                    field.enemyCardEvolve(i);
+                }
+
                 this.setState(TurnState.leshySummon);
                 break;
             case leshySummon:
@@ -222,6 +229,12 @@ public class TurnController {
             case leshyWin:
                 break;
             case leshyEnd:
+                for(int i = 0; i<4; i++){
+                    // field.playerCardSubmerge(i);
+                    field.enemyCardMove(i);//reset player move flag
+                    field.playerCardEvolve(i);
+                }
+
                 this.setState(TurnState.playerBegin);
                 break;
             case leshyPlayBack:

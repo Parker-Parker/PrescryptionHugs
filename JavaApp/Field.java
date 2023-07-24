@@ -866,4 +866,38 @@ public class Field {
             playerCards[i] = null;
         }
     }
+
+    public void enemyCardMove(int i) {
+    }
+
+    public void enemyCardEvolve(int i) {
+    }
+
+    public void playerCardEvolve(int i) {
+        
+    }
+
+
+    public void playerCardMove(int i) {
+        if(enemyCards[i]!=null){//TODO: move this to its own function, kinda hacky
+            enemyCards[i].setMoved(false);
+        }
+        if(playerCards[i]!=null&&playerCards[i].checkSigil(Sigils.Sprinter)&&!playerCards[i].checkMoved()){
+            boolean rightBlocked = i>=3||playerCards[i+1]!=null;
+            boolean  leftBlocked = i<=0||playerCards[i-1]!=null;
+            if(rightBlocked&&leftBlocked){
+                // wiggle, panic
+            }
+            else{
+                boolean dir = (!(rightBlocked||leftBlocked))?playerCards[i].getMoveDirection():leftBlocked;
+                playerCards[i].setMoveDirection(dir);
+                playerCards[i].setPos(2, i+(dir?1:-1));;
+                playerCards[i+(dir?1:-1)] = playerCards[i];
+                playerCards[i] = null;
+                //publish anim
+                
+            }
+
+        }
+    }
 }
