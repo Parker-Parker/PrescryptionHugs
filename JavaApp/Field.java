@@ -878,7 +878,7 @@ public class Field {
                 // wiggle, panic
                 //publish anim
                 if(turnController!=null){
-                    turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Wiggle);
+                    turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Wiggle);
                 }
             }
             else{
