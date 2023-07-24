@@ -868,12 +868,42 @@ public class Field {
     }
 
     public void enemyCardMove(int i) {
+        if(playerCards[i]!=null){//TODO: move this to its own function, kinda hacky
+            playerCards[i].setMoved(false);
+        }
+        if(enemyCards[i]!=null&&enemyCards[i].checkSigil(Sigils.Sprinter)&&!enemyCards[i].checkMoved()){
+            boolean rightBlocked = i>=3||enemyCards[i+1]!=null;
+            boolean  leftBlocked = i<=0||enemyCards[i-1]!=null;
+            if(rightBlocked&&leftBlocked){
+                // wiggle, panic
+                //publish anim
+                if(turnController!=null){
+                    turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Wiggle);
+                }
+            }
+            else{
+                boolean dir = (!(rightBlocked||leftBlocked))?enemyCards[i].getMoveDirection():leftBlocked;
+                enemyCards[i].setMoveDirection(dir);
+                enemyCards[i].setPos(2, i+(dir?1:-1));;
+                enemyCards[i+(dir?1:-1)] = enemyCards[i];
+                enemyCards[i] = null;
+                //publish anim
+                if(turnController!=null){
+                    turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i+(dir?1:-1), (dir?Animations.MoveRight:Animations.MoveLeft));
+                }
+            }
+
+        }
     }
 
     public void enemyCardEvolve(int i) {
         if (enemyCards[i]!=null&&enemyCards[i].checkSigil(Sigils.Fledgling)){
             enemyCards[i] = enemyCards[i].getEvolution();
             //anim
+
+            if(turnController!=null){
+                turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 1, i, Animations.Wiggle);
+            }
         }
     }
 
@@ -881,6 +911,10 @@ public class Field {
         if (playerCards[i]!=null&&playerCards[i].checkSigil(Sigils.Fledgling)){
             playerCards[i] = playerCards[i].getEvolution();
             //anim
+
+            if(turnController!=null){
+                turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Wiggle);
+            }
         }
 
     }
@@ -895,6 +929,10 @@ public class Field {
             boolean  leftBlocked = i<=0||playerCards[i-1]!=null;
             if(rightBlocked&&leftBlocked){
                 // wiggle, panic
+                //publish anim
+                if(turnController!=null){
+                    turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i, Animations.Wiggle);
+                }
             }
             else{
                 boolean dir = (!(rightBlocked||leftBlocked))?playerCards[i].getMoveDirection():leftBlocked;
@@ -903,7 +941,9 @@ public class Field {
                 playerCards[i+(dir?1:-1)] = playerCards[i];
                 playerCards[i] = null;
                 //publish anim
-                
+                if(turnController!=null){
+                    turnController.ioHandler.getObserverOutputHandler().publishAnim(this, 2, i+(dir?1:-1), (dir?Animations.MoveRight:Animations.MoveLeft));
+                }
             }
 
         }
