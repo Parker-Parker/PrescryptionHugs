@@ -338,5 +338,17 @@ public class Card implements iCard {
         this.hasMoved = b;
     }
 
+    public Card getEvolution() {
+        if(checkSigil(Sigils.Fledgling)){
+            this.title = "Elder "+ this.title ;
+            this.baseHealth += 2;
+            this.health += 2;
+            this.baseAttack += 1;
+            this.sigils.put(Sigils.Fledgling, false);
+        }
+        return this;
+        
+    }
+
 }
 

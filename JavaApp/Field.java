@@ -871,10 +871,18 @@ public class Field {
     }
 
     public void enemyCardEvolve(int i) {
+        if (enemyCards[i]!=null&&enemyCards[i].checkSigil(Sigils.Fledgling)){
+            enemyCards[i] = enemyCards[i].getEvolution();
+            //anim
+        }
     }
 
     public void playerCardEvolve(int i) {
-        
+        if (playerCards[i]!=null&&playerCards[i].checkSigil(Sigils.Fledgling)){
+            playerCards[i] = playerCards[i].getEvolution();
+            //anim
+        }
+
     }
 
 
