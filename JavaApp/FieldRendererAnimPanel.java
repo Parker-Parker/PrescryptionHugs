@@ -787,7 +787,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2, (CARD_HEIGHT*14)/190+metrics.getHeight()/2);//draw title
             // System.out.println(metrics.getHeight()/2+":"+(CARD_HEIGHT*42)/190);
             
-            BufferedImage portrait = getCardPortrait(c.getTitle());
+            BufferedImage portrait = getCardPortrait(c.getTitle().replaceAll("Elder ", ""));
             g.drawImage(portrait,null,CARD_WIDTH/2-portrait.getWidth()/2,CARD_HEIGHT*8/19-portrait.getHeight()/2);//draw portrait
             
             BufferedImage cost = getCostIndicator(c.cost);
