@@ -885,7 +885,7 @@ public class Field {
                 boolean dir = (!(rightBlocked||leftBlocked))?enemyCards[i].getMoveDirection():leftBlocked;
                 enemyCards[i].setMoved(true);
                 enemyCards[i].setMoveDirection(dir);
-                enemyCards[i].setPos(2, i+(dir?1:-1));;
+                enemyCards[i].setPos(1, i+(dir?1:-1));;
                 enemyCards[i+(dir?1:-1)] = enemyCards[i];
                 enemyCards[i] = null;
                 //publish anim
