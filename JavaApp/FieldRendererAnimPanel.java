@@ -209,6 +209,22 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                                         new int[]{0},  
                                         new int[]{0});
 
+        addAnimation(Animations.MoveRight, 
+                                        new int[]{-(CARD_WIDTH+GAP),   -(CARD_WIDTH+GAP)*9/10,   -(CARD_WIDTH+GAP)*7/10,   -(CARD_WIDTH+GAP)*3/10,   -(CARD_WIDTH+GAP)*1/10,   -(CARD_WIDTH+GAP)*1/20,   0}, 
+                                        new int[]{0,                    50,                         100,                        150,                        200,                    250,                       300},    
+                                        new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0},  
+                                        new int[]{0});
+
+        addAnimation(Animations.MoveLeft, 
+                                        new int[]{(CARD_WIDTH+GAP),   (CARD_WIDTH+GAP)*9/10,    (CARD_WIDTH+GAP)*7/10,    (CARD_WIDTH+GAP)*3/10,    (CARD_WIDTH+GAP)*1/10,    (CARD_WIDTH+GAP)*1/20,   0}, 
+                                        new int[]{0,                    50,                         100,                        150,                        200,                    250,                       300},    
+                                        new int[]{0}, 
+                                        new int[]{0}, 
+                                        new int[]{0},  
+                                        new int[]{0});
+
 
 
         // for(int i =0; i<10;i++){
@@ -710,9 +726,9 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             case MoveFail:
                 return 0/DELAY;
             case MoveLeft:
-                return 0/DELAY;
+                return 350/DELAY;
             case MoveRight:
-                return 0/DELAY;
+                return 350/DELAY;
             case YeetIn:
                 return 400/DELAY;
             case YeetOut:
