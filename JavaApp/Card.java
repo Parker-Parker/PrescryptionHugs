@@ -344,7 +344,10 @@ public class Card implements iCard {
             this.baseHealth += 2;
             this.health += 2;
             this.baseAttack += 1;
+            this.attack += 1;
+            // this.isFromHand = false;//so we draw over the old card
             this.sigils.put(Sigils.Fledgling, false);
+            this.sigils.put(Sigils.PlayedFromHand, false);
         }
         return this;
         

@@ -883,6 +883,7 @@ public class Field {
             }
             else{
                 boolean dir = (!(rightBlocked||leftBlocked))?enemyCards[i].getMoveDirection():leftBlocked;
+                enemyCards[i].setMoved(true);
                 enemyCards[i].setMoveDirection(dir);
                 enemyCards[i].setPos(2, i+(dir?1:-1));;
                 enemyCards[i+(dir?1:-1)] = enemyCards[i];
@@ -936,6 +937,7 @@ public class Field {
             }
             else{
                 boolean dir = (!(rightBlocked||leftBlocked))?playerCards[i].getMoveDirection():leftBlocked;
+                playerCards[i].setMoved(true);;
                 playerCards[i].setMoveDirection(dir);
                 playerCards[i].setPos(2, i+(dir?1:-1));;
                 playerCards[i+(dir?1:-1)] = playerCards[i];
