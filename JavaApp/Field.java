@@ -49,6 +49,25 @@ public class Field {
         }
 
     }
+    public void dilldillSetup(Card[] nC, Card[] eCB, Card[] eC, Card[] pC, ArrayList<LinkedList<Card>> epm) {
+        nullCards = nC;
+        enemyCardsBack = eCB;
+        enemyCards = eC;
+        playerCards = pC;
+        enemyPlannedMoves = epm;
+        for(int i = 0; i <4; i++){
+            if(enemyCardsBack[i] != null){
+                enemyCardsBack[i].setField(this);
+            }
+            if(enemyCards[i] != null){
+                enemyCards[i].setField(this);
+            }
+            if(playerCards[i] != null){
+                playerCards[i].setField(this);
+            }
+        }
+
+    }
 
     public Field() {
     }
