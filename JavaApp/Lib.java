@@ -25,6 +25,21 @@ class WolfCub extends Card {
         super("Wolf Cub", 1, 1, 1, "Blood", "Canine", "Fledgling", null,
                 "JavaApp/resources/Portraits/portait_wolf_cub.jpg");
     }
+    @Override
+    public Card getEvolution() {
+        if(checkSigil(Sigils.Fledgling)){
+            this.title = "Wolf" ;
+            this.baseHealth += 1;
+            this.health += 1;
+            this.baseAttack += 2;
+            this.attack += 2;
+            // this.isFromHand = false;//so we draw over the old card
+            this.sigils.put(Sigils.Fledgling, false);
+            this.sigils.put(Sigils.PlayedFromHand, false);
+        }
+        return this;
+        
+    }
 
 }
 
@@ -204,6 +219,22 @@ class ElkFawn extends Card {
                 "JavaApp/resources/Portraits/portait_elk_fawn.jpg");
     }
 
+    @Override
+    public Card getEvolution() {
+        if(checkSigil(Sigils.Fledgling)){
+            this.title = "Elk" ;
+            this.baseHealth += 3;
+            this.health += 3;
+            this.baseAttack += 1;
+            this.attack += 1;
+            // this.isFromHand = false;//so we draw over the old card
+            this.sigils.put(Sigils.Fledgling, false);
+            this.sigils.put(Sigils.PlayedFromHand, false);
+        }
+        return this;
+        
+    }
+
 }
 
 class FieldMice extends Card {
@@ -327,6 +358,19 @@ class StrangeLarva extends Card {
                 "JavaApp/resources/Portraits/portait_strange_larva.jpg");
     }
 
+    @Override
+    public Card getEvolution() {
+        if(checkSigil(Sigils.Fledgling)){
+            StrangePupa p =  new StrangePupa();
+            p.baseAttack += this.baseAttack;
+            p.baseHealth += this.baseHealth-3;
+            p.health = this.health;
+            return p;
+        }
+        return this;
+        
+    }
+
 }
 
 class StrangePupa extends Card {
@@ -334,6 +378,18 @@ class StrangePupa extends Card {
     public StrangePupa() {
         super("Strange Pupa", 0, 3, 1, "Blood", "Insect", "Fledgling", null,
                 "JavaApp/resources/Portraits/portait_strange_pupa.jpg");
+    }
+    @Override
+    public Card getEvolution() {
+        if(checkSigil(Sigils.Fledgling)){
+            Mothman m =  new Mothman();
+            m.baseAttack += this.baseAttack;
+            m.baseHealth += this.baseHealth-3;
+            m.health = m.baseHealth-(this.baseHealth-this.health);
+            return m;
+        }
+        return this;
+        
     }
 
 }
@@ -448,7 +504,24 @@ class RavenEgg extends Card {
         super("Raven Egg", 0, 2, 1, "Blood", "Avian", "Fledgling", null,
                 "JavaApp/resources/Portraits/portait_raven_egg.jpg");
     }
+    @Override
+    public Card getEvolution() {
+        if(checkSigil(Sigils.Fledgling)){
+            this.title = "Elk" ;
+            this.baseHealth += 1;
+            this.health += 1;
+            this.baseAttack += 2;
+            this.attack += 2;
+            // this.isFromHand = false;//so we draw over the old card
+            this.sigils.put(Sigils.Fledgling, false);
+            this.sigils.put(Sigils.PlayedFromHand, false);
+            this.sigils.put(Sigils.Airborne, true);
+        }
+        return this;
+        
+    }
 
+    
 }
 
 class GreatWhite extends Card {

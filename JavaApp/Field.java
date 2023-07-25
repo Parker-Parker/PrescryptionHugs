@@ -854,7 +854,12 @@ public class Field {
     public LinkedList<Card> deepCopyDeck(LinkedList<Card> deck){
         LinkedList<Card> newDeck = new LinkedList<Card>();
         for(Card c : deck){
-            newDeck.add(new Card(c));
+            newDeck.add(new Card(c));//TODO:FIX <<this accidentally "casts" all objects to cards
+            // newDeck.add(c.makeCopy());//TODO:FIX <<this accidentally "casts" all objects to cards
+            
+            // newDeck.add(c.getClass().cast(new Card(c)));//<<<THIS LINE IS FUCKING TERRIFYING PLEASE DO SOMETHING ELSE
+            // //TODO: FIX IT 
+            
         }
         return newDeck;
     }

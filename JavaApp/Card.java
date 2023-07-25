@@ -217,6 +217,25 @@ public class Card implements iCard {
 
     public Card makeCopy() {
         Card copy = new Card();
+        // Card copy = this.clone();
+        copy.attack = this.attack;
+        copy.baseAttack = this.baseAttack;
+        copy.baseHealth = this.baseHealth;
+        copy.cost = this.cost;
+        copy.health = this.health;
+        copy.image = this.image;
+        copy.sigils = this.sigils.clone();
+        copy.title = this.title;
+        copy.value = this.value;
+        return copy;
+    }
+    // public Card makeCopy() {
+    //     Card copy = new Card();
+
+    //     return copy;
+    // }
+    public Card makeCopy(Card copy) {
+        // Card copy = this.clone();
         copy.attack = this.attack;
         copy.baseAttack = this.baseAttack;
         copy.baseHealth = this.baseHealth;
