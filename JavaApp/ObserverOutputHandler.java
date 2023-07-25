@@ -62,7 +62,8 @@ public class ObserverOutputHandler {
         animSerializedByTopic.put(ObserverTopics.EnemyPlannedMoves,   this.serializeEnemyPlannedMoves(field)    );             
         // fieldSerializedByTopic.put(ObserverTopics.scale,               this.serializescale(field)                );  //make all this state
         // fieldSerializedByTopic.put(ObserverTopics.Candles,             this.serializeCandles(field)              );    
-        // fieldSerializedByTopic.put(ObserverTopics.TurnControllerState, this.serializeTurnControllerState(field)  ); 
+        // fieldSerializedByTopic.put(ObserverTopics.TurnControllerState, this.serializeTurnControllerState(field)  );    
+        animSerializedByTopic.put(ObserverTopics.MatchState, this.serializeMatchState(field.getTurnController())  ); 
          
         animSerializedByTopic.put(ObserverTopics.Animations,          this.serializeAnimationData(cardRow, cardColumn, animation)    );    
         return animSerializedByTopic;
@@ -161,6 +162,14 @@ public class ObserverOutputHandler {
 
 
     //TOPICS
+
+    private String serializeMatchState(TurnController tc){
+        if(tc==null||tc.state==null||tc.getField()==null){
+            return "";
+        }
+        return "MatchState:"+tc.state.ordinal()+" "+tc.getField().scale;
+    }
+
     private String serializeEnemyCardsBack(Field field){
         return "EnemyCardsBack:"+this.serializeArrayOfCards(field.getEnemyCardsBack());
     }
@@ -251,6 +260,43 @@ public class ObserverOutputHandler {
     }
 
 
+
+    public int[] deserializeMatchState(String topicString){
+        // return "MatchState:"+tc.state.ordinal()+" "+tc.getField().scale;
+        try{
+        int[] stateData = new int[2];
+        if(topicString!=null){
+
+            String[] topic = topicString.split(":");
+            
+            if((topic.length==2)    &&                                                                          
+                (topic[0]!=null)    &&                                                                          
+                (topic[1]!=null)    &&                                                                          
+                (!topic[0].isEmpty())    &&                                                                         
+                (!topic[1].isEmpty())    &&                                                                         
+                (topic[0].equalsIgnoreCase(ObserverTopics.MatchState.name()))                                                                                   
+            ){
+                    String[] data = topic[1].split(" ");
+                    if((data.length==2)    &&                                                                          
+                    (data[0]!=null)    &&                                                                          
+                    (data[1]!=null)    &&                                                                          
+                    (!data[0].isEmpty())    &&                                                                         
+                    (!data[1].isEmpty())                                                                                       
+                    ){
+                        stateData[0] = Integer.parseInt(data[0]);
+                        stateData[1] = Integer.parseInt(data[1]);  
+                        if (stateData[0]>=0&&stateData[0]<TurnState.values().length ){
+                            return stateData;
+                        }
+                    }
+            }
+        }}
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     public Card[] deserializeEnemyCardsBack(String topicString)   {
         if(topicString!=null){
