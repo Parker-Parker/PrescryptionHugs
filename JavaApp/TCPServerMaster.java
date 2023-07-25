@@ -130,6 +130,9 @@ class TCPServerMaster extends Thread {
                 case "ANIMATION":
                     return new AnimationNetworkOutput();
                     // break;
+                case "SIMPLESTATUS":
+                    return new StatusNetworkOutput();
+                    // break;
                 case "CUSTOM":
                     LinkedList<InputOutputType> ioTypes = new LinkedList<>();
                     for(String x : args){

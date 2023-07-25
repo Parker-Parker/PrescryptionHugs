@@ -59,7 +59,7 @@ public class StatusClient {
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
         Scanner inFromServer = new Scanner(clientSocket.getInputStream());
 
-        outToServer.writeBytes("Animation" + '\n');// cONFIG STRING //change this to renderer specific once implemented
+        outToServer.writeBytes("SimpleStatus" + '\n');// cONFIG STRING //change this to renderer specific once implemented
         outToServer.flush();
 
         String fieldString = "";
