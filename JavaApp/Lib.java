@@ -26,6 +26,10 @@ class WolfCub extends Card {
                 "JavaApp/resources/Portraits/portait_wolf_cub.jpg");
     }
     @Override
+    public Card makeCopy() {
+        return makeCopy(new WolfCub());
+    }
+    @Override
     public Card getEvolution() {
         if(checkSigil(Sigils.Fledgling)){
             this.title = "Wolf" ;
@@ -218,6 +222,10 @@ class ElkFawn extends Card {
         super("Elk Fawn", 1, 1, 1, "Blood", "Hooved", "Sprinter", "Fledgling",
                 "JavaApp/resources/Portraits/portait_elk_fawn.jpg");
     }
+    @Override
+    public Card makeCopy() {
+        return makeCopy(new ElkFawn());
+    }
 
     @Override
     public Card getEvolution() {
@@ -357,6 +365,10 @@ class StrangeLarva extends Card {
         super("Strange Larva", 0, 3, 1, "Blood", "Insect", "Fledgling", null,
                 "JavaApp/resources/Portraits/portait_strange_larva.jpg");
     }
+    @Override
+    public Card makeCopy() {
+        return makeCopy(new StrangeLarva());
+    }
 
     @Override
     public Card getEvolution() {
@@ -378,6 +390,10 @@ class StrangePupa extends Card {
     public StrangePupa() {
         super("Strange Pupa", 0, 3, 1, "Blood", "Insect", "Fledgling", null,
                 "JavaApp/resources/Portraits/portait_strange_pupa.jpg");
+    }
+    @Override
+    public Card makeCopy() {
+        return makeCopy(new StrangePupa());
     }
     @Override
     public Card getEvolution() {
