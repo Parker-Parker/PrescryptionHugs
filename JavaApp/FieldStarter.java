@@ -11,7 +11,7 @@ public class FieldStarter {
 
 
 //easy game intro
-
+//TODO: poke fun at dillon for making everything static
 
 class Game1 extends Field {
 
