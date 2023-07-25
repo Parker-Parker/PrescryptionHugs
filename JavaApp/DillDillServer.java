@@ -39,6 +39,7 @@ public class DillDillServer
             testField.initPresetCards();
             fieldPicker = null;
             turnCon.ioHandler.getUserInputHandler().clear();
+            turnCon.setState(TurnState.playerDeal);
             FieldStartupAnimator.animatePutdown(testField,turnCon.ioHandler.getObserverOutputHandler());
 
             while(itsGameTime){
