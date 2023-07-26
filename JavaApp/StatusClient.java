@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.Timer;
 import javax.swing.border.TitledBorder;
 
 
@@ -26,6 +27,7 @@ import javax.swing.JFrame;
 public class StatusClient {
 
 
+    private static final int TIMER_DELAY = 750;
     volatile static TurnState state= TurnState.interruptEvent;
     volatile static int scale = 0;
     static int[] statCodes = {0,0};
@@ -101,12 +103,13 @@ public class StatusClient {
                     statCodes[0] = 0;
                     statCodes[1] = 0;
                 }
+                state = getStateFromOrd( statCodes[0]);
+                scale =  statCodes[1];
 
                 
             }
-            state = getStateFromOrd( statCodes[0]);
-            scale =  statCodes[1];
-            updateText("State: "+state+"\nScale: "+getScaleText(scale));
+            
+            // updateText("State: "+state+"\nScale: "+getScaleText(scale));
 
         }
 
@@ -167,7 +170,7 @@ public class StatusClient {
                 return x+(x<-5?" [<====|     ]":" [     |====>]");
         }
     }
-
+    private static Timer timer = null;
     private static void setupFrame() {
         frame = new JFrame();
 
@@ -218,6 +221,17 @@ public class StatusClient {
         frame.setVisible(true);
         frame.setAlwaysOnTop(true);
 
+
+        timer = new Timer(TIMER_DELAY, 
+            new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    infoText.setText("State: "+state+"\nScale: "+getScaleText(scale));
+                }
+            }    
+        );
+
+        timer.start();
     }
 
 }
