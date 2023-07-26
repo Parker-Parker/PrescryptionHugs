@@ -75,6 +75,12 @@
             "name": "RendererAnimWindow",
             "request": "launch",
             "mainClass": "FieldRendererWindowAnimClient"
+        },
+        {
+            "type": "java",
+            "name": "StatusClient",
+            "request": "launch",
+            "mainClass": "StatusClient"
         }
     ],
     "compounds": [
@@ -113,6 +119,10 @@
         {
             "name": "FinalV1",
             "configurations": ["DillonServer","DillonClient", "RendererAnimWindow"]
+        },
+        {
+            "name": "FinalV1.1",
+            "configurations": ["DillonServer","DillonClient", "RendererAnimWindow", "StatusClient"]
         }
     ]
     
