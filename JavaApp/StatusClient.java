@@ -2,6 +2,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -114,7 +116,7 @@ public class StatusClient {
             if(scoreHistory.peek()==null||scoreHistory.peek()!=scale){
                 scoreHistory.push(scale);
             }
-            if(scoreHistory.size()>15){
+            if(scoreHistory.size()>30){
                 scoreHistory.removeLast();
             }
             
@@ -196,7 +198,12 @@ public class StatusClient {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         panel.setBackground(Color.decode(bckColor));
-        panel.setLayout(new GridLayout(3,0));
+        // panel.setLayout(new GridLayout(2,0));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        // panel.setLayout(new FlowLayout());
+
+        // panel.setPreferredSize(new Dimension(300, 100));
 
 
         ////////////////////////////////////////////////////
@@ -204,14 +211,16 @@ public class StatusClient {
         ////////////////////////////////////////////////////
 
         JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(0, 1));
+        // infoPanel.setLayout(new GridLayout(0, 1));
+
+        infoPanel.setLayout(new FlowLayout());
         infoPanel.setBackground(Color.decode(bckColor));
         infoPanel.setForeground(Color.decode(txtColor));        
 
         TitledBorder panelBorder = BorderFactory.createTitledBorder("STATUS");
         infoPanel.setBorder(panelBorder);
         panelBorder.setTitleColor(Color.decode(txtColor));
-        infoPanel.setPreferredSize(new Dimension(300, 80));
+        // infoPanel.setPreferredSize(new Dimension(300, 800));
         
         infoText = new JTextArea("test");
         infoText.setFont(new Font( "Monospaced", Font.PLAIN, 12 ));
@@ -219,6 +228,7 @@ public class StatusClient {
         infoPanel.add(infoText);
         infoText.setBackground(Color.decode(bckColor));
         infoText.setLineWrap(true);
+        infoText.setPreferredSize(new Dimension(300, 600));
 
         panel.add(infoPanel);
         
@@ -227,10 +237,11 @@ public class StatusClient {
         ////////////////////////////////////////////////////
 
         JPanel buttPanel = new JPanel();
-        buttPanel.setLayout(new GridLayout(0, 1));
+        // buttPanel.setLayout(new GridLayout(0, 1));
+        buttPanel.setLayout(new FlowLayout());
         buttPanel.setBackground(Color.decode(bckColor));
         buttPanel.setForeground(Color.decode(txtColor));
-        buttPanel.setPreferredSize(new Dimension(300, 80));
+        // buttPanel.setPreferredSize(new Dimension(300, 80));
 
         JButton confirmButton = new JButton("Poop Butt");
         confirmButton.setBackground(Color.decode(butColor));
