@@ -5,6 +5,7 @@ import java.util.EnumMap;
 public class GenericNetworkObserverOutput implements iObserverOutput{
     EnumMap<ObserverTopics, String> rawMsg;
     EnumMap<ObserverTopics, Boolean> subscriptions = new EnumMap<>(ObserverTopics.class);
+    ObserverOutputHandler handler;
 
     SafeRingBuffer<EnumMap<ObserverTopics, String>> obsOutputBuffer = new SafeRingBuffer<>(50);
     
@@ -54,6 +55,16 @@ public class GenericNetworkObserverOutput implements iObserverOutput{
     @Override
     public boolean checkSub(ObserverTopics topic) {
         return subscriptions.containsKey(topic)&&(subscriptions.get(topic)==true);
+    }
+
+    @Override
+    public void setHandler(ObserverOutputHandler observerOutputHandler) {
+        this.handler = observerOutputHandler;
+    }
+
+    @Override
+    public ObserverOutputHandler getHandler() {
+        return handler;
     }
 
 }

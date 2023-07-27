@@ -55,8 +55,8 @@ public class InputProtocolString {
                     return null;
                     // break;
                 case Observer:
-                    System.out.println("TODO: IO type valid but not yet implemented: "+text);//TODO Implement String command type
-                    return null;
+                    System.out.println("TODO: IO type valid but not yet fully implemented: "+text);//TODO Implement String command type
+                    return parseObs(text);
                     // break;
                 case Render:
                     System.out.println("TODO: IO type valid but not yet implemented: "+text);//TODO Implement String command type
@@ -81,6 +81,13 @@ public class InputProtocolString {
             return null;
         }
 
+
+    }
+
+    public int[] parseObs(String text){
+        String[] args = text.split(" ");
+        // System.out.println("Parsing User Input command..."); //debug
+        return command.clone();
 
     }
 

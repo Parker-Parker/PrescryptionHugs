@@ -14,6 +14,7 @@ public class ObserverOutputHandler {
 
     public void register(iObserverOutput output) { //TODO:need a deregister option
         this.observerOutputs.add(output);
+        output.setHandler(this);
     }
 
     //maybe pubsub is handled byu each output itself. OOH gives every iOO all data and each iOO transmits the tags it needs 
@@ -42,11 +43,14 @@ public class ObserverOutputHandler {
     public void publishAnim(Field field,  int cardRow, int cardColumn, Animations animation){
         EnumMap<ObserverTopics, String> animSerializedByTopic = new EnumMap<>(ObserverTopics.class);
         animSerializedByTopic = this.serializeAnimation(field, cardRow, cardColumn, animation);
+
+        latest = animSerializedByTopic;
         for(iObserverOutput output : observerOutputs){
             if(output.checkSub(ObserverTopics.Animations)){
                 output.push(animSerializedByTopic);
             }
         }
+        latest = animSerializedByTopic;
 
     }    
     private EnumMap<ObserverTopics, String> serializeAnimation(Field field, int cardRow, int cardColumn, Animations animation) {
@@ -72,6 +76,15 @@ public class ObserverOutputHandler {
     public void requestLatest(iObserverOutput output){
         output.push(latest);
 
+    }
+
+    public void requestLatest() {
+        for(iObserverOutput output : this.observerOutputs){
+
+            output.push(latest);
+
+        }
+        
     }
     public EnumMap<ObserverTopics, String> getLatest(iObserverOutput output){
         return latest;

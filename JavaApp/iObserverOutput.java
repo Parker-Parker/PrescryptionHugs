@@ -12,4 +12,8 @@ public interface iObserverOutput {
 
     boolean checkSub(ObserverTopics animations);
 
+    void setHandler(ObserverOutputHandler observerOutputHandler);
+
+    ObserverOutputHandler getHandler();
+
 }

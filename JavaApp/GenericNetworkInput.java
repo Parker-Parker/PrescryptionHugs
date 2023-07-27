@@ -65,7 +65,13 @@ public class GenericNetworkInput implements iNetworkInput {
                 case Enemy:
                     break;
                 case Observer:
-                    this.obsOutput.setSub(x);
+                    if(x[0]==2){
+                        this.obsOutput.setSub(x);
+                    }
+                    if(x[0]==1){
+                        this.obsOutput.getHandler().requestLatest();;//hackyyyyyyyyyyyyyyyy
+                    }
+                    
                     break;
                 case Render:
                     break;
