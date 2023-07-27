@@ -2,6 +2,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ import javax.swing.border.TitledBorder;
 
 import java.io.*;
 import java.net.*;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -32,6 +34,7 @@ public class StatusClient {
     volatile static int scale = 0;
     static int[] statCodes = {0,0};
     private static String lastText = "";
+    static LinkedList<Integer> scoreHistory = new LinkedList<>(); 
 
     public static void main(String[] args) throws Exception {
 
@@ -108,6 +111,12 @@ public class StatusClient {
 
                 
             }
+            if(scoreHistory.peek()==null||scoreHistory.peek()!=scale){
+                scoreHistory.push(scale);
+            }
+            if(scoreHistory.size()>15){
+                scoreHistory.removeLast();
+            }
             
             // updateText("State: "+state+"\nScale: "+getScaleText(scale));
 
@@ -141,33 +150,39 @@ public class StatusClient {
     private static String txtColor = "#DDDDDD";
     static JFrame frame;
     private static JTextArea infoText = null;
+    private static JTextArea histText = null;
 
     private static String getScaleText(int x){
+        String xs = x +"";
+        while (xs.length()<3){
+            xs = " "+xs;
+        }
+
         switch(x){
             case 0:
-                return x+" [     |     ]";
+                return xs+" [     |     ]";
             case 1:
-                return x+" [     |>    ]";
+                return xs+" [     |>    ]";
             case 2:
-                return x+" [     |=>   ]";
+                return xs+" [     |=>   ]";
             case 3:
-                return x+" [     |==>  ]";
+                return xs+" [     |==>  ]";
             case 4:
-                return x+" [     |===> ]";
+                return xs+" [     |===> ]";
             case 5:
-                return x+" [     |====>]";
+                return xs+" [     |====>]";
             case -1:
-                return x+" [    <|     ]";
+                return xs+" [    <|     ]";
             case -2:
-                return x+" [   <=|     ]";
+                return xs+" [   <=|     ]";
             case -3:
-                return x+" [  <==|     ]";
+                return xs+" [  <==|     ]";
             case -4:
-                return x+" [ <===|     ]";
+                return xs+" [ <===|     ]";
             case -5:
-                return x+" [<====|     ]";
+                return xs+" [<====|     ]";
             default:
-                return x+(x<-5?" [<====|     ]":" [     |====>]");
+                return xs+(x<-5?" [<====|     ]":" [     |====>]");
         }
     }
     private static Timer timer = null;
@@ -181,7 +196,7 @@ public class StatusClient {
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         panel.setBackground(Color.decode(bckColor));
-        panel.setLayout(new GridLayout(0, 1));
+        panel.setLayout(new GridLayout(3,0));
 
 
         ////////////////////////////////////////////////////
@@ -191,8 +206,7 @@ public class StatusClient {
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new GridLayout(0, 1));
         infoPanel.setBackground(Color.decode(bckColor));
-        infoPanel.setForeground(Color.decode(txtColor));
-        
+        infoPanel.setForeground(Color.decode(txtColor));        
 
         TitledBorder panelBorder = BorderFactory.createTitledBorder("STATUS");
         infoPanel.setBorder(panelBorder);
@@ -200,12 +214,42 @@ public class StatusClient {
         infoPanel.setPreferredSize(new Dimension(300, 80));
         
         infoText = new JTextArea("test");
+        infoText.setFont(new Font( "Monospaced", Font.PLAIN, 12 ));
         infoText.setForeground(Color.decode(txtColor));
         infoPanel.add(infoText);
         infoText.setBackground(Color.decode(bckColor));
         infoText.setLineWrap(true);
 
         panel.add(infoPanel);
+        
+        ////////////////////////////////////////////////////
+        // BUTT panel
+        ////////////////////////////////////////////////////
+
+        JPanel buttPanel = new JPanel();
+        buttPanel.setLayout(new GridLayout(0, 1));
+        buttPanel.setBackground(Color.decode(bckColor));
+        buttPanel.setForeground(Color.decode(txtColor));
+        buttPanel.setPreferredSize(new Dimension(300, 80));
+
+        JButton confirmButton = new JButton("Poop Butt");
+        confirmButton.setBackground(Color.decode(butColor));
+        confirmButton.setForeground(Color.decode(txtColor));
+        buttPanel.add(confirmButton);
+
+        confirmButton.addActionListener(
+            new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    // outToServer.writeBytes("SimpleStatus" + '\n');
+                    // outToServer.flush();
+                }
+            }
+        );
+
+
+
+        panel.add(buttPanel);
         
 
         ////////////////////////////////////////////////////
@@ -226,12 +270,23 @@ public class StatusClient {
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    infoText.setText("State: "+state+"\nScale: "+getScaleText(scale));
+                    infoText.setText("State: "+state+"\nScale: "+getScaleText(scale)+"\n"+printHistory());
                 }
             }    
         );
 
         timer.start();
+    }
+
+
+    private static String printHistory() {
+        String histString ="\nSCORE HISTORY:\n";
+        for(Integer i : scoreHistory){
+            if(i!=null){
+                histString += getScaleText(i) +"\n";
+            }
+        }
+        return histString;
     }
 
 }
