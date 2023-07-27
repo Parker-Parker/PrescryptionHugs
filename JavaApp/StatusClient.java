@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +39,7 @@ public class StatusClient {
     private static String lastText = "";
     static LinkedList<Integer> scoreHistory = new LinkedList<>(); 
 
+    static DataOutputStream outToServer;
     public static void main(String[] args) throws Exception {
 
         // new GameFrame();
@@ -63,7 +65,7 @@ public class StatusClient {
         System.out.println(hostName + " " + port);
 
         Socket clientSocket = new Socket(hostName, port);
-        DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+        outToServer = new DataOutputStream(clientSocket.getOutputStream());
         Scanner inFromServer = new Scanner(clientSocket.getInputStream());
 
         outToServer.writeBytes("SimpleStatus" + '\n');// cONFIG STRING //change this to renderer specific once implemented
@@ -200,6 +202,9 @@ public class StatusClient {
         panel.setBackground(Color.decode(bckColor));
         // panel.setLayout(new GridLayout(2,0));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        // panel.setLayout(new GridBagLayout());
+
+        // panel.setLayout(new BorderLayout());
 
         // panel.setLayout(new FlowLayout());
 
@@ -243,7 +248,7 @@ public class StatusClient {
         buttPanel.setForeground(Color.decode(txtColor));
         // buttPanel.setPreferredSize(new Dimension(300, 80));
 
-        JButton confirmButton = new JButton("Poop Butt");
+        JButton confirmButton = new JButton("Do not Press");
         confirmButton.setBackground(Color.decode(butColor));
         confirmButton.setForeground(Color.decode(txtColor));
         buttPanel.add(confirmButton);
@@ -252,8 +257,16 @@ public class StatusClient {
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
-                    // outToServer.writeBytes("SimpleStatus" + '\n');
-                    // outToServer.flush();
+                    try{
+
+                    
+                        outToServer.writeBytes("Observer 0 0 0 0" + '\n');
+                        outToServer.flush();
+
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         );
