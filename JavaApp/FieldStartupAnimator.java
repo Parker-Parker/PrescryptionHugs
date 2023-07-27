@@ -1,3 +1,4 @@
+import java.util.concurrent.TimeUnit;
 
 public class FieldStartupAnimator {
 
@@ -89,6 +90,13 @@ public class FieldStartupAnimator {
                 }
             }
             
+        }
+        try{
+            TimeUnit.SECONDS.sleep(1);
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
         // System.out.println("Sent "+sent +" field"+(finalField!=null)+" obsout:"+(observerOutputHandler!=null));
     }
