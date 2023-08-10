@@ -118,7 +118,7 @@ public class GuiFieldPicker {
         
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Field Control GUI");
+        frame.setTitle("Match Picker GUI");
         frame.pack();
         frame.setVisible(true);
         frame.setAlwaysOnTop(true);
