@@ -74,13 +74,13 @@ public class FieldRendererWindowAnimClient {
 
     private static JFrame setupGameFrame() {
         JFrame frame = new JFrame();
-        panel = new FieldRendererAnimPanel();
+        panel = new FieldRendererAnimPanel(frame);
         // panel.setField(field);
 
         frame.add(panel);
         frame.setTitle("Inscryption Network Renderer Client");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setAlwaysOnTop(true);
         frame.setUndecorated(true);
 

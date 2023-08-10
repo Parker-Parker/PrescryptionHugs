@@ -38,6 +38,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     // static final int GAP = 15;
     static final int GAP = 50;
 
+    JFrame frame;
+
     boolean DRAW_SLOTS = false;
     // boolean OPAQUE_HAND_CARDS = false;
     int HAND_CARDS_DRAW_MODE = 0;
@@ -108,7 +110,11 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     private volatile int animLength = 0;
 
+    FieldRendererAnimPanel(JFrame framein){
+        this();
+        this.frame = framein;
 
+    }
 
     FieldRendererAnimPanel() {
 
@@ -309,6 +315,9 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
                 // }
                 // System.out.println(event.getButton());
+                if(frame!=null){
+                    frame.setLocationRelativeTo(null);// Uncomment me in production
+                }
                 if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON1){
                     HAND_CARDS_DRAW_MODE = (HAND_CARDS_DRAW_MODE+1)%4;
                     // System.out.println("OPAQUE_HAND_CARDS: "+ OPAQUE_HAND_CARDS);
