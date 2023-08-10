@@ -316,6 +316,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                 // }
                 // System.out.println(event.getButton());
                 if(frame!=null){
+                    
                     frame.setLocationRelativeTo(null);// Uncomment me in production
                 }
                 if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON1){
@@ -327,6 +328,12 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                     DRAW_SLOTS = !DRAW_SLOTS;
                     System.out.println("DRAW_SLOTS: " + DRAW_SLOTS);
 
+                    if(frame!=null){
+                        frame.dispose();
+                        frame.setUndecorated(!DRAW_SLOTS);
+                        // frame.pack();
+                        frame.setVisible(true);
+                    }
                 }
             }
 
