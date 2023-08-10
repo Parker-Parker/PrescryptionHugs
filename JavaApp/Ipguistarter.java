@@ -57,7 +57,7 @@ public class Ipguistarter {
     }
 
     public String getipaddress() {
-        return ipaddress;
+        return ipaddressF;
     }
 
     public int getport() {
