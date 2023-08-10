@@ -421,8 +421,14 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         // fieldCanvas.drawString("waiting for: "+waitCause, 50,150);
 
         // drawDebug(fieldCanvas);
-         g2d.drawImage(fieldImage, null, 0,0);
+        if(frame!=null){
+            g2d.drawImage(fieldImage, null, (frame.getWidth()-fieldImage.getWidth())/2,(frame.getHeight()-fieldImage.getHeight())/2);
 
+        }else{
+            g2d.drawImage(fieldImage, null, 0,0);
+
+        }
+         
     }
 
 
