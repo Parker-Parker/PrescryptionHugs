@@ -116,6 +116,13 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     volatile boolean scalingEnabled = false;
     volatile float sf = 1.0f;//scaling factor
     volatile BufferedImageOp scaleOp = new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+    static final int DECORATION_OFFSET_Y = 29;
+    static final int DECORATION_OFFSET_x = 0;
+
+
+
+
+    protected RenderWindowAdjustmentGUI tweaker;
 
     FieldRendererAnimPanel(JFrame framein){
         this();
@@ -334,6 +341,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                 if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON3){
                     DRAW_SLOTS = !DRAW_SLOTS;
                     System.out.println("DRAW_SLOTS: " + DRAW_SLOTS);
+                    // System.out.println(frame.getInsets());
 
                     if(frame!=null){
                         frame.dispose();
@@ -341,7 +349,18 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                         // frame.pack();
                         frame.setVisible(true);
                     }
+                    if(DRAW_SLOTS){
+                        //Create debug tweaker
+                        tweaker = new RenderWindowAdjustmentGUI(FieldRendererAnimPanel.this);
+                    }
+                    else{
+                        if(tweaker!=null){
+                            tweaker.close();
+                            tweaker = null;
+                        }
+                    }
                 }
+
             }
 
             @Override
@@ -432,11 +451,12 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         // fieldCanvas.drawString("waiting for: "+waitCause, 50,150);
 
         // drawDebug(fieldCanvas);
+        int yInset = DRAW_SLOTS?DECORATION_OFFSET_Y:0;
         if(frame!=null){
-            g2d.drawImage(fieldImage, null, (frame.getWidth()-fieldImage.getWidth())/2,(frame.getHeight()-fieldImage.getHeight())/2);
+            g2d.drawImage(fieldImage, null, (frame.getWidth()-fieldImage.getWidth())/2,(frame.getHeight()-fieldImage.getHeight())/2-yInset);
 
         }else{
-            g2d.drawImage(fieldImage, null, 0,0);
+            g2d.drawImage(fieldImage, null, 0,0-yInset);
 
         }
          
@@ -1062,6 +1082,10 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     public void addToQueue(EnumMap<ObserverTopics, String> topics) {
         animQueue.push(topics);
+    }
+
+    public void makeScaleOp() {
+        scaleOp = new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
     }
 }
 

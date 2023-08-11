@@ -117,6 +117,7 @@ public class RenderWindowAdjustmentGUI {
         scaleBox.setText(renderer.sf+"");
         scaleButton.setText("Enabled: "+renderer.scalingEnabled);
         scaleSlider.setValue(Math.round(renderer.sf*100));
+        renderer.makeScaleOp();
     }
 
 
