@@ -8,6 +8,18 @@ import java.awt.event.ActionListener;
 
 public class RenderWindowAdjustmentGUI {
     JFrame frame;
+
+    JLabel   gapLabel;
+    JTextField gapBox;
+    JSlider gapSlider;
+
+    JLabel   scaleLabel;
+    JTextField scaleBox;
+    JButton scaleButton;
+    JSlider scaleSlider;
+
+
+
     public RenderWindowAdjustmentGUI(FieldRendererAnimPanel renderer) {
 
         frame = new JFrame("Render Window Adjustment GUI");
@@ -16,14 +28,13 @@ public class RenderWindowAdjustmentGUI {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.X_AXIS));
 
-        JLabel   gapLabel = new JLabel("Gap Spacing:");
-        JTextField gapBox = new JTextField(renderer.GAP+"",4);
-        JSlider gapSlider = new JSlider(JSlider.HORIZONTAL, -50,250, renderer.GAP);
-
-        JLabel   scaleLabel = new JLabel("Scaling Factor(%):");
-        JTextField scaleBox = new JTextField(renderer.sf+"",4);
-        JButton scaleButton = new JButton("Enabled: "+renderer.scalingEnabled);
-        JSlider scaleSlider = new JSlider(JSlider.HORIZONTAL, 0,250, Math.round(renderer.sf*100));
+        gapLabel = new JLabel("Gap Spacing:");
+        gapBox = new JTextField(renderer.GAP+"",4);
+        gapSlider = new JSlider(JSlider.HORIZONTAL, -50,250, renderer.GAP);
+        scaleLabel = new JLabel("Scaling Factor(%):");
+        scaleBox = new JTextField(renderer.sf+"",4);
+        scaleButton = new JButton("Enabled: "+renderer.scalingEnabled);
+        scaleSlider = new JSlider(JSlider.HORIZONTAL, 0,250, Math.round(renderer.sf*100));
 
 
         gapBox.addActionListener(new ActionListener() {
@@ -36,7 +47,7 @@ public class RenderWindowAdjustmentGUI {
                 catch(Exception ex){
                     ex.printStackTrace();
                 }
-                updateGUI();
+                updateGUI(renderer);
             }
         });
 
@@ -44,7 +55,7 @@ public class RenderWindowAdjustmentGUI {
             @Override
             public void stateChanged(ChangeEvent e){
                 renderer.GAP = gapSlider.getValue();
-                updateGUI();
+                updateGUI(renderer);
             }
         });
 
@@ -58,14 +69,14 @@ public class RenderWindowAdjustmentGUI {
                 catch(Exception ex){
                     ex.printStackTrace();
                 }
-                updateGUI();
+                updateGUI(renderer);
             }
         });
         scaleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev){
                 renderer.scalingEnabled = !renderer.scalingEnabled;
-                updateGUI();
+                updateGUI(renderer);
             }
         });
 
@@ -73,7 +84,7 @@ public class RenderWindowAdjustmentGUI {
             @Override
             public void stateChanged(ChangeEvent e){
                 renderer.sf = scaleSlider.getValue()/100.0f;
-                updateGUI();
+                updateGUI(renderer);
             }
         });
 
@@ -100,7 +111,12 @@ public class RenderWindowAdjustmentGUI {
         frame.setAlwaysOnTop(true);
     }
 
-    protected void updateGUI() {
+    protected void updateGUI(FieldRendererAnimPanel renderer) {
+        gapBox.setText(renderer.GAP+"");
+        gapSlider.setValue(renderer.GAP);
+        scaleBox.setText(renderer.sf+"");
+        scaleButton.setText("Enabled: "+renderer.scalingEnabled);
+        scaleSlider.setValue(Math.round(renderer.sf*100));
     }
 
 
