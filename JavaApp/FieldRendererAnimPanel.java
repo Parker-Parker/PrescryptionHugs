@@ -406,6 +406,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         //  fieldCanvas.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
         renderField(fieldCanvas, currentField);
+        scaleImage(fieldImage);
         // renderFieldZBuffer(currentField);
         // drawBuffer(fieldCanvas);
 
@@ -431,6 +432,22 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
          
     }
 
+
+    private void scaleImage(BufferedImage img) {
+        float sf = 0.4f;
+
+        BufferedImage temp = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        // Graphics2D tempGfx = (Graphics2D)temp.getGraphics();
+        temp.createGraphics().drawImage(img, new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR), (img.getWidth()-Math.round(sf*img.getWidth()))/2,(img.getHeight()-Math.round(sf*img.getHeight()))/2);
+        img.createGraphics().drawImage(temp,null,0,0);
+        
+        // img.createGraphics().drawImage(img, new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR), (img.getWidth()-Math.round(sf*img.getWidth()))/2,(img.getHeight()-Math.round(sf*img.getHeight()))/2);
+        // BufferedImage temp = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        // Graphics2D tempGfx = (Graphics2D)temp.getGraphics();
+
+        // tempGfx.drawImage(img, new AffineTransformOp(makeScaleTF(1.0), AffineTransformOp.TYPE_NEAREST_NEIGHBOR), 0,0);
+        // return temp;
+    }
 
     private void drawDebug(Graphics2D canvas){
         canvas.setColor(Color.green);
@@ -639,6 +656,11 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         AffineTransform transform = new AffineTransform();
         transform.translate(dx, dy);
         transform.rotate(degreesCW*Math.PI/180.0,CARD_WIDTH*4/2.0, CARD_HEIGHT*4/2.0);
+        return transform;
+    }
+    private AffineTransform makeScaleTF(double scaleFactor){
+        AffineTransform transform = new AffineTransform();
+        transform.scale(scaleFactor, scaleFactor);
         return transform;
     }
 
