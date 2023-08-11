@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     static final int DELAY = 15;
     // static final int GAP = 15;
-    static final int GAP = 50;
+    // static final int GAP = 50;
+    volatile int GAP = 50;
 
     JFrame frame;
 
@@ -109,6 +111,11 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
 
     private volatile int animLength = 0;
+
+    
+    private boolean scalingEnabled = false;
+    private float sf = 1.0f;//scaling factor
+    private BufferedImageOp scaleOp = new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 
     FieldRendererAnimPanel(JFrame framein){
         this();
@@ -406,7 +413,10 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         //  fieldCanvas.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
         renderField(fieldCanvas, currentField);
-        scaleImage(fieldImage);
+        if (scalingEnabled){
+            scaleImage(fieldImage);
+
+        }
         // renderFieldZBuffer(currentField);
         // drawBuffer(fieldCanvas);
 
@@ -434,11 +444,9 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
 
     private void scaleImage(BufferedImage img) {
-        float sf = 0.4f;
-
         BufferedImage temp = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
         // Graphics2D tempGfx = (Graphics2D)temp.getGraphics();
-        temp.createGraphics().drawImage(img, new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR), (img.getWidth()-Math.round(sf*img.getWidth()))/2,(img.getHeight()-Math.round(sf*img.getHeight()))/2);
+        temp.createGraphics().drawImage(img, scaleOp, (img.getWidth()-Math.round(sf*img.getWidth()))/2,(img.getHeight()-Math.round(sf*img.getHeight()))/2);
         img.createGraphics().drawImage(temp,null,0,0);
         
         // img.createGraphics().drawImage(img, new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR), (img.getWidth()-Math.round(sf*img.getWidth()))/2,(img.getHeight()-Math.round(sf*img.getHeight()))/2);
@@ -788,6 +796,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     Color maroon = new Color(120, 30,0);
     Color greenatk = new Color(40, 100,50);//seafoam
+
 
     public BufferedImage renderCard(Card c){
         
