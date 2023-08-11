@@ -113,9 +113,9 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     private volatile int animLength = 0;
 
     
-    private boolean scalingEnabled = false;
-    private float sf = 1.0f;//scaling factor
-    private BufferedImageOp scaleOp = new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+    volatile boolean scalingEnabled = false;
+    volatile float sf = 1.0f;//scaling factor
+    volatile BufferedImageOp scaleOp = new AffineTransformOp(makeScaleTF(sf), AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
 
     FieldRendererAnimPanel(JFrame framein){
         this();
