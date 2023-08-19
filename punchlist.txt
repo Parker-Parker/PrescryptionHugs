@@ -1,0 +1,61 @@
+Punchlist
+
+unclaimed/everyone
+-Play testing/story tweaks
+-Make new matches
+-Sacrifice tokens
+-costumes(individual)
+-moongobo(stretch goal)
+-bugspray/allergy
+
+Parker
+-hand card opacity tweaks
+-change hand card background from white to card color
+-green/red number brightness change
+-temporary cards
+-card sounds/scale sounds from app(Strecth Goal)
+  Blockers:
+  -bluetooth speaker
+
+Tony
+-Stain Table
+-Bag for head
+-Print cards
+  Blockers:
+  -pick cards in deck (parker/dillon?)
+  -get card images(google drive) (parker/dillon?)
+  -pulleys(Dillon)
+
+Brett
+-Cameras
+-Scale
+-animatronic
+  blockers:
+  -frequent power surges
+
+Dillon
+-Running final cabling
+-Mount PC ceiling
+-blackout material
+-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Descoped:
+-Table wear/beatup
