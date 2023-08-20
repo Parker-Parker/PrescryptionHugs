@@ -1,0 +1,37 @@
+FREE:
+ Geck           1           
+ Bee                                 
+ Squirrel    x10            
+ 
+BLOOD:
+ Stoat       x1               
+ Wolf        4              
+ WolfCub     2                 
+ Adder       2               
+ Amalgam                       
+ Beaver                          
+ Bullfrog    3                   
+ Cat         1                  
+ Coyote      1                  
+ BlackGoat   2                  
+ Grizzly     2               
+ Mantis      2               
+ MantisGod   1                  
+ StrangeLarva 1                 
+ Porcupine     2              
+ Raven          2            
+ RavenEgg        1                   
+ Skunk            2          
+ RiverSnapper      3           
+ Sparrow            2          
+ RingWorm       1
+
+BONES:
+ Alpha          3            
+ Bat                      
+ Opossum                      
+ Rattler                      
+ TurkeyVulture                    
+ RatKing                      
+ 
+
