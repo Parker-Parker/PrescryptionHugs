@@ -86,8 +86,8 @@ public class TurnController {
                 if(cmdReady[0]==0){
                     this.setState(TurnState.playerEnd); //if player ends turn    
                 } 
-                else if(cmdReady[0]==1){ //if player attempts summon of 0 cost
-                    if( (field.getHand().size() > cmdReady[1])&& (field.getHand().get(cmdReady[1])!=null) && (field.getHand().get(cmdReady[1]).getCost()==0)  ){  // check if sacrifices are sufficient, 
+                else if(cmdReady[0]>=1){ //if player attempts summon of 0 cost
+                    if( (field.getHand().size() > cmdReady[1])&& (field.getHand().get(cmdReady[1])!=null)){
                         if(field.playCard(cmdReady[1], cmdReady[2])){
                             field.getHand().remove(cmdReady[1]);
                         }
@@ -111,7 +111,7 @@ public class TurnController {
                         this.setState(TurnState.playerSacrifice);
                     }
                     else{
-                        this.setState(TurnState.playerReady);    
+                        this.setState(TurnState.playerReady);
                     }
 
                 }

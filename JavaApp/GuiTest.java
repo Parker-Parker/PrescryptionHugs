@@ -51,89 +51,10 @@ public class GuiTest implements ActionListener {
         JButton readyButton = new JButton("Player Ready");
         readyButton.setBackground(Color.decode(butColor));
         readyButton.setForeground(Color.decode(txtColor));
-        // JButton sacrificeButton = new JButton("Select Summon with Sacrifice");
+
         JButton cancelSacButton = new JButton("Cancel Sacrifice");
         cancelSacButton.setBackground(Color.decode(butColor));
         cancelSacButton.setForeground(Color.decode(txtColor));
-        // // JButton null2Button = new JButton("");
-
-        // //column 0
-        // // JButton Button3 = new JButton("Other");
-        // // JButton Button4 = new JButton("Other");
-        // // JButton Button5 = new JButton("Other");
-
-        // // JButton Button6 = new JButton("Other");
-        // // JButton Button7 = new JButton("Other");
-        // // JButton Button8 = new JButton("Other");
-
-        // JButton sacThisButton0 = new JButton("Sacrifice This Column 0");
-        // JButton sacrificeSummonButton0 = new JButton("Sacrifice Summon Here Column
-        // 0");
-        // JButton directSummonButton0 = new JButton("Direct Summon Here Column 0");
-        // //JButton Button11 = new JButton("Other");
-
-        // //column 1
-        // // JButton Button31 = new JButton("Other");
-        // // JButton Button41 = new JButton("Other");
-        // // JButton Button51 = new JButton("Other");
-
-        // // JButton Button61 = new JButton("Other");
-        // // JButton Button71 = new JButton("Other");
-        // // JButton Button81 = new JButton("Other");
-
-        // JButton sacThisButton1 = new JButton("Sacrifice This Column 1");
-        // JButton sacrificeSummonButton1 = new JButton("Sacrifice Summon Here Column
-        // 1");
-        // JButton directSummonButton1 = new JButton("Direct Summon Here Column 1");
-        // //JButton Button11 = new JButton("Other");
-
-        // //column 2
-        // // JButton Button32 = new JButton("Other");
-        // // JButton Button42 = new JButton("Other");
-        // // JButton Button52 = new JButton("Other");
-
-        // // JButton Button62 = new JButton("Other");
-        // // JButton Button72 = new JButton("Other");
-        // // JButton Button82 = new JButton("Other");
-
-        // JButton sacThisButton2 = new JButton("Sacrifice This Column 2");
-        // JButton sacrificeSummonButton2 = new JButton("Sacrifice Summon Here Column
-        // 2");
-        // JButton directSummonButton2 = new JButton("Direct Summon Here Column 2");
-        // //JButton Button11 = new JButton("Other");
-
-        // //column 3
-        // // JButton Button33 = new JButton("Other");
-        // // JButton Button43 = new JButton("Other");
-        // // JButton Button53 = new JButton("Other");
-
-        // // JButton Button63 = new JButton("Other");
-        // // JButton Button73 = new JButton("Other");
-        // // JButton Button83 = new JButton("Other");
-
-        // JButton sacThisButton3 = new JButton("Sacrifice This Column 3");
-        // JButton sacrificeSummonButton3 = new JButton("Sacrifice Summon Here Column
-        // 3");
-        // JButton directSummonButton3 = new JButton("Direct Summon Here Column 3");
-        // JButton Button11 = new JButton("Other");
-
-        // drawMainButton.addActionListener(this);
-        // drawSquirrelButton.addActionListener(this);
-        // readyButton.addActionListener(this);
-        // sacrificeButton.addActionListener(this);
-        // cancelSacButton.addActionListener(this);
-        // sacThisButton0.addActionListener(this);
-        // sacThisButton1.addActionListener(this);
-        // sacThisButton2.addActionListener(this);
-        // sacThisButton3.addActionListener(this);
-        // sacrificeSummonButton0.addActionListener(this);
-        // sacrificeSummonButton1.addActionListener(this);
-        // sacrificeSummonButton2.addActionListener(this);
-        // sacrificeSummonButton3.addActionListener(this);
-        // directSummonButton0.addActionListener(this);
-        // directSummonButton1.addActionListener(this);
-        // directSummonButton2.addActionListener(this);
-        // directSummonButton3.addActionListener(this);
 
         grid = new GridLayout(0, 1);
         selGrid = new GridLayout(0, 2);
@@ -144,25 +65,6 @@ public class GuiTest implements ActionListener {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         panel.setBackground(Color.decode(bckColor));
         panel.setLayout(grid);
-        // panel.add(null2Button);
-        // panel.add(sacThisButton0);
-        // panel.add(sacThisButton1);
-        // panel.add(sacThisButton2);
-        // panel.add(sacThisButton3);
-        // panel.add(sacrificeSummonButton0);
-        // panel.add(sacrificeSummonButton1);
-        // panel.add(sacrificeSummonButton2);
-        // panel.add(sacrificeSummonButton3);
-        // panel.add(directSummonButton0);
-        // panel.add(directSummonButton1);
-        // panel.add(directSummonButton2);
-        // panel.add(directSummonButton3);
-        // panel.add(drawMainButton);
-        // panel.add(drawSquirrelButton);
-        // panel.add(readyButton);
-        // panel.add(sacrificeButton);
-        // panel.add(cancelSacButton);
-        // panel.add(label);
 
         // Create the dropdown list
         LinkedList<Card> mDeckSacCopy = new LinkedList<>(DillDillServer.mDeck);
@@ -464,75 +366,6 @@ public class GuiTest implements ActionListener {
                 available = true;
                 System.out.println(playerCommand);
                 break;
-            // case "Select Summon with Sacrifice": ////i sacrifice this dropdown name index
-            // sacrifice cost
-            // playerCommand = "user rdy 2 " + cardIndexInHand;
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-
-            // case "Sacrifice This Column 0":
-            // playerCommand = "user sac 1 0";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Sacrifice This Column 1":
-            // playerCommand = "user sac 1 1";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Sacrifice This Column 2":
-            // playerCommand = "user sac 1 2";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Sacrifice This Column 3":
-            // playerCommand = "user sac 1 3";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-
-            // case "Sacrifice Summon Here Column 0":
-            // playerCommand = "user sum 0";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Sacrifice Summon Here Column 1":
-            // playerCommand = "user sum 1";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Sacrifice Summon Here Column 2":
-            // playerCommand = "user sum 2";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Sacrifice Summon Here Column 3":
-            // playerCommand = "user sum 3";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-
-            // case "Direct Summon Here Column 0":
-            // playerCommand = "user rdy 1 " + cardIndexInHand + " 0";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Direct Summon Here Column 1":
-            // playerCommand = "user rdy 1 " + cardIndexInHand + " 1";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Direct Summon Here Column 2":
-            // playerCommand = "user rdy 1 " + cardIndexInHand + " 2";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
-            // case "Direct Summon Here Column 3":
-            // playerCommand = "user rdy 1 " + cardIndexInHand + " 3";
-            // label.setText(playerCommand);
-            // available = true;
-            // break;
 
             default:
                 break;
@@ -653,8 +486,4 @@ public class GuiTest implements ActionListener {
         return playerCommand;
     }
 
-    // private static JPanel createMajorSectionPanel(String string, int i, String
-    // string2, int j) {
-    // return null;
-    // }
 }

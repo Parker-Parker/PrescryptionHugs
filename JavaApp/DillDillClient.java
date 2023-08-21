@@ -12,7 +12,7 @@ class DillDillClient {
         Field field = new Field();
         ObserverOutputHandler observerParser = new ObserverOutputHandler();
 
-        GuiTest GUI = new GuiTest();
+        SimpleGui GUI = new SimpleGui();
         Ipguistarter IPGUI = new Ipguistarter("Controller Client IP and Port Connection");
 
         // BufferedReader inFromUser = new BufferedReader(new
