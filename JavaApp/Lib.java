@@ -57,9 +57,9 @@ class Adder extends Card {
 }
 
 class Alpha extends Card {
-
+// changed the cost number to 2 and the ctype to blood for the time being/demo
     public Alpha() {
-        super("Alpha", 1, 2, 4, "Bones", "Canine", "Leader", null, "JavaApp/resources/Portraits/portait_alpha.jpg");
+        super("Alpha", 1, 2, 2, "Blood", "Canine", "Leader", null, "JavaApp/resources/Portraits/portait_alpha.jpg");
     }
 
 }

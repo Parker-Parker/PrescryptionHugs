@@ -1,10 +1,10 @@
 FREE:
- Geck           1           
+ Geck                      
  Bee                                 
- Squirrel    x10            
+ Squirrel    x11            
  
 BLOOD:
- Stoat       x1               
+ Stoat       x2               
  Wolf        4              
  WolfCub     2                 
  Adder       2               
@@ -12,26 +12,31 @@ BLOOD:
  Beaver                          
  Bullfrog    3                   
  Cat         1                  
- Coyote      1                  
  BlackGoat   2                  
  Grizzly     2               
  Mantis      2               
  MantisGod   1                  
  StrangeLarva 1                 
  Porcupine     2              
- Raven          2            
- RavenEgg        1                   
+ Raven                      
+ RavenEgg                           
  Skunk            2          
  RiverSnapper      3           
  Sparrow            2          
- RingWorm       1
+ RingWorm       
+ Alpha          3            
 
 BONES:
- Alpha          3            
+ 
  Bat                      
  Opossum                      
  Rattler                      
  TurkeyVulture                    
  RatKing                      
+ Coyote                        
  
 
+Carkin card     1
+
+
+total 46/50
