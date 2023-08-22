@@ -1,19 +1,8 @@
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -24,13 +13,12 @@ import javax.swing.*;
 
 
 public class CardMaker extends JPanel {
-
-
+    String defaultPath = "JavaApp/Build/";
 
     public static void main(String argv[]) throws Exception {
         CardMaker cm = new CardMaker();
         for(Card c : cm.allCards){
-            cm.renderCard(c);
+            cm.exportCard(c);
         }
     }
 
@@ -140,7 +128,14 @@ public class CardMaker extends JPanel {
     Font fontHeavyWeight;
     Font fontHeavyWeight_Stat;
 
-    public void makeCard(c){
+    public void exportCard(Card c){
+        try {
+                File outputfile = new File(defaultPath+c.getTitle()+".png");
+                ImageIO.write(renderCard(c), "png", outputfile);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
     }
 

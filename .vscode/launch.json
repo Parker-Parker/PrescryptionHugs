@@ -81,6 +81,12 @@
             "name": "StatusClient",
             "request": "launch",
             "mainClass": "StatusClient"
+        },
+        {
+            "type": "java",
+            "name": "CardExporter",
+            "request": "launch",
+            "mainClass": "CardExporter"
         }
     ],
     "compounds": [
