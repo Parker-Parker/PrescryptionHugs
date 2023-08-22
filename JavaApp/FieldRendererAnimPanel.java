@@ -334,7 +334,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                     frame.setLocationRelativeTo(null);// Uncomment me in production
                 }
                 if(event.getClickCount()==2 && event.getButton() == MouseEvent.BUTTON1){
-                    HAND_CARDS_DRAW_MODE = (HAND_CARDS_DRAW_MODE+1)%4;
+                    HAND_CARDS_DRAW_MODE = (HAND_CARDS_DRAW_MODE+1)%8;
                     // System.out.println("OPAQUE_HAND_CARDS: "+ OPAQUE_HAND_CARDS);
 
                 }
@@ -697,7 +697,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         BufferedImage cardAnimated = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
         Graphics2D slotGraphics2d = (Graphics2D)slot.getGraphics();
         Graphics2D cardAnimatedGraphics2d = (Graphics2D)cardAnimated.getGraphics();
-        if(DRAW_SLOTS){
+        // if(DRAW_SLOTS){
+        if((HAND_CARDS_DRAW_MODE/4)%2==0){
             slotGraphics2d.drawImage(slotBase, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
 
         }
@@ -874,7 +875,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             //  opacity = 0.5f;
             // g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
-            if(HAND_CARDS_DRAW_MODE> 1&&c.isFromHand()){
+            if((HAND_CARDS_DRAW_MODE/2)%2== 1&&c.isFromHand()){
                 // g.drawImage(cardWhite,null,0,0);//draw background
 
                 g.setColor(Color.WHITE);
@@ -884,7 +885,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             }
             // if((!OPAQUE_HAND_CARDS)&&c.isFromHand()){
             if(HAND_CARDS_DRAW_MODE%2==0&&c.isFromHand()){
-                BufferedImage cardImage2 = new BufferedImage(cardImage.getWidth(), cardImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                // BufferedImage cardImage2 = new BufferedImage(cardImage.getWidth(), cardImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                BufferedImage cardImage2 = new BufferedImage(cardImage.getWidth(), cardImage.getHeight(), BufferedImage.TYPE_INT_RGB);
                 Graphics2D g2 = (Graphics2D) cardImage2.getGraphics();
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, HAND_CARD_OPACITY));
                 g2.drawImage(cardImage,null,0,0);
