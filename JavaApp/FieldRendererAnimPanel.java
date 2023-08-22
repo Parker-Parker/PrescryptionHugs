@@ -993,7 +993,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     }
 
     public BufferedImage getCardPortrait(String name) {
-        BufferedImage portrait = cardPortraits.get(name.toUpperCase());
+        BufferedImage portrait = cardPortraits.get(name.toUpperCase().replace(" ","").replace("_",""));
         return portrait == null ? emptyImage : portrait;
     }
 
@@ -1015,8 +1015,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                     if (listOfFiles[i].isFile()) {
                         // System.out.println("File " + listOfFiles[i].getName());
                         String fileName = listOfFiles[i].getName();
-                        fileName = (String) fileName.subSequence("portait_".length() + 1,
-                                fileName.length() - ".png".length());
+                        fileName = (String) fileName.subSequence("portait_".length() + 1, fileName.length() - ".png".length());
+                        fileName = fileName.replace(" ","").replace("_","");
 
                         // System.out.println(fileName);
                         BufferedImage portrait = null;
