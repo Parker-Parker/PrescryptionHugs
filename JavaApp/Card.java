@@ -78,7 +78,7 @@ public class Card implements iCard {
                 for(String s : sigArray){
                     if(s!=null){
                         try{
-                            Sigils sigVal = Sigils.valueOf(s);
+                            Sigils sigVal = Sigils.valueOf(s.replace(" ","").replace("_",""));
                             giveSigil(sigVal);
                         }
                         catch(Exception e){
