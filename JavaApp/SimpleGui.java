@@ -144,18 +144,49 @@ public class SimpleGui implements ActionListener {
             }
         };
 
+        ActionListener actionListener2 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String actionCommand2 = e.getActionCommand();
+                switch (actionCommand2) {
+                    case "Kill Here Column 0":
+                        playerCommand = "user rdy 2 0 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 1":
+                        playerCommand = "user rdy 2 1 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 2":
+                        playerCommand = "user rdy 2 2 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 3":
+                        playerCommand = "user rdy 2 3 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
         JPanel directSummonPanel = createSectionPanel1("Direct Summon", 4, "Direct Summon Here", 1, actionListener1);
         directSummonPanel.setBackground(Color.decode(bckColor));
         directSummonPanel.setForeground(Color.decode(txtColor));
         panel.add(directSummonPanel);
 
-        JPanel killPanel = new JPanel();
-        killPanel.setLayout(grid);
+        JPanel killPanel = createSectionPanel2("Kill", 4, "Kill Here", 1, actionListener2);
         killPanel.setBackground(Color.decode(bckColor));
         killPanel.setForeground(Color.decode(txtColor));
-        TitledBorder killPanelBorder = BorderFactory.createTitledBorder("Kill");
-        killPanel.setBorder(killPanelBorder);
-        killPanelBorder.setTitleColor(Color.decode(txtColor));
 
         panel.add(killPanel);
 
@@ -296,6 +327,40 @@ public class SimpleGui implements ActionListener {
         return panel;
     }
 
+    private static JPanel createSectionPanel2(String label, int buttonCount, String buttonLabel, int columnLabel,
+            ActionListener actionListener2) {
+        int rowcount;
+
+        if (columnLabel == 1) {
+            rowcount = 2;
+        } else {
+            rowcount = 1;
+        }
+
+        JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
+        TitledBorder panelBorder = BorderFactory.createTitledBorder(label);
+        panel.setBorder(panelBorder);
+        panelBorder.setTitleColor(Color.decode(txtColor));
+        panel.setPreferredSize(new Dimension(300, 80));
+        if (columnLabel == 1) {
+
+            for (int i = 0; i < buttonCount; i++) {
+                JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+                labelComponent.setForeground(Color.decode(txtColor));
+                panel.add(labelComponent);
+            }
+        }
+
+        for (int i = 0; i < buttonCount; i++) {
+            JButton button = new JButton(buttonLabel + " Column " + i);
+            button.setBackground(Color.decode(butColor));
+            button.setForeground(Color.decode(txtColor));
+            panel.add(button);
+            button.addActionListener(actionListener2);
+        }
+
+        return panel;
+    }
 
     public boolean commandAvailable() {
         return this.available;
