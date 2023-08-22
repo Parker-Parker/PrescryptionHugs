@@ -4,7 +4,30 @@ import java.util.Scanner;
 
 public class DillDillServer
 {
-    static LinkedList<Card> mDeck = new LinkedList<Card>(Arrays.asList(new Squirrel(), new Stoat(), new WolfCub(), new Coyote(), new Mantis(), new Bullfrog(), new RiverSnapper(), new Alpha(), new Grizzly(), new WolfCub(), new Adder(), new Grizzly(), new Sparrow(), new Bat(), new Grizzly()));
+    static LinkedList<Card> mDeck = new LinkedList<Card>(Arrays.asList(
+    new Squirrel(),    
+    new Stoat()       ,               
+    new Wolf()       ,              
+    new WolfCub()    ,                 
+    new Adder()      ,                     
+    new Bullfrog()   ,                   
+    new Cat()        ,                  
+    new BlackGoat()  ,                  
+    new Grizzly()    ,               
+    new Mantis()     ,               
+    new MantisGod()  ,                  
+    new StrangeLarva(),                 
+    new Porcupine()    ,                      
+    new Skunk()           ,          
+    new RiverSnapper()     ,           
+    new Sparrow()           ,     
+    new Alpha()  
+    
+    
+    
+    //new Squirrel(), new Stoat(), new WolfCub(), new Coyote(), new Mantis(), new Bullfrog(), new RiverSnapper(), new Alpha(), new Grizzly(), new WolfCub(), new Adder(), new Grizzly(), new Sparrow(), new Bat(), new Grizzly()
+    
+    ));
         
     public static void main(String []args)
     {
