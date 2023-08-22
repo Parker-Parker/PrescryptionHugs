@@ -13,7 +13,7 @@ import javax.swing.*;
 
 
 public class CardMaker extends JPanel {
-    String defaultPath = "JavaApp/Build/";
+    String defaultPath = "JavaApp/Build/Card_renders";
 
     public static void main(String argv[]) throws Exception {
         CardMaker cm = new CardMaker();
@@ -130,6 +130,7 @@ public class CardMaker extends JPanel {
 
     public void exportCard(Card c){
         try {
+                System.out.println("Exporting: "+c.getTitle());
                 File outputfile = new File(defaultPath+c.getTitle()+".png");
                 ImageIO.write(renderCard(c), "png", outputfile);
 

@@ -86,7 +86,7 @@
             "type": "java",
             "name": "CardExporter",
             "request": "launch",
-            "mainClass": "CardExporter"
+            "mainClass": "CardMaker"
         }
     ],
     "compounds": [
