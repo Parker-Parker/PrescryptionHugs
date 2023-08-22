@@ -194,6 +194,15 @@ public class GuiFieldPicker {
             case Game_4_4:
                 this.field = new Game44();
                 break;
+            case TonyGame1:
+                this.field = new TonyGame1();
+                break;
+            case TonyGame2:
+                this.field = new TonyGame2();
+                break;
+            case TonyGame3:
+                this.field = new TonyGame3();
+                break;
             default:
                 this.field = null;
                 System.out.println("Something is wrong with the field picker...");
@@ -223,6 +232,9 @@ public class GuiFieldPicker {
 }
 
 enum FieldPresets {
+    TonyGame1,
+    TonyGame2,
+    TonyGame3,
     Game_1_0, 
     Game_1_1, 
     Game_1_2, 

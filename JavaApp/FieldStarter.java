@@ -411,6 +411,78 @@ class Game44 extends Field {
 dilldillSetup(nullArray, enemyCardsBackArray, enemyCardsFrontArray, playerCardsArray, enemyPlannedMovesArrayList);
     }
 } 
+class EmptyGame extends Field {
+
+    private final Card[] nullArray = {null, null, null, null};
+    private final Card[] enemyCardsBackArray = {null, null, null, null};
+    private final Card[] enemyCardsFrontArray = {null, null, null, null};
+    private final Card[] playerCardsArray = {null, null, null, null};
+    private final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(Arrays.asList(      
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null,null, null, null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null))
+        ));
+
+    public EmptyGame() {
+         super(); 
+        dilldillSetup(nullArray, enemyCardsBackArray, enemyCardsFrontArray, playerCardsArray, enemyPlannedMovesArrayList);
+    }
+} 
+class TonyGame1 extends Field {
+
+    private final Card[] nullArray = {null, null, null, null};
+    private final Card[] enemyCardsBackArray = {null, null, null, null};
+    private final Card[] enemyCardsFrontArray = {null, null, null, null};
+    private final Card[] playerCardsArray = {null, null, null, null};
+    private final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(Arrays.asList(      
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(new Coyote(),null, null, null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null))
+        ));
+
+    public TonyGame1() {
+         super(); 
+        dilldillSetup(nullArray, enemyCardsBackArray, enemyCardsFrontArray, playerCardsArray, enemyPlannedMovesArrayList);
+    }
+} 
+class TonyGame2 extends Field {
+
+    private final Card[] nullArray = {null, null, null, null};
+    private final Card[] enemyCardsBackArray = {new Grizzly(), null, null, null};
+    private final Card[] enemyCardsFrontArray = {null, null, null, null};
+    private final Card[] playerCardsArray = {null, new GrandFir(), null, null};
+    private final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(Arrays.asList(      
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, new Grizzly(), null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null))
+        ));
+
+    public TonyGame2() {
+         super(); 
+        dilldillSetup(nullArray, enemyCardsBackArray, enemyCardsFrontArray, playerCardsArray, enemyPlannedMovesArrayList);
+    }
+} 
+class TonyGame3 extends Field {
+
+    private final Card[] nullArray = {null, null, null, null};
+    private final Card[] enemyCardsBackArray = {null, new Alpha(), null, null};
+    private final Card[] enemyCardsFrontArray = {null, null, null, null};
+    private final Card[] playerCardsArray = {new Boulder(), new Boulder(), null, new Boulder()};
+    private final ArrayList<LinkedList<Card>> enemyPlannedMovesArrayList = new ArrayList<>(Arrays.asList(      
+        new LinkedList<Card>(Arrays.asList(null, new Porcupine(), null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, new Stoat(), null, null)),
+        new LinkedList<Card>(Arrays.asList(new Wolf(), null, null, null, null, null)),
+        new LinkedList<Card>(Arrays.asList(null, null, null, null, null))
+        ));
+
+    public TonyGame3() {
+         super(); 
+        dilldillSetup(nullArray, enemyCardsBackArray, enemyCardsFrontArray, playerCardsArray, enemyPlannedMovesArrayList);
+    }
+} 
 
 
 
