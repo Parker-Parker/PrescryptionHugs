@@ -745,3 +745,24 @@ class Debile extends Card {
     }
 
 }
+class Carkin extends Card {
+
+    public Carkin() {
+        super("Carkin", 2, 1, 1, null, null, null, null, "JavaApp/resources/Portraits/portait_Debile.jpg");
+    }
+
+}
+class EricCarkin extends Card {
+
+    public EricCarkin() {
+        super("Eric Carkin", 3, 3, 2, null, null, "SharpQuills", null, "JavaApp/resources/Portraits/portait_Debile.jpg");
+    }
+
+}
+class Krakin147 extends Card {
+
+    public Krakin147() {
+        super("Krakin 147", 14, 7, 4, null, null, "BifurcatedStrike",null , "JavaApp/resources/Portraits/portait_Debile.jpg");
+    }
+
+}

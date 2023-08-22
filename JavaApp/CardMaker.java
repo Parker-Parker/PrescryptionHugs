@@ -23,8 +23,11 @@ public class CardMaker extends JPanel {
             cm.exportCard(c);
         }
         for(String key : cm.cardPortraits.keySet()){
-            exportImage(cm.cardPortraits.get(key), debugPath+key+".png");
+            System.out.println("key: "+key);
         }
+        // for(String key : cm.cardPortraits.keySet()){
+        //     exportImage(cm.cardPortraits.get(key), debugPath+key+".png");
+        // }
     }
 
 
@@ -104,11 +107,11 @@ public class CardMaker extends JPanel {
             new Boulder(),
             new GrandFir(),
             new Dwayne(),
+            new Carkin(),
+            new EricCarkin(), 
+            new Krakin147(), 
             new Debile()
             ));
-
-
-       
     
             static final int CARD_WIDTH = 125;
 
@@ -290,7 +293,7 @@ public class CardMaker extends JPanel {
     }
 
     public BufferedImage getCardPortrait(String name) {
-        BufferedImage portrait = cardPortraits.get(name.toUpperCase());
+        BufferedImage portrait = cardPortraits.get(name.toUpperCase().replace(" ","").replace("_",""));
         return portrait == null ? emptyImage : portrait;
     }
 
@@ -306,14 +309,17 @@ public class CardMaker extends JPanel {
         try {
             File folder = new File(folderPath);
             File[] listOfFiles = folder.listFiles();
-
+            System.out.println("listOfFiles: "+listOfFiles);
             for (int i = 0; i < listOfFiles.length; i++) {
                 try {
                     if (listOfFiles[i].isFile()) {
-                        String fileName = listOfFiles[i].getName();
-                        fileName = (String) fileName.subSequence("portait_".length() + 1,
-                                fileName.length() - ".png".length());
 
+                        System.out.println(listOfFiles[i] +":"+ listOfFiles[i].getName()+ " (isFile):");
+                        String fileName = listOfFiles[i].getName();
+                        System.out.print("Raw filename: "+fileName);
+                        fileName = (String) fileName.subSequence("portait_".length() + 1,fileName.length() - ".png".length());
+                        fileName = fileName.replace(" ","").replace("_","");
+                        System.out.println("// Cut filename: "+fileName);
                         BufferedImage portrait = null;
                         try {
                             portrait = ImageIO.read(listOfFiles[i]);
@@ -321,10 +327,16 @@ public class CardMaker extends JPanel {
                             e.printStackTrace();
                         }
 
+                        System.out.println("Portrait: "+portrait);
                         cardPortraits.put(fileName.toUpperCase(), portrait);
+                        System.out.println("Successs");
+
 
                     } else if (listOfFiles[i].isDirectory()) {
                         System.out.println("Directory " + listOfFiles[i].getName());
+                    }
+                    else{
+                        System.out.println(listOfFiles[i] +":"+ listOfFiles[i].getName()+ " Neither file nor dorectory");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
