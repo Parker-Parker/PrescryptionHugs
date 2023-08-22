@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class DillDillServer
 {
-    static LinkedList<Card> mDeck = new LinkedList<Card>(Arrays.asList(new Stoat(), new Squirrel(), new WolfCub(), new Coyote(), new Mantis(), new Bullfrog(), new RiverSnapper(), new Alpha(), new Grizzly(), new WolfCub(), new Adder(), new Grizzly(), new Sparrow(), new Bat(), new Grizzly()));
+    static LinkedList<Card> mDeck = new LinkedList<Card>(Arrays.asList(new Squirrel(), new Stoat(), new WolfCub(), new Coyote(), new Mantis(), new Bullfrog(), new RiverSnapper(), new Alpha(), new Grizzly(), new WolfCub(), new Adder(), new Grizzly(), new Sparrow(), new Bat(), new Grizzly()));
         
     public static void main(String []args)
     {
@@ -33,8 +33,7 @@ public class DillDillServer
         String handsString = "";
         int loopctr = 0;
         int score = 0;
-        /////TODO while true in the future
-        // for(int i = 0;i<450;i++){
+
         while(true){
             testField.initPresetCards();
             fieldPicker = null;

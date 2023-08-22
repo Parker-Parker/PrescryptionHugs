@@ -19,7 +19,7 @@ import javax.swing.border.TitledBorder;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class GuiTest implements ActionListener {
+public class SimpleGui implements ActionListener {
 
     private JLabel label;
     private JLabel sacInfo;
@@ -38,7 +38,7 @@ public class GuiTest implements ActionListener {
     private static String butColor = "#710C04";
     private static String txtColor = "#DDDDDD";
 
-    public GuiTest() {
+    public SimpleGui() {
 
         frame = new JFrame();
 
@@ -98,179 +98,132 @@ public class GuiTest implements ActionListener {
         confirmButton.addActionListener(this);
 
         panel.add(selPanel);
-        sacInfo = new JLabel("Sacrifices Needed: " + 0); ////////// TODO link 0 with confirm button click with the
-                                                         ////////// actual sac cost of each of the cards in mdeck
-                                                         ////////// hashmap? array list?
+        sacInfo = new JLabel("Sacrifices Needed: " + 0);
         sacInfo.setForeground(Color.decode(txtColor));
-        JPanel sacNeededPanel = new JPanel();
-        sacNeededPanel.setLayout(grid);
-        sacNeededPanel.setBackground(Color.decode(bckColor));
-        sacNeededPanel.setForeground(Color.decode(txtColor));
-        TitledBorder sumInfoBorder = BorderFactory.createTitledBorder("Summoning Info");
-        sacNeededPanel.setBorder(sumInfoBorder);
-        sumInfoBorder.setTitleColor(Color.decode(txtColor));
-        sacNeededPanel.add(sacInfo);
-        panel.add(sacNeededPanel);
 
-        // panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between
-        // sections
+
         ////////////////////////////////////////////////////////////////////
         // First Section - Direct Summon Cards//////////////////////////////
 
-        ActionListener actionListener1 = new ActionListener() {
+        ActionListener actionListenerDirectSummon = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String actionCommand1 = e.getActionCommand();
-                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
-                    switch (actionCommand1) {
-                        case "Direct Summon Here Column 0":
-                            playerCommand = "user rdy 1 " + selDropIndex + " 0";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Direct Summon Here Column 1":
-                            playerCommand = "user rdy 1 " + selDropIndex + " 1";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Direct Summon Here Column 2":
-                            playerCommand = "user rdy 1 " + selDropIndex + " 2";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Direct Summon Here Column 3":
-                            playerCommand = "user rdy 1 " + selDropIndex + " 3";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-
+                String actionCommandDirectSummon = e.getActionCommand();
+                switch (actionCommandDirectSummon) {
+                    case "Direct Summon Here Column 0":
+                        playerCommand = "user rdy 1 " + selDropIndex + " 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Direct Summon Here Column 1":
+                        playerCommand = "user rdy 1 " + selDropIndex + " 1";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Direct Summon Here Column 2":
+                        playerCommand = "user rdy 1 " + selDropIndex + " 2";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Direct Summon Here Column 3":
+                        playerCommand = "user rdy 1 " + selDropIndex + " 3";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    default:
+                        break;
                 }
             }
         };
 
-        JPanel directSummonPanel = createSectionPanel1("Direct Summon", 4, "Direct Summon Here", 1, actionListener1);
+        ActionListener actionListenerDirectSummonSquirrel = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String actionCommandDirectSummonSquirrel = e.getActionCommand();
+                switch (actionCommandDirectSummonSquirrel) {
+                    case "Squirrel Here 0":
+                        playerCommand = "user rdy 1 0 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Squirrel Here 1":
+                        playerCommand = "user rdy 1 0 1";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Squirrel Here 2":
+                        playerCommand = "user rdy 1 0 2";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Squirrel Here 3":
+                        playerCommand = "user rdy 1 0 3";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        ActionListener actionListenerKill = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String actionCommandKill = e.getActionCommand();
+                switch (actionCommandKill) {
+                    case "Kill Here Column 0":
+                        playerCommand = "user rdy 2 0 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 1":
+                        playerCommand = "user rdy 2 1 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 2":
+                        playerCommand = "user rdy 2 2 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 3":
+                        playerCommand = "user rdy 2 3 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        JPanel directSummonPanel = createSectionPanelDirectSummon("Direct Summon", 4, "Direct Summon Here", 0, actionListenerDirectSummon);
         directSummonPanel.setBackground(Color.decode(bckColor));
         directSummonPanel.setForeground(Color.decode(txtColor));
         panel.add(directSummonPanel);
 
-        // panel.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing between
-        // sections
-        //////////////////////////////////////////////////////////////////
-        // Second Section - Sacrifice Which Card////////////////////////////
+        JPanel squirrelPanel = createSectionPanelDirectSquirrel("Squirrel", 4, "Squirrel Here", 0, actionListenerDirectSummonSquirrel);
+        squirrelPanel.setBackground(Color.decode(bckColor));
+        squirrelPanel.setForeground(Color.decode(txtColor));
+        panel.add(squirrelPanel);
 
-        ActionListener actionListener2 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String actionCommand2 = e.getActionCommand();
-                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
-                    switch (actionCommand2) {
-                        case "Sacrifice This Card Column 0":
-                            playerCommand = "user sac 1 0";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sacrifice This Card Column 1":
-                            playerCommand = "user sac 1 1";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sacrifice This Card Column 2":
-                            playerCommand = "user sac 1 2";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sacrifice This Card Column 3":
-                            playerCommand = "user sac 1 3";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-
-                }
-            }
-        };
-
-        JPanel sacPanel = new JPanel();
-        sacPanel.setLayout(grid);
-        sacPanel.setBackground(Color.decode(bckColor));
-        sacPanel.setForeground(Color.decode(txtColor));
-        TitledBorder sacPanelBorder = BorderFactory.createTitledBorder("Sacrifice");
-        sacPanel.setBorder(sacPanelBorder);
-        sacPanelBorder.setTitleColor(Color.decode(txtColor));
-        JPanel sacrificeWhichCardPanel = createSectionPanel2("Sacrifice Which Cards", 4, "Sacrifice This Card", 0,
-                actionListener2);
-        sacrificeWhichCardPanel.setBackground(Color.decode(bckColor));
-        sacrificeWhichCardPanel.setForeground(Color.decode(txtColor));
-        sacPanel.add(sacrificeWhichCardPanel);
-
-        ////////////////////////////////////////////////////////////////////
-        // Third Section - Sacrifice Summon Here////////////////////////////
-
-        ActionListener actionListener3 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                String actionCommand3 = e.getActionCommand();
-                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
-                    switch (actionCommand3) {
-                        case "Sac Summon Here Column 0":
-                            playerCommand = "user sum 0";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sac Summon Here Column 1":
-                            playerCommand = "user sum 1";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sac Summon Here Column 2":
-                            playerCommand = "user sum 2";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sac Summon Here Column 3":
-                            playerCommand = "user sum 3";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-
-                }
-            }
-        };
-
-        JPanel sacrificeSummonHerePanel = createSectionPanel3("Summon From Sacrifices", 4, "Sac Summon Here", 0,
-                actionListener3);
-        sacrificeSummonHerePanel.setBackground(Color.decode(bckColor));
-        sacrificeSummonHerePanel.setForeground(Color.decode(txtColor));
-        sacPanel.add(sacrificeSummonHerePanel);
-
-        sacPanel.add(cancelSacButton);
-        cancelSacButton.addActionListener(this);
-
-        panel.add(sacPanel);
+        JPanel killPanel = createSectionPanelKill("Kill", 4, "Kill Here", 0, actionListenerKill);
+        killPanel.setBackground(Color.decode(bckColor));
+        killPanel.setForeground(Color.decode(txtColor));
+        panel.add(killPanel);
 
         ////////////////////////////////////////////////////////////////////
         // Bottom Buttons///////////////////////////////////////////////////
@@ -302,7 +255,7 @@ public class GuiTest implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new GuiTest();
+        new SimpleGui();
     }
 
     @Override
@@ -318,24 +271,24 @@ public class GuiTest implements ActionListener {
                 selDropLen = dropdown.getSelectedItem().toString().length();
                 selDropIndex = selDrop.toString().substring(0, selDrop.toString().indexOf(":"));
 
-                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
-                    viewedText = "Direct Summoning " + selDrop.toString();
-                    sacInfo.setText(viewedText);
-                    playerCommand = "";
-                    available = false;
-                    System.out.println(playerCommand);
-                    break;
-                } else {
-                    viewedText = "Sacrificing " + selDrop.toString(); // + " Sacrifices Needed: " +
-                                                                      // dropdown.getSelectedItem().toString().charAt(selDropLen
-                                                                      // - 2);
-                    sacInfo.setText(viewedText);
-                    playerCommand = "user rdy 2 " + selDropIndex;
-                    label.setText(playerCommand);
-                    System.out.println(playerCommand);
-                    available = true;
-                    break;
-                }
+                // if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
+                viewedText = "Direct Summoning " + selDrop.toString();
+                sacInfo.setText(viewedText);
+                playerCommand = "";
+                available = false;
+                System.out.println(playerCommand);
+                break;
+                // } else {
+                //     viewedText = "Sacrificing " + selDrop.toString(); // + " Sacrifices Needed: " +
+                //                                                       // dropdown.getSelectedItem().toString().charAt(selDropLen
+                //                                                       // - 2);
+                //     sacInfo.setText(viewedText);
+                //     playerCommand = "user rdy 1 " + selDropIndex;
+                //     label.setText(playerCommand);
+                //     System.out.println(playerCommand);
+                //     available = true;
+                //     break;
+                // }
             case "Cancel Sacrifice":
                 if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
                     playerCommand = "user sac 0";
@@ -374,8 +327,8 @@ public class GuiTest implements ActionListener {
 
     // Helper method to create a section panel with specified label, button count,
     // and button label
-    private static JPanel createSectionPanel1(String label, int buttonCount, String buttonLabel, int columnLabel,
-            ActionListener actionListener1) {
+    private static JPanel createSectionPanelDirectSummon(String label, int buttonCount, String buttonLabel, int columnLabel,
+            ActionListener actionListenerDirectSummon) {
         int rowcount;
 
         if (columnLabel == 1) {
@@ -403,14 +356,16 @@ public class GuiTest implements ActionListener {
             button.setBackground(Color.decode(butColor));
             button.setForeground(Color.decode(txtColor));
             panel.add(button);
-            button.addActionListener(actionListener1);
+            button.addActionListener(actionListenerDirectSummon);
         }
 
         return panel;
     }
 
-    private static JPanel createSectionPanel2(String label, int buttonCount, String buttonLabel, int columnLabel,
-            ActionListener actionListener2) {
+    // Helper method to create a section panel with specified label, button count,
+    // and button label
+    private static JPanel createSectionPanelDirectSquirrel(String label, int buttonCount, String buttonLabel, int columnLabel,
+            ActionListener actionListenerDirectSummonSquirrel) {
         int rowcount;
 
         if (columnLabel == 1) {
@@ -428,23 +383,23 @@ public class GuiTest implements ActionListener {
 
             for (int i = 0; i < buttonCount; i++) {
                 JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+                labelComponent.setForeground(Color.decode(txtColor));
                 panel.add(labelComponent);
             }
         }
 
         for (int i = 0; i < buttonCount; i++) {
-            JButton button = new JButton(buttonLabel + " Column " + i);
+            JButton button = new JButton(buttonLabel + " " + i);
             button.setBackground(Color.decode(butColor));
             button.setForeground(Color.decode(txtColor));
             panel.add(button);
-            button.addActionListener(actionListener2);
+            button.addActionListener(actionListenerDirectSummonSquirrel);
         }
-
         return panel;
     }
 
-    private static JPanel createSectionPanel3(String label, int buttonCount, String buttonLabel, int columnLabel,
-            ActionListener actionListener3) {
+    private static JPanel createSectionPanelKill(String label, int buttonCount, String buttonLabel, int columnLabel,
+            ActionListener actionListenerKill) {
         int rowcount;
 
         if (columnLabel == 1) {
@@ -462,6 +417,7 @@ public class GuiTest implements ActionListener {
 
             for (int i = 0; i < buttonCount; i++) {
                 JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+                labelComponent.setForeground(Color.decode(txtColor));
                 panel.add(labelComponent);
             }
         }
@@ -471,7 +427,7 @@ public class GuiTest implements ActionListener {
             button.setBackground(Color.decode(butColor));
             button.setForeground(Color.decode(txtColor));
             panel.add(button);
-            button.addActionListener(actionListener3);
+            button.addActionListener(actionListenerKill);
         }
 
         return panel;
