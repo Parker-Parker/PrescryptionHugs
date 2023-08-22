@@ -28,6 +28,11 @@ public class CardMaker extends JPanel {
         for(Card c : cm.allCards){
             cm.exportCard_notransparent2(c);
         }
+        cm.exportBG_notransparent(cm.cardBack, "card back");
+        cm.exportBG_notransparent2(cm.cardBack, "card back");
+        cm.exportBG_notransparent(cm.cardBackSquirrel, "squirrel card back");
+        cm.exportBG_notransparent2(cm.cardBackSquirrel, "squirrel card back");
+        
         // for(String key : cm.cardPortraits.keySet()){
         //     System.out.println("key: "+key);
         // }
@@ -149,8 +154,8 @@ public class CardMaker extends JPanel {
                 System.out.println("Exporting: "+c.getTitle());
                 File outputfile = new File(defaultPath+c.getTitle()+"");
                 ImageIO.write(renderCard(c), "png", outputfile);
-                 outputfile = new File(defaultPath+c.getTitle()+""+".jpg");
-                ImageIO.write(renderCard(c), "jpg", outputfile);
+                //  outputfile = new File(defaultPath+c.getTitle()+""+".jpg");
+                // ImageIO.write(renderCard(c), "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,8 +167,8 @@ public class CardMaker extends JPanel {
                 System.out.println("Exporting: "+c.getTitle()+"");
                 File outputfile = new File(defaultPath+c.getTitle()+"_noTransparent");
                 ImageIO.write(renderCard_noTransparent(c), "png", outputfile);
-                 outputfile = new File(defaultPath+c.getTitle()+"_noTransparent"+".jpg");
-                ImageIO.write(renderCard_noTransparent(c), "jpg", outputfile);
+                //  outputfile = new File(defaultPath+c.getTitle()+"_noTransparent"+".jpg");
+                // ImageIO.write(renderCard_noTransparent(c), "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -175,8 +180,8 @@ public class CardMaker extends JPanel {
                 System.out.println("Exporting: "+c.getTitle()+"");
                 File outputfile = new File(defaultPath+c.getTitle()+"_noTransparent_blk");
                 ImageIO.write(renderCard_noTransparent2(c), "png", outputfile);
-                 outputfile = new File(defaultPath+c.getTitle()+"_noTransparent_blk"+".jpg");
-                ImageIO.write(renderCard_noTransparent2(c), "jpg", outputfile);
+                //  outputfile = new File(defaultPath+c.getTitle()+"_noTransparent_blk"+".jpg");
+                // ImageIO.write(renderCard_noTransparent2(c), "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,8 +193,8 @@ public class CardMaker extends JPanel {
                 System.out.println("Exporting: "+name+"");
                 File outputfile = new File(defaultPath+name+"_noTransparent");
                 ImageIO.write(renderBack_tan(c), "png", outputfile);
-                 outputfile = new File(defaultPath+name+"_noTransparent"+".jpg");
-                ImageIO.write(renderBack_tan(c), "jpg", outputfile);
+                //  outputfile = new File(defaultPath+name+"_noTransparent"+".jpg");
+                // ImageIO.write(renderBack_tan(c), "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -201,8 +206,8 @@ public class CardMaker extends JPanel {
                 System.out.println("Exporting: "+name+"");
                 File outputfile = new File(defaultPath+name+"_noTransparent_blk");
                 ImageIO.write(renderBack_blk(c), "png", outputfile);
-                 outputfile = new File(defaultPath+name+"_noTransparent_blk"+".jpg");
-                ImageIO.write(renderBack_blk(c), "jpg", outputfile);
+                //  outputfile = new File(defaultPath+name+"_noTransparent_blk"+".jpg");
+                // ImageIO.write(renderBack_blk(c), "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -212,10 +217,11 @@ public class CardMaker extends JPanel {
     public static void exportImage(BufferedImage img , String location){
         try {
                 System.out.println("Exporting: "+location);
+                // File outputfile = new File(location+".png");
                 File outputfile = new File(location);
                 ImageIO.write(img, "png", outputfile);
-                outputfile = new File(location+".jpg");
-                ImageIO.write(img, "jpg", outputfile);
+                // outputfile = new File(location+".jpg");
+                // ImageIO.write(img, "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
