@@ -80,11 +80,7 @@ public class SimpleGui implements ActionListener {
         dropdown = new JComboBox<>(options);
         dropdown.setBackground(Color.decode(butColor));
         dropdown.setForeground(Color.decode(txtColor));
-
-        // Create the confirm button
-        JButton confirmButton = new JButton("Confirm");
-        confirmButton.setBackground(Color.decode(butColor));
-        confirmButton.setForeground(Color.decode(txtColor));
+        dropdown.addActionListener(this);
 
         ////////////////////////////////////////////////////////////////////
         // panel.add(sacrificeSummonPanel);
@@ -93,9 +89,9 @@ public class SimpleGui implements ActionListener {
         selPanel.setBackground(Color.decode(bckColor));
         selPanel.setForeground(Color.decode(txtColor));
         selPanel.add(dropdown);
-        selPanel.add(confirmButton);
+        // selPanel.add(confirmButton);
 
-        confirmButton.addActionListener(this);
+        // confirmButton.addActionListener(this);
 
         panel.add(selPanel);
         sacInfo = new JLabel("Sacrifices Needed: " + 0);
@@ -262,11 +258,9 @@ public class SimpleGui implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         String actionCommand = e.getActionCommand();
-        JButton bText = (JButton) e.getSource();
-        label.setText(bText.getText());
 
         switch (actionCommand) {
-            case "Confirm":
+            case "comboBoxChanged":
                 selDrop = dropdown.getSelectedItem();
                 selDropLen = dropdown.getSelectedItem().toString().length();
                 selDropIndex = selDrop.toString().substring(0, selDrop.toString().indexOf(":"));
