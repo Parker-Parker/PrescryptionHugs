@@ -13,12 +13,17 @@ import javax.swing.*;
 
 
 public class CardMaker extends JPanel {
-    String defaultPath = "JavaApp/Build/Card_renders";
+    String defaultPath = "JavaApp/Build/Card_renders/";
+    static String debugPath = "JavaApp/Build/YEET/";
+
 
     public static void main(String argv[]) throws Exception {
         CardMaker cm = new CardMaker();
         for(Card c : cm.allCards){
             cm.exportCard(c);
+        }
+        for(String key : cm.cardPortraits.keySet()){
+            exportImage(cm.cardPortraits.get(key), debugPath+key+".png");
         }
     }
 
@@ -133,6 +138,17 @@ public class CardMaker extends JPanel {
                 System.out.println("Exporting: "+c.getTitle());
                 File outputfile = new File(defaultPath+c.getTitle()+".png");
                 ImageIO.write(renderCard(c), "png", outputfile);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    public static void exportImage(BufferedImage img , String location){
+        try {
+                System.out.println("Exporting: "+location);
+                File outputfile = new File(location);
+                ImageIO.write(img, "png", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -341,7 +357,7 @@ public class CardMaker extends JPanel {
                         }
                         System.out.println("Importing file: " + fileName);
                         for (Sigils s : Sigils.values()) {
-                            System.out.println("       checking: " + s.name());
+                            // System.out.println("       checking: " + s.name());
                             if (s.name().equalsIgnoreCase(fileName)) {
                                 sigils.put(s, sigil);
 
