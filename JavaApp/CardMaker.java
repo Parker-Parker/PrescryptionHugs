@@ -32,7 +32,7 @@ public class CardMaker extends JPanel {
         //     System.out.println("key: "+key);
         // }
         // for(String key : cm.cardPortraits.keySet()){
-        //     exportImage(cm.cardPortraits.get(key), debugPath+key+".png");
+        //     exportImage(cm.cardPortraits.get(key), debugPath+key+"");
         // }
     }
 
@@ -130,6 +130,8 @@ public class CardMaker extends JPanel {
     HashMap<String, BufferedImage> cardPortraits = new HashMap<>();
     BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage cardWhite = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage cardBack = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage cardBackSquirrel = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage[] costs = { emptyImage,
             emptyImage,
             emptyImage,
@@ -145,8 +147,10 @@ public class CardMaker extends JPanel {
     public void exportCard(Card c){
         try {
                 System.out.println("Exporting: "+c.getTitle());
-                File outputfile = new File(defaultPath+c.getTitle()+".png");
+                File outputfile = new File(defaultPath+c.getTitle()+"");
                 ImageIO.write(renderCard(c), "png", outputfile);
+                 outputfile = new File(defaultPath+c.getTitle()+""+".jpg");
+                ImageIO.write(renderCard(c), "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -156,8 +160,10 @@ public class CardMaker extends JPanel {
     public void exportCard_notransparent(Card c){
         try {
                 System.out.println("Exporting: "+c.getTitle()+"");
-                File outputfile = new File(defaultPath+c.getTitle()+"_noTransparent.png");
+                File outputfile = new File(defaultPath+c.getTitle()+"_noTransparent");
                 ImageIO.write(renderCard_noTransparent(c), "png", outputfile);
+                 outputfile = new File(defaultPath+c.getTitle()+"_noTransparent"+".jpg");
+                ImageIO.write(renderCard_noTransparent(c), "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,8 +173,36 @@ public class CardMaker extends JPanel {
     public void exportCard_notransparent2(Card c){
         try {
                 System.out.println("Exporting: "+c.getTitle()+"");
-                File outputfile = new File(defaultPath+c.getTitle()+"_noTransparent_blk.png");
+                File outputfile = new File(defaultPath+c.getTitle()+"_noTransparent_blk");
                 ImageIO.write(renderCard_noTransparent2(c), "png", outputfile);
+                 outputfile = new File(defaultPath+c.getTitle()+"_noTransparent_blk"+".jpg");
+                ImageIO.write(renderCard_noTransparent2(c), "jpg", outputfile);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    public void exportBG_notransparent(BufferedImage c, String name){
+        try {
+                System.out.println("Exporting: "+name+"");
+                File outputfile = new File(defaultPath+name+"_noTransparent");
+                ImageIO.write(renderBack_tan(c), "png", outputfile);
+                 outputfile = new File(defaultPath+name+"_noTransparent"+".jpg");
+                ImageIO.write(renderBack_tan(c), "jpg", outputfile);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    public void exportBG_notransparent2(BufferedImage c, String name){
+        try {
+                System.out.println("Exporting: "+name+"");
+                File outputfile = new File(defaultPath+name+"_noTransparent_blk");
+                ImageIO.write(renderBack_blk(c), "png", outputfile);
+                 outputfile = new File(defaultPath+name+"_noTransparent_blk"+".jpg");
+                ImageIO.write(renderBack_blk(c), "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,6 +214,8 @@ public class CardMaker extends JPanel {
                 System.out.println("Exporting: "+location);
                 File outputfile = new File(location);
                 ImageIO.write(img, "png", outputfile);
+                outputfile = new File(location+".jpg");
+                ImageIO.write(img, "jpg", outputfile);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -205,7 +241,17 @@ public class CardMaker extends JPanel {
         tempGR.drawRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
 
         try {
-            cardBase = ImageIO.read(new File("JavaApp/resources/card_empty.png"));
+            cardBase = ImageIO.read(new File("JavaApp/resources/card_empty"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            cardBack = ImageIO.read(new File("JavaApp/resources/card_back"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            cardBackSquirrel = ImageIO.read(new File("JavaApp/resources/card_back_squirrel"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -222,6 +268,49 @@ public class CardMaker extends JPanel {
 
     Color maroon = new Color(120, 30, 0);
     Color greenatk = new Color(40, 100, 50);// seafoam
+
+    public BufferedImage renderBack_tan(BufferedImage c) {
+
+        BufferedImage cardImage = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = (Graphics2D) cardImage.getGraphics();
+        if (c == null) {
+            return cardImage;
+        } else {
+
+            
+
+            g.setColor(Color.decode("#EBC4A6"));
+            g.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
+            g.drawImage(c, null, 0, 0);// draw background
+
+            return cardImage;
+        }
+
+    }
+    public BufferedImage renderBack_blk(BufferedImage c) {
+
+        BufferedImage cardImage = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = (Graphics2D) cardImage.getGraphics();
+        if (c == null) {
+            return cardImage;
+        } else {
+
+            
+
+            g.setColor(Color.decode("#051423"));
+            g.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
+            g.drawImage(c, null, 0, 0);// draw background
+
+            return cardImage;
+        }
+
+    }
+
+
+
+
+
+
 
     public BufferedImage renderCard(Card c) {
 
@@ -511,7 +600,7 @@ public BufferedImage renderCard_noTransparent2(Card c) {
                         System.out.println(listOfFiles[i] +":"+ listOfFiles[i].getName()+ " (isFile):");
                         String fileName = listOfFiles[i].getName();
                         System.out.print("Raw filename: "+fileName);
-                        fileName = (String) fileName.subSequence("portait_".length() + 1,fileName.length() - ".png".length());
+                        fileName = (String) fileName.subSequence("portait_".length() + 1,fileName.length() - "".length());
                         fileName = fileName.replace(" ","").replace("_","");
                         System.out.println("// Cut filename: "+fileName);
                         BufferedImage portrait = null;
@@ -553,7 +642,7 @@ public BufferedImage renderCard_noTransparent2(Card c) {
                     if (listOfFiles[i].isFile()) {
                         String fileName = listOfFiles[i].getName();
                         fileName = (String) fileName.subSequence("ability_".length(),
-                                fileName.length() - ".png".length());
+                                fileName.length() - "".length());
 
                         BufferedImage sigil = null;
                         try {
