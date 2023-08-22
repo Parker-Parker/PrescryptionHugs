@@ -274,7 +274,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         fontHeavyWeight_Stat = fontHeavyWeight.deriveFont(42f);
 
         Graphics2D tempGR = cardWhite.createGraphics();
-        tempGR.setColor(Color.decode("#F0A966"));
+        tempGR.setColor(Color.decode("#EBC4A6"));
         tempGR.drawRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
 
         try {
@@ -933,7 +933,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             if((HAND_CARDS_DRAW_MODE/2)%2== 1&&c.isFromHand()){
                 // g.drawImage(cardWhite,null,0,0);//draw background
 
-                g.setColor(Color.decode("#F0A966"));
+                g.setColor(Color.decode("#EBC4A6"));
                 g.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
 
             }
