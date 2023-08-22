@@ -22,9 +22,9 @@ public class CardMaker extends JPanel {
         for(Card c : cm.allCards){
             cm.exportCard(c);
         }
-        for(String key : cm.cardPortraits.keySet()){
-            System.out.println("key: "+key);
-        }
+        // for(String key : cm.cardPortraits.keySet()){
+        //     System.out.println("key: "+key);
+        // }
         // for(String key : cm.cardPortraits.keySet()){
         //     exportImage(cm.cardPortraits.get(key), debugPath+key+".png");
         // }
