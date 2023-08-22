@@ -33,8 +33,7 @@ public class DillDillServer
         String handsString = "";
         int loopctr = 0;
         int score = 0;
-        /////TODO while true in the future
-        // for(int i = 0;i<450;i++){
+
         while(true){
             testField.initPresetCards();
             fieldPicker = null;

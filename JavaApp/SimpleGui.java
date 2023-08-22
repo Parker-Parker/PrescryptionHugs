@@ -19,7 +19,7 @@ import javax.swing.border.TitledBorder;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class GuiTest implements ActionListener {
+public class SimpleGui implements ActionListener {
 
     private JLabel label;
     private JLabel sacInfo;
@@ -38,7 +38,7 @@ public class GuiTest implements ActionListener {
     private static String butColor = "#710C04";
     private static String txtColor = "#DDDDDD";
 
-    public GuiTest() {
+    public SimpleGui() {
 
         frame = new JFrame();
 
@@ -102,15 +102,7 @@ public class GuiTest implements ActionListener {
                                                          ////////// actual sac cost of each of the cards in mdeck
                                                          ////////// hashmap? array list?
         sacInfo.setForeground(Color.decode(txtColor));
-        JPanel sacNeededPanel = new JPanel();
-        sacNeededPanel.setLayout(grid);
-        sacNeededPanel.setBackground(Color.decode(bckColor));
-        sacNeededPanel.setForeground(Color.decode(txtColor));
-        TitledBorder sumInfoBorder = BorderFactory.createTitledBorder("Summoning Info");
-        sacNeededPanel.setBorder(sumInfoBorder);
-        sumInfoBorder.setTitleColor(Color.decode(txtColor));
-        sacNeededPanel.add(sacInfo);
-        panel.add(sacNeededPanel);
+
 
         // panel.add(Box.createRigidArea(new Dimension(0, 1))); // Add spacing between
         // sections
@@ -121,37 +113,68 @@ public class GuiTest implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String actionCommand1 = e.getActionCommand();
-                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
-                    switch (actionCommand1) {
-                        case "Direct Summon Here Column 0":
-                            playerCommand = "user rdy 1 " + selDropIndex + " 0";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Direct Summon Here Column 1":
-                            playerCommand = "user rdy 1 " + selDropIndex + " 1";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Direct Summon Here Column 2":
-                            playerCommand = "user rdy 1 " + selDropIndex + " 2";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Direct Summon Here Column 3":
-                            playerCommand = "user rdy 1 " + selDropIndex + " 3";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
+                switch (actionCommand1) {
+                    case "Direct Summon Here Column 0":
+                        playerCommand = "user rdy 1 " + selDropIndex + " 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Direct Summon Here Column 1":
+                        playerCommand = "user rdy 1 " + selDropIndex + " 1";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Direct Summon Here Column 2":
+                        playerCommand = "user rdy 1 " + selDropIndex + " 2";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Direct Summon Here Column 3":
+                        playerCommand = "user rdy 1 " + selDropIndex + " 3";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
 
+        ActionListener actionListener2 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String actionCommand2 = e.getActionCommand();
+                switch (actionCommand2) {
+                    case "Kill Here Column 0":
+                        playerCommand = "user rdy 2 0 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 1":
+                        playerCommand = "user rdy 2 1 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 2":
+                        playerCommand = "user rdy 2 2 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    case "Kill Here Column 3":
+                        playerCommand = "user rdy 2 3 0";
+                        label.setText(playerCommand);
+                        available = true;
+                        System.out.println(playerCommand);
+                        break;
+                    default:
+                        break;
                 }
             }
         };
@@ -161,116 +184,11 @@ public class GuiTest implements ActionListener {
         directSummonPanel.setForeground(Color.decode(txtColor));
         panel.add(directSummonPanel);
 
-        // panel.add(Box.createRigidArea(new Dimension(0, 5))); // Add spacing between
-        // sections
-        //////////////////////////////////////////////////////////////////
-        // Second Section - Sacrifice Which Card////////////////////////////
+        JPanel killPanel = createSectionPanel2("Kill", 4, "Kill Here", 1, actionListener2);
+        killPanel.setBackground(Color.decode(bckColor));
+        killPanel.setForeground(Color.decode(txtColor));
 
-        ActionListener actionListener2 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String actionCommand2 = e.getActionCommand();
-                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
-                    switch (actionCommand2) {
-                        case "Sacrifice This Card Column 0":
-                            playerCommand = "user sac 1 0";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sacrifice This Card Column 1":
-                            playerCommand = "user sac 1 1";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sacrifice This Card Column 2":
-                            playerCommand = "user sac 1 2";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sacrifice This Card Column 3":
-                            playerCommand = "user sac 1 3";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-
-                }
-            }
-        };
-
-        JPanel sacPanel = new JPanel();
-        sacPanel.setLayout(grid);
-        sacPanel.setBackground(Color.decode(bckColor));
-        sacPanel.setForeground(Color.decode(txtColor));
-        TitledBorder sacPanelBorder = BorderFactory.createTitledBorder("Sacrifice");
-        sacPanel.setBorder(sacPanelBorder);
-        sacPanelBorder.setTitleColor(Color.decode(txtColor));
-        JPanel sacrificeWhichCardPanel = createSectionPanel2("Sacrifice Which Cards", 4, "Sacrifice This Card", 0,
-                actionListener2);
-        sacrificeWhichCardPanel.setBackground(Color.decode(bckColor));
-        sacrificeWhichCardPanel.setForeground(Color.decode(txtColor));
-        sacPanel.add(sacrificeWhichCardPanel);
-
-        ////////////////////////////////////////////////////////////////////
-        // Third Section - Sacrifice Summon Here////////////////////////////
-
-        ActionListener actionListener3 = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                String actionCommand3 = e.getActionCommand();
-                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
-                    switch (actionCommand3) {
-                        case "Sac Summon Here Column 0":
-                            playerCommand = "user sum 0";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sac Summon Here Column 1":
-                            playerCommand = "user sum 1";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sac Summon Here Column 2":
-                            playerCommand = "user sum 2";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        case "Sac Summon Here Column 3":
-                            playerCommand = "user sum 3";
-                            label.setText(playerCommand);
-                            available = true;
-                            System.out.println(playerCommand);
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-
-                }
-            }
-        };
-
-        JPanel sacrificeSummonHerePanel = createSectionPanel3("Summon From Sacrifices", 4, "Sac Summon Here", 0,
-                actionListener3);
-        sacrificeSummonHerePanel.setBackground(Color.decode(bckColor));
-        sacrificeSummonHerePanel.setForeground(Color.decode(txtColor));
-        sacPanel.add(sacrificeSummonHerePanel);
-
-        sacPanel.add(cancelSacButton);
-        cancelSacButton.addActionListener(this);
-
-        panel.add(sacPanel);
+        panel.add(killPanel);
 
         ////////////////////////////////////////////////////////////////////
         // Bottom Buttons///////////////////////////////////////////////////
@@ -302,7 +220,7 @@ public class GuiTest implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new GuiTest();
+        new SimpleGui();
     }
 
     @Override
@@ -318,24 +236,24 @@ public class GuiTest implements ActionListener {
                 selDropLen = dropdown.getSelectedItem().toString().length();
                 selDropIndex = selDrop.toString().substring(0, selDrop.toString().indexOf(":"));
 
-                if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
-                    viewedText = "Direct Summoning " + selDrop.toString();
-                    sacInfo.setText(viewedText);
-                    playerCommand = "";
-                    available = false;
-                    System.out.println(playerCommand);
-                    break;
-                } else {
-                    viewedText = "Sacrificing " + selDrop.toString(); // + " Sacrifices Needed: " +
-                                                                      // dropdown.getSelectedItem().toString().charAt(selDropLen
-                                                                      // - 2);
-                    sacInfo.setText(viewedText);
-                    playerCommand = "user rdy 2 " + selDropIndex;
-                    label.setText(playerCommand);
-                    System.out.println(playerCommand);
-                    available = true;
-                    break;
-                }
+                // if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) == '0') {
+                viewedText = "Direct Summoning " + selDrop.toString();
+                sacInfo.setText(viewedText);
+                playerCommand = "";
+                available = false;
+                System.out.println(playerCommand);
+                break;
+                // } else {
+                //     viewedText = "Sacrificing " + selDrop.toString(); // + " Sacrifices Needed: " +
+                //                                                       // dropdown.getSelectedItem().toString().charAt(selDropLen
+                //                                                       // - 2);
+                //     sacInfo.setText(viewedText);
+                //     playerCommand = "user rdy 1 " + selDropIndex;
+                //     label.setText(playerCommand);
+                //     System.out.println(playerCommand);
+                //     available = true;
+                //     break;
+                // }
             case "Cancel Sacrifice":
                 if (dropdown.getSelectedItem().toString().charAt(selDropLen - 2) != '0') {
                     playerCommand = "user sac 0";
@@ -428,6 +346,7 @@ public class GuiTest implements ActionListener {
 
             for (int i = 0; i < buttonCount; i++) {
                 JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
+                labelComponent.setForeground(Color.decode(txtColor));
                 panel.add(labelComponent);
             }
         }
@@ -438,40 +357,6 @@ public class GuiTest implements ActionListener {
             button.setForeground(Color.decode(txtColor));
             panel.add(button);
             button.addActionListener(actionListener2);
-        }
-
-        return panel;
-    }
-
-    private static JPanel createSectionPanel3(String label, int buttonCount, String buttonLabel, int columnLabel,
-            ActionListener actionListener3) {
-        int rowcount;
-
-        if (columnLabel == 1) {
-            rowcount = 2;
-        } else {
-            rowcount = 1;
-        }
-
-        JPanel panel = new JPanel(new GridLayout(rowcount, buttonCount));
-        TitledBorder panelBorder = BorderFactory.createTitledBorder(label);
-        panel.setBorder(panelBorder);
-        panelBorder.setTitleColor(Color.decode(txtColor));
-        panel.setPreferredSize(new Dimension(300, 80));
-        if (columnLabel == 1) {
-
-            for (int i = 0; i < buttonCount; i++) {
-                JLabel labelComponent = new JLabel(Integer.toString(i), SwingConstants.CENTER);
-                panel.add(labelComponent);
-            }
-        }
-
-        for (int i = 0; i < buttonCount; i++) {
-            JButton button = new JButton(buttonLabel + " Column " + i);
-            button.setBackground(Color.decode(butColor));
-            button.setForeground(Color.decode(txtColor));
-            panel.add(button);
-            button.addActionListener(actionListener3);
         }
 
         return panel;

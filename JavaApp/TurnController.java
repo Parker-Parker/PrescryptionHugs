@@ -87,7 +87,7 @@ public class TurnController {
                     this.setState(TurnState.playerEnd); //if player ends turn    
                 } 
                 else if(cmdReady[0]==1){ //if player attempts summon of 0 cost
-                    if( (field.getHand().size() > cmdReady[1])&& (field.getHand().get(cmdReady[1])!=null) && (field.getHand().get(cmdReady[1]).getCost()==0)  ){  // check if sacrifices are sufficient, 
+                    if( (field.getHand().size() > cmdReady[1])&& (field.getHand().get(cmdReady[1])!=null)){
                         if(field.playCard(cmdReady[1], cmdReady[2])){
                             field.getHand().remove(cmdReady[1]);
                         }
@@ -103,20 +103,14 @@ public class TurnController {
                     this.setState(TurnState.playerReady);       //no more work needed, ready to play new card
                     //may want to add something that waits for bad card cleared. may want field.playCard() to return true/false to facilitate this 
                 }
-                else if(cmdReady[0]==2){//if player attempts summon of 1+ cost
-                    
-                    field.clearSacrifices();
-                    if(field.prepPlayCard(cmdReady[1])){// confirm there is enough blood on the field and card requires sacrifice(cost>0)
-                        field.clearSacrifices();    
-                        this.setState(TurnState.playerSacrifice);
+                else if(cmdReady[0]==2){ //player kills card
+                    int kill_pos = cmdReady[1];
+                    Card killCard = field.playerCards[kill_pos];
+                    if (killCard != null) {
+                        killCard.die();
                     }
-                    else{
-                        this.setState(TurnState.playerReady);    
-                    }
-
-                }
-
-                
+                    this.setState(TurnState.playerReady);
+                }                
                 break;
             case playerSacrifice:
                 
