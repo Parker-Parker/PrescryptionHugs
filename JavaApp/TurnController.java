@@ -47,10 +47,13 @@ public class TurnController {
                     field.popMainDeck(); //add 5 cards to hand
                 }// leshy should prompt player to draw
                 field.popSideDeck();//add a squirrel to hand
-                this.setState(TurnState.playerDraw);
+                // this.setState(TurnState.playerDraw);
+                this.setState(TurnState.playerReady);
+                
                 break;
             case playerBegin:
-                this.setState(TurnState.playerDraw);
+                this.setState(TurnState.playerReady);
+                // this.setState(TurnState.playerDraw);
                 break;
             case playerDraw:
                 choices.add("Main");

@@ -1,0 +1,42 @@
+FREE:
+ Geck                      
+ Bee                                 
+ Squirrel    x11            
+ 
+BLOOD:
+ Stoat       x2               
+ Wolf        4              
+ WolfCub     2                 
+ Adder       2               
+ Amalgam                       
+ Beaver                          
+ Bullfrog    3                   
+ Cat         1                  
+ BlackGoat   2                  
+ Grizzly     2               
+ Mantis      2               
+ MantisGod   1                  
+ StrangeLarva 1                 
+ Porcupine     2              
+ Raven                      
+ RavenEgg                           
+ Skunk            2          
+ RiverSnapper      3           
+ Sparrow            2          
+ RingWorm       
+ Alpha          3            
+
+BONES:
+ 
+ Bat                      
+ Opossum                      
+ Rattler                      
+ TurkeyVulture                    
+ RatKing                      
+ Coyote                        
+ 
+
+Carkin card     1
+
+
+total 46/50

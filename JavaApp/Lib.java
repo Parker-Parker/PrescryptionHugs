@@ -57,9 +57,9 @@ class Adder extends Card {
 }
 
 class Alpha extends Card {
-
+// changed the cost number to 2 and the ctype to blood for the time being/demo
     public Alpha() {
-        super("Alpha", 1, 2, 4, "Bones", "Canine", "Leader", null, "JavaApp/resources/Portraits/portait_alpha.jpg");
+        super("Alpha", 1, 2, 2, "Blood", "Canine", "Leader", null, "JavaApp/resources/Portraits/portait_alpha.jpg");
     }
 
 }
@@ -742,6 +742,27 @@ class Debile extends Card {
 
     public Debile() {
         super("Debile", -1, 69, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_Debile.jpg");
+    }
+
+}
+class Carkin extends Card {
+
+    public Carkin() {
+        super("Carkin", 2, 1, 1, null, null, null, null, "JavaApp/resources/Portraits/portait_Debile.jpg");
+    }
+
+}
+class EricCarkin extends Card {
+
+    public EricCarkin() {
+        super("Eric Carkin", 3, 3, 2, null, null, "SharpQuills", null, "JavaApp/resources/Portraits/portait_Debile.jpg");
+    }
+
+}
+class Krakin147 extends Card {
+
+    public Krakin147() {
+        super("Krakin 147", 14, 7, 4, null, null, "BifurcatedStrike",null , "JavaApp/resources/Portraits/portait_Debile.jpg");
     }
 
 }

@@ -404,7 +404,7 @@ class Game44 extends Field {
         new LinkedList<Card>(Arrays.asList(null, new Bullfrog(), new Coyote(), null, new RiverSnapper(), null, new Bat(), null, new Alpha(), null, null, new Grizzly(), null, null, null, new Mantis(), null, null, new WolfCub(), null, null, new Adder(), new Grizzly(), new Sparrow())),
         new LinkedList<Card>(Arrays.asList(new Grizzly(), null, null, null, new Bullfrog(), null, new WolfCub(), null, new Grizzly(), null, new Grizzly(), null, null, new RiverSnapper(), null, new Coyote(), new Grizzly(), new Mantis(), null, null, new Adder(), null, null, new Grizzly(), new Bat())),
         new LinkedList<Card>(Arrays.asList(null, new Mantis(), null, new Grizzly(), null, new Bullfrog(), new Coyote(), null, null, new Adder(), new Grizzly(), null, new Grizzly(), new Sparrow(), null, null, new WolfCub(), null, null, new RiverSnapper(), null, new Grizzly(), null, null, new Alpha())),
-        new LinkedList<Card>(Arrays.asList(null, null, new Bullfrog(), null, new RiverSnapper(), new Grizzly(), null, null, null, new Grizzly(), new Coyote(), null, new Grizzly(), null, null, new Mantis(), new Grizzly(), new Grizzly(), null, new Bat(), null))));
+        new LinkedList<Card>(Arrays.asList(new MantisGod(), null, new Bullfrog(), null, new RiverSnapper(), new Grizzly(), null, null, null, new Grizzly(), new Coyote(), null, new Grizzly(), null, null, new Mantis(), new Grizzly(), new Grizzly(), null, new Bat(), null))));
 
     public Game44() {
          super(); 
