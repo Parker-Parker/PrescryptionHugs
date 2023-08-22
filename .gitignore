@@ -1,6 +1,6 @@
 # Huge Files
 assets/*
-JavaApp/Build/*
+JavaApp/Build/Card_renders/*.png
 
 
 # Compiled class file
