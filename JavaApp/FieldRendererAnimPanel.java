@@ -528,16 +528,44 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
                 renderAtPos(canvas, renderCardSlotU(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i, 0)), i, 0);
             }
         }
-        for (int i = 0; i < 4; i++) {
-            if ((canvas != null) && (field != null) && (field.getPlayerCards() != null) && (field.getPlayerCards().length == 4)) {
-                renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i, 2)), i, 2);
+
+        if(checkRowAnimated()==2){
+            for (int i = 0; i < 4; i++) {
+                if ((canvas != null) && (field != null) && (field.getEnemyCards() != null)  && (field.getEnemyCards().length == 4)) {
+                    renderAtPos(canvas, renderCardSlotU(renderCard(field.getEnemyCards()[i]), getAnimation(i, 1)), i, 1);// change this to show slot upside down
+                }
+            }
+            for (int i = 0; i < 4; i++) {
+                if ((canvas != null) && (field != null) && (field.getPlayerCards() != null) && (field.getPlayerCards().length == 4)) {
+                    renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i, 2)), i, 2);
+                }
             }
         }
-        for (int i = 0; i < 4; i++) {
-            if ((canvas != null) && (field != null) && (field.getEnemyCards() != null)  && (field.getEnemyCards().length == 4)) {
-                renderAtPos(canvas, renderCardSlotU(renderCard(field.getEnemyCards()[i]), getAnimation(i, 1)), i, 1);// change this to show slot upside down
+        else{
+            for (int i = 0; i < 4; i++) {
+                if ((canvas != null) && (field != null) && (field.getPlayerCards() != null) && (field.getPlayerCards().length == 4)) {
+                    renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i, 2)), i, 2);
+                }
+            }
+            for (int i = 0; i < 4; i++) {
+                if ((canvas != null) && (field != null) && (field.getEnemyCards() != null)  && (field.getEnemyCards().length == 4)) {
+                    renderAtPos(canvas, renderCardSlotU(renderCard(field.getEnemyCards()[i]), getAnimation(i, 1)), i, 1);// change this to show slot upside down
+                }
             }
         }
+    }
+
+    private int checkRowAnimated() {
+        int row = 0;
+        Animations anim;
+        for (int c = 0; c < 4; c++) {
+            for (int r = 0; r < 3; r++) {
+                anim = (currentAnimations[r])[c];
+                row = anim==null||anim==Animations.Idle? row : r;
+
+            }
+        }
+        return row;
     }
 
     private void renderFieldZBuffer(Field field) {
