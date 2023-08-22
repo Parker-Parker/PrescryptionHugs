@@ -20,6 +20,11 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+public static void main(String argv[]) throws Exception {
+    
+}
+
+
 public class CardMaker extends JPanel implements ActionListener {
 
     static final int SCREEN_WIDTH = 1920;
