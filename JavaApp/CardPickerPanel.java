@@ -15,13 +15,14 @@ import javax.swing.JPanel;
 
 public class CardPickerPanel extends JPanel {
     int gap = 4;
-    int rows = 4;
+    int columns = 4;
     LinkedList<Card> cards = new LinkedList<>();
     LinkedList<JButton> buttons = new LinkedList<>();
     public CardPickerPanel(LinkedList<Card> mDeck, JComboBox comboBox) {
         super();
         RenderSetup();
         cards = new LinkedList<>(mDeck);
+        // this.setPreferredSize(new Dimension((CARD_WIDTH+gap)*columns, (CARD_HEIGHT+gap)*(cards.size()/columns+1)));
 
         // this.setLayout(new GridLayout(rows, cards.size()/rows+1, gap, gap));
         this.setLayout(new FlowLayout());
@@ -29,24 +30,14 @@ public class CardPickerPanel extends JPanel {
         int i = 0;
         for(Card card : cards){
             button = new JButton(new ImageIcon(renderCard(card)));
-            // button.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
-            button.setSize(CARD_WIDTH, CARD_HEIGHT);;
+            button.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
+            // button.setSize(CARD_WIDTH, CARD_HEIGHT);;
             buttons.add(button);
 
             button.addActionListener(new ActionListenerWithIndex(i, comboBox));
-            // });
-            // button.addActionListener(new ActionListener() {
-            //     int index = i;
-            //     @Override
-            //     public void actionPerformed(ActionEvent event) {
-            //         this.
-            //         comboBox.setSelectedIndex(index);
-            //     }
-            // });
-            CardPickerPanel.this.add(button);
+            this.add(button);
             i++;
         }
-        // this.rep
         
     }
 
@@ -66,20 +57,10 @@ public class CardPickerPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             comboBox.setSelectedIndex(index);
-            // comboBox.getActionListeners()
 
         }
     }
 
-    // class JButtonWithInt extends JButton {
-    //     int index;
-    //     public void setIndex(int x){
-    //         index = x;
-    //     }
-    //     public int getIndex(){
-    //         return index;
-    //     }
-    // }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////      Renderer Crap           ////////////////////////////////////////////
@@ -113,7 +94,7 @@ public class CardPickerPanel extends JPanel {
 
 
         try {
-            cardBase = ImageIO.read(new File("JavaApp/resources/card_empty"));
+            cardBase = ImageIO.read(new File("JavaApp/resources/card_empty.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,6 +113,9 @@ public class CardPickerPanel extends JPanel {
             return cardImage;
         } else {
 
+            // float opacity = 0.5f;
+            // g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+
             FontMetrics metrics = getFontMetrics(fontHeavyWeight);
             FontMetrics metrics2 = getFontMetrics(fontHeavyWeight_Stat);
 
@@ -145,7 +129,13 @@ public class CardPickerPanel extends JPanel {
                 metrics = getFontMetrics(newfont);
                 g.setFont(newfont);
             }
-            g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2, (CARD_HEIGHT * 14) / 190 + metrics.getHeight() / 2);// draw title
+            // g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) /
+            // 2, metrics.getHeight());//draw title
+            // g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) /
+            // 2, (CARD_HEIGHT*42)/190-metrics.getHeight()/2);//draw title
+            g.drawString(c.getTitle(), (CARD_WIDTH - metrics.stringWidth(c.getTitle())) / 2,
+                    (CARD_HEIGHT * 14) / 190 + metrics.getHeight() / 2);// draw title
+            // System.out.println(metrics.getHeight()/2+":"+(CARD_HEIGHT*42)/190);
 
             BufferedImage portrait = getCardPortrait(c.getTitle().replaceAll("Elder ", ""));
             g.drawImage(portrait, null, CARD_WIDTH / 2 - portrait.getWidth() / 2,
@@ -153,22 +143,29 @@ public class CardPickerPanel extends JPanel {
 
             BufferedImage cost = getCostIndicator(c.cost);
             g.drawImage(cost, null, (CARD_WIDTH - cost.getWidth()), CARD_HEIGHT / 13);// draw cost indicator
+            // g.drawImage(cost,null,0,0);//draw cost indicator
 
             BufferedImage sigil = getSigilImage(c.sigils);
-            g.drawImage(sigil, null, (CARD_WIDTH - sigil.getWidth()) / 2, (CARD_HEIGHT * 25 / 30) - sigil.getHeight() / 2);// draw cost indicator
+            g.drawImage(sigil, null, (CARD_WIDTH - sigil.getWidth()) / 2,
+                    (CARD_HEIGHT * 25 / 30) - sigil.getHeight() / 2);// draw cost indicator
+            
+           
+
             g.setFont(fontHeavyWeight_Stat);
             g.setColor(Color.BLACK);
-            g.drawString("" + c.getAttack(), CARD_WIDTH * 20 / 120 - metrics2.stringWidth(c.getAttack() + "") / 2, CARD_HEIGHT * 91 / 120 + metrics2.getHeight() / 2);// draw attack
+            g.drawString("" + c.getAttack(), CARD_WIDTH * 20 / 120 - metrics2.stringWidth(c.getAttack() + "") / 2,
+                    CARD_HEIGHT * 91 / 120 + metrics2.getHeight() / 2);// draw attack
 
             g.setColor(Color.BLACK);
-            g.drawString(c.getHealth() + "", (CARD_WIDTH * 100 / 120 - metrics2.stringWidth(c.getHealth() + "") / 2),CARD_HEIGHT * 5 / 6 + metrics2.getHeight() / 2);// draw health
+            g.drawString(c.getHealth() + "", (CARD_WIDTH * 100 / 120 - metrics2.stringWidth(c.getHealth() + "") / 2),
+                    CARD_HEIGHT * 5 / 6 + metrics2.getHeight() / 2);// draw health
 
             return cardImage;
         }
 
     }
 
-   
+  
     public BufferedImage getSigilImage(Sigils sig) {
         BufferedImage sigil = sigils.get(sig);
         return sigil == null ? emptyImage : sigil;
@@ -201,17 +198,16 @@ public class CardPickerPanel extends JPanel {
         try {
             File folder = new File(folderPath);
             File[] listOfFiles = folder.listFiles();
-            System.out.println("listOfFiles: "+listOfFiles);
+
             for (int i = 0; i < listOfFiles.length; i++) {
                 try {
                     if (listOfFiles[i].isFile()) {
-
-                        System.out.println(listOfFiles[i] +":"+ listOfFiles[i].getName()+ " (isFile):");
+                        // System.out.println("File " + listOfFiles[i].getName());
                         String fileName = listOfFiles[i].getName();
-                        System.out.print("Raw filename: "+fileName);
-                        fileName = (String) fileName.subSequence("portait_".length() + 1,fileName.length() - "".length());
+                        fileName = (String) fileName.subSequence("portait_".length() + 1, fileName.length() - ".png".length());
                         fileName = fileName.replace(" ","").replace("_","");
-                        System.out.println("// Cut filename: "+fileName);
+
+                        // System.out.println(fileName);
                         BufferedImage portrait = null;
                         try {
                             portrait = ImageIO.read(listOfFiles[i]);
@@ -219,16 +215,10 @@ public class CardPickerPanel extends JPanel {
                             e.printStackTrace();
                         }
 
-                        System.out.println("Portrait: "+portrait);
                         cardPortraits.put(fileName.toUpperCase(), portrait);
-                        System.out.println("Successs");
-
 
                     } else if (listOfFiles[i].isDirectory()) {
                         System.out.println("Directory " + listOfFiles[i].getName());
-                    }
-                    else{
-                        System.out.println(listOfFiles[i] +":"+ listOfFiles[i].getName()+ " Neither file nor dorectory");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -249,10 +239,12 @@ public class CardPickerPanel extends JPanel {
             for (int i = 0; i < listOfFiles.length; i++) {
                 try {
                     if (listOfFiles[i].isFile()) {
+                        // System.out.println("File " + listOfFiles[i].getName());
                         String fileName = listOfFiles[i].getName();
                         fileName = (String) fileName.subSequence("ability_".length(),
-                                fileName.length() - "".length());
+                                fileName.length() - ".png".length());
 
+                        // System.out.println(fileName);
                         BufferedImage sigil = null;
                         try {
                             sigil = ImageIO.read(listOfFiles[i]);
@@ -261,7 +253,7 @@ public class CardPickerPanel extends JPanel {
                         }
                         System.out.println("Importing file: " + fileName);
                         for (Sigils s : Sigils.values()) {
-                            // System.out.println("       checking: " + s.name());
+                            System.out.println("       checking: " + s.name());
                             if (s.name().equalsIgnoreCase(fileName)) {
                                 sigils.put(s, sigil);
 
@@ -293,9 +285,14 @@ public class CardPickerPanel extends JPanel {
                 try {
                     if (listOfFiles[i].isFile()) {
                         String fileName = listOfFiles[i].getName();
+                        // System.out.println(fileName);
+                        // System.out.println("cost_.length()+1 =
+                        // "+"cost_".length()+1+"fileName.length()-blood.png.length() =
+                        // "+(fileName.length()-"blood.png".length()));
 
                         fileName = (String) fileName.subSequence("cost_".length(), "cost_".length() + 1);
 
+                        // System.out.println(fileName);
                         BufferedImage portrait = null;
                         try {
                             int cost = Integer.parseInt(fileName);
@@ -304,21 +301,17 @@ public class CardPickerPanel extends JPanel {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
                     } else if (listOfFiles[i].isDirectory()) {
                         System.out.println("Directory " + listOfFiles[i].getName());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 }
-        
