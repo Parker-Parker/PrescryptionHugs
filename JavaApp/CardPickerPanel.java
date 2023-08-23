@@ -16,6 +16,12 @@ import javax.swing.JPanel;
 public class CardPickerPanel extends JPanel {
     int gap = 4;
     int columns = 4;
+    int numer = 3;
+    int denom = 4;
+
+
+    int UIwidth = (CARD_WIDTH*numer)/denom;
+    int UIheight = (CARD_HEIGHT*numer)/denom;
     LinkedList<Card> cards = new LinkedList<>();
     LinkedList<JButton> buttons = new LinkedList<>();
     public CardPickerPanel(LinkedList<Card> mDeck, JComboBox comboBox) {
@@ -29,8 +35,9 @@ public class CardPickerPanel extends JPanel {
         JButton button;
         int i = 0;
         for(Card card : cards){
-            button = new JButton(new ImageIcon(renderCard(card)));
-            button.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
+            button = new JButton(new ImageIcon(renderCard(card).getScaledInstance(UIwidth, UIheight, Image.SCALE_DEFAULT)));
+            button.setPreferredSize(new Dimension(UIwidth, UIheight));
+            // button.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
             // button.setSize(CARD_WIDTH, CARD_HEIGHT);;
             buttons.add(button);
 
