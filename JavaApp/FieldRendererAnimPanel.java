@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class FieldRendererAnimPanel extends JPanel implements ActionListener {
+    boolean firstMessageReceived = false;
 
     static final int SCREEN_WIDTH = 1920;
 
@@ -536,7 +537,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     private void renderField(Graphics2D canvas, Field field) {
 
-        if((HAND_CARDS_DRAW_MODE/4)%2==0){
+        if((HAND_CARDS_DRAW_MODE/4)%2==0&&firstMessageReceived){
             renderAtPos(canvas,slotBaseDeck,4,2);
             renderAtPos(canvas,slotBaseDeck,5,2);
             renderAtPos(canvas,slotBaseDiscard,-1,2);
@@ -798,7 +799,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         Graphics2D slotGraphics2d = (Graphics2D)slot.getGraphics();
         Graphics2D cardAnimatedGraphics2d = (Graphics2D)cardAnimated.getGraphics();
         // if(DRAW_SLOTS){
-        if((HAND_CARDS_DRAW_MODE/4)%2==0){
+        if((HAND_CARDS_DRAW_MODE/4)%2==0&&firstMessageReceived){
             slotGraphics2d.drawImage(slotBase, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
 
         } else {
@@ -839,7 +840,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         Graphics2D slotGraphics2d = (Graphics2D)slot.getGraphics();
         Graphics2D cardAnimatedGraphics2d = (Graphics2D)cardAnimated.getGraphics();
         // if(DRAW_SLOTS){
-        if((HAND_CARDS_DRAW_MODE/4)%2==0){
+        if((HAND_CARDS_DRAW_MODE/4)%2==0&&firstMessageReceived){
             slotGraphics2d.drawImage(slotBaseU, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
 
         } else {
@@ -898,6 +899,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         if (animTimer > animLength) {
             if (animQueue.checkAvailable()) {
                 // long startTime = System.currentTimeMillis();
+                firstMessageReceived = true;
                 EnumMap<ObserverTopics, String> topicStrings = animQueue.popOld();
                 // observerParser.deserializeField(currentField, topicStrings);
                 observerParser.deserializeAnim(topicStrings, currentField, currentAnimations);
