@@ -377,6 +377,7 @@ class StrangeLarva extends Card {
             p.baseAttack += this.baseAttack;
             p.baseHealth += this.baseHealth-3;
             p.health = this.health;
+            p.setField(this.field);
             return p;
         }
         return this;
@@ -402,6 +403,8 @@ class StrangePupa extends Card {
             m.baseAttack += this.baseAttack;
             m.baseHealth += this.baseHealth-3;
             m.health = m.baseHealth-(this.baseHealth-this.health);
+            
+            m.setField(this.field);
             return m;
         }
         return this;
@@ -733,7 +736,7 @@ class GrandFir extends Card {
 class Dwayne extends Card {
 
     public Dwayne() {
-        super("Dwayne", 0, 1, 0, null, null, "Repulsive", null, "JavaApp/resources/Portraits/portait_boulder.jpg");
+        super("Dwayne", 0, 69, 0, null, null, "Repulsive", null, "JavaApp/resources/Portraits/portait_boulder.jpg");
     }
 
 }
@@ -741,7 +744,7 @@ class Dwayne extends Card {
 class Debile extends Card {
 
     public Debile() {
-        super("Debile", -1, 69, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_Debile.jpg");
+        super("Debile", 1, 3, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_Debile.jpg");
     }
 
 }

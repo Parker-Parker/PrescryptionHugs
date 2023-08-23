@@ -65,6 +65,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     BufferedImage cardBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage cardWhite = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage slotBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage slotBaseU = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage slotBaseBlank = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage[] costs = { emptyImage,
             emptyImage,
@@ -285,6 +286,11 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
         try {
             slotBase = ImageIO.read(new File("JavaApp/resources/Slot/card_slot.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            slotBaseU = ImageIO.read(new File("JavaApp/resources/Slot/card_slot_flipped.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -518,31 +524,48 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
     private void renderField(Graphics2D canvas, Field field) {
         for (int i = 0; i < 4; i++) {
-            if ((canvas != null) && (field != null) && (field.getEnemyCardsBack() != null)
-                    && (field.getEnemyCardsBack().length == 4)) {
-                renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i, 0)), i, 0);
+            if ((canvas != null) && (field != null) && (field.getEnemyCardsBack() != null) && (field.getEnemyCardsBack().length == 4)) {
+                renderAtPos(canvas, renderCardSlotU(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i, 0)), i, 0);
+            }
+        }
+
+        if(checkRowAnimated()==2){
+            for (int i = 0; i < 4; i++) {
+                if ((canvas != null) && (field != null) && (field.getEnemyCards() != null)  && (field.getEnemyCards().length == 4)) {
+                    renderAtPos(canvas, renderCardSlotU(renderCard(field.getEnemyCards()[i]), getAnimation(i, 1)), i, 1);// change this to show slot upside down
+                }
+            }
+            for (int i = 0; i < 4; i++) {
+                if ((canvas != null) && (field != null) && (field.getPlayerCards() != null) && (field.getPlayerCards().length == 4)) {
+                    renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i, 2)), i, 2);
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < 4; i++) {
+                if ((canvas != null) && (field != null) && (field.getPlayerCards() != null) && (field.getPlayerCards().length == 4)) {
+                    renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i, 2)), i, 2);
+                }
+            }
+            for (int i = 0; i < 4; i++) {
+                if ((canvas != null) && (field != null) && (field.getEnemyCards() != null)  && (field.getEnemyCards().length == 4)) {
+                    renderAtPos(canvas, renderCardSlotU(renderCard(field.getEnemyCards()[i]), getAnimation(i, 1)), i, 1);// change this to show slot upside down
+                }
+            }
+        }
+    }
+
+    private int checkRowAnimated() {
+        int row = 0;
+        Animations anim;
+        for (int c = 0; c < 4; c++) {
+            for (int r = 0; r < 3; r++) {
+                anim = (currentAnimations[r])[c];
+                row = anim==null||anim==Animations.Idle? row : r;
 
             }
-
         }
-        for (int i = 0; i < 4; i++) {
-            if ((canvas != null) && (field != null) && (field.getPlayerCards() != null)
-                    && (field.getPlayerCards().length == 4)) {
-                renderAtPos(canvas, renderCardSlot(renderCard(field.getPlayerCards()[i]), getAnimation(i, 2)), i, 2);
-            }
-        }
-        for (int i = 0; i < 4; i++) {
-            if ((canvas != null) && (field != null) && (field.getEnemyCards() != null)
-                    && (field.getEnemyCards().length == 4)) {
-                renderAtPos(canvas, renderCardSlot(renderCard(field.getEnemyCards()[i]), getAnimation(i, 1)), i, 1);// change
-                                                                                                                    // this
-                                                                                                                    // to
-                                                                                                                    // show
-                                                                                                                    // slot
-                                                                                                                    // upside
-                                                                                                                    // down
-            }
-        }
+        return row;
     }
 
     private void renderFieldZBuffer(Field field) {
@@ -756,6 +779,47 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         // if(DRAW_SLOTS){
         if((HAND_CARDS_DRAW_MODE/4)%2==0){
             slotGraphics2d.drawImage(slotBase, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
+
+        } else {
+            slotGraphics2d.drawImage(slotBaseBlank, null, (slot.getWidth() - slotBaseBlank.getWidth()) / 2,
+                    (slot.getHeight() - slotBaseBlank.getHeight()) / 2);
+
+        }
+
+        cardAnimatedGraphics2d.drawImage(card, null, (slot.getWidth() - card.getWidth()) / 2,
+                (slot.getHeight() - card.getHeight()) / 2);
+        // if(animationTransform!=null){
+        // // System.out.println("Did a tf: "+animationTransform.toString());
+        // BufferedImage cardAnimatedTransformed = new BufferedImage(CARD_WIDTH*4,
+        // CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
+        // AffineTransformOp affineTransformOp = new
+        // AffineTransformOp(animationTransform, AffineTransformOp.TYPE_BILINEAR);
+        // affineTransformOp.filter(cardAnimated, cardAnimatedTransformed );
+        // cardAnimated = cardAnimatedTransformed;
+        // // cardAnimatedGraphics2d.transform(animationTransform);
+        // }
+        // slotGraphics2d.drawImage(cardAnimated, null, 0,0);
+
+        if (animationTransform == null) {// I think this is supposed to be faster...
+            slotGraphics2d.drawImage(cardAnimated, null, 0, 0);
+
+        } else {
+            slotGraphics2d.drawImage(cardAnimated,
+                    new AffineTransformOp(animationTransform, AffineTransformOp.TYPE_BILINEAR), 0, 0);
+        }
+
+        return slot;// returns a transparent image with a slot at the exaft center and the
+                    // corresponding card placed relative to the slot
+
+    }
+    private BufferedImage renderCardSlotU(BufferedImage card, AffineTransform animationTransform){
+        BufferedImage slot = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage cardAnimated = new BufferedImage(CARD_WIDTH*4, CARD_HEIGHT*4, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D slotGraphics2d = (Graphics2D)slot.getGraphics();
+        Graphics2D cardAnimatedGraphics2d = (Graphics2D)cardAnimated.getGraphics();
+        // if(DRAW_SLOTS){
+        if((HAND_CARDS_DRAW_MODE/4)%2==0){
+            slotGraphics2d.drawImage(slotBaseU, null, (slot.getWidth()-slotBase.getWidth())/2, (slot.getHeight()-slotBase.getHeight())/2);
 
         } else {
             slotGraphics2d.drawImage(slotBaseBlank, null, (slot.getWidth() - slotBaseBlank.getWidth()) / 2,

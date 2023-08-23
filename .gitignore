@@ -1,6 +1,7 @@
 # Huge Files
 assets/*
 JavaApp/Build/*/*.png
+JavaApp/Build/*/*.jpg
 
 
 # Compiled class file
