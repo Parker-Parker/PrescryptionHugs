@@ -16,8 +16,11 @@ import javax.swing.JPanel;
 public class CardPickerPanel extends JPanel {
     int gap = 4;
     int columns = 4;
-    int numer = 3;
-    int denom = 4;
+    int numer = 4;
+    int denom = 5;
+    private static String bckColor = "#181818";
+    private static String butColor = "#710C04";
+    private static String txtColor = "#DDDDDD";
 
 
     int UIwidth = (CARD_WIDTH*numer)/denom;
@@ -27,6 +30,7 @@ public class CardPickerPanel extends JPanel {
     public CardPickerPanel(LinkedList<Card> mDeck, JComboBox comboBox) {
         super();
         RenderSetup();
+        this.setBackground(Color.decode(bckColor));
         cards = new LinkedList<>(mDeck);
         // this.setPreferredSize(new Dimension((CARD_WIDTH+gap)*columns, (CARD_HEIGHT+gap)*(cards.size()/columns+1)));
 
