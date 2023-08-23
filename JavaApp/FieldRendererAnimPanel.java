@@ -1017,11 +1017,51 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             // opacity = 0.5f;
             // g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
+
+
+
+            g.setFont(fontHeavyWeight_Stat);
+            g.setColor(Color.BLACK);
+            if (c.getAttack() != c.getBaseAttack()) {
+                g.setColor(greenatk);
+            }
+            g.drawString("" + c.getAttack(), CARD_WIDTH * 20 / 120 - metrics2.stringWidth(c.getAttack() + "") / 2,CARD_HEIGHT * 91 / 120 + metrics2.getHeight() / 2);// draw attack
+
+            g.setColor(Color.BLACK);
+            if (c.getHealth() != c.getBaseHealth()) {
+                g.setColor(maroon);
+            }
+            g.drawString(c.getHealth() + "", (CARD_WIDTH * 100 / 120 - metrics2.stringWidth(c.getHealth() + "") / 2),CARD_HEIGHT * 5 / 6 + metrics2.getHeight() / 2);// draw health
+
+
             if((HAND_CARDS_DRAW_MODE/2)%2== 0&&c.isFromHand()){
                 // g.drawImage(cardWhite,null,0,0);//draw background
 
                 g.setColor(Color.decode("#EBC4A6"));
                 g.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
+
+
+
+                //crossout style
+                if (c.getAttack() != c.getBaseAttack()) {
+                    g.setColor(greenatk);
+                    g.drawString("" + c.getAttack(), CARD_WIDTH * 20 / 120 + metrics2.stringWidth(c.getBaseAttack() + ""),CARD_HEIGHT * 91 / 120 + metrics2.getHeight() / 2);// draw attack
+                    drawLineThicc(g, 3,
+                                CARD_WIDTH * 20 / 120 - metrics2.stringWidth(c.getBaseAttack() + "") *2/ 3,     CARD_HEIGHT * 91 / 120 + metrics2.getHeight() / 3,
+                                CARD_WIDTH * 20 / 120 + metrics2.stringWidth(c.getBaseAttack() + "") *2/ 3,     CARD_HEIGHT * 91 / 120 - metrics2.getHeight() / 3            );
+                }
+                if (c.getHealth() != c.getBaseHealth()) {
+                    g.setColor(maroon);
+                    g.drawString(c.getHealth() + "", (CARD_WIDTH * 100 / 120 - metrics2.stringWidth(c.getBaseHealth() + "") * 2),CARD_HEIGHT * 5 / 6 + metrics2.getHeight() / 2);// draw health
+                    drawLineThicc(g, 3, 
+                                CARD_WIDTH * 100 / 120 - metrics2.stringWidth(c.getBaseHealth() + "") *2/ 3,     CARD_HEIGHT * 5 / 6 + metrics2.getHeight() / 3,
+                                CARD_WIDTH * 100 / 120 + metrics2.stringWidth(c.getBaseHealth() + "") *2/ 3,     CARD_HEIGHT * 5 / 6 - metrics2.getHeight() / 3            );
+    
+                }
+
+
+
+
 
             }
             // if((!OPAQUE_HAND_CARDS)&&c.isFromHand()){
@@ -1038,30 +1078,18 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
             }
 
-            g.setFont(fontHeavyWeight_Stat);
-            // g.drawString(""+c.getAttack(),
-            // CARD_WIDTH*19/120-metrics2.stringWidth(c.getAttack()+"")/2,
-            // CARD_HEIGHT*23/30+metrics2.getHeight()/2);//draw attack
-            // g.drawString(c.getHealth()+"", (CARD_WIDTH*101/120 -
-            // metrics2.stringWidth(c.getHealth()+"")/2) ,
-            // CARD_HEIGHT*5/6+metrics2.getHeight()/2);//draw health
-            g.setColor(Color.BLACK);
-            if (c.getAttack() != c.getBaseAttack()) {
-                g.setColor(greenatk);
-            }
-            g.drawString("" + c.getAttack(), CARD_WIDTH * 20 / 120 - metrics2.stringWidth(c.getAttack() + "") / 2,
-                    CARD_HEIGHT * 91 / 120 + metrics2.getHeight() / 2);// draw attack
-
-            g.setColor(Color.BLACK);
-            if (c.getHealth() != c.getBaseHealth()) {
-                g.setColor(maroon);
-            }
-            g.drawString(c.getHealth() + "", (CARD_WIDTH * 100 / 120 - metrics2.stringWidth(c.getHealth() + "") / 2),
-                    CARD_HEIGHT * 5 / 6 + metrics2.getHeight() / 2);// draw health
+            
 
             return cardImage;
         }
 
+    }
+    void drawLineThicc(Graphics2D g, int thiccc, int x0, int y0, int x1, int y1){
+        while (thiccc>0){
+            thiccc--;
+            g.drawLine(x0+thiccc,y0,x1,y1+thiccc);
+            g.drawLine(x0,y0-thiccc,x1-thiccc,y1);
+        }
     }
 
     public BufferedImage getSigilImage(Sigils sig) {
