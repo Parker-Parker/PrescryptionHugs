@@ -12,7 +12,8 @@ class DillDillClient {
         Field field = new Field();
         ObserverOutputHandler observerParser = new ObserverOutputHandler();
 
-        SimpleGui GUI = new SimpleGui();
+        // SimpleGui GUI = new SimpleGui();
+        SketchyGui GUI = new SketchyGui();
         Ipguistarter IPGUI = new Ipguistarter("Controller Client IP and Port Connection");
 
         // BufferedReader inFromUser = new BufferedReader(new
