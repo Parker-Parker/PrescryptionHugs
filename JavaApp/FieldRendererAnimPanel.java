@@ -67,6 +67,8 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     BufferedImage slotBase = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage slotBaseU = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage slotBaseBlank = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage slotBaseDeck = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage slotBaseDiscard = new BufferedImage(CARD_WIDTH, CARD_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     BufferedImage[] costs = { emptyImage,
             emptyImage,
             emptyImage,
@@ -312,6 +314,16 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
         // testCard2.setHealth(2);
         // testCard0.setHealth(3);
         // testCard3.setHealth(69);
+        try {
+            slotBaseDeck = ImageIO.read(new File("JavaApp/resources/Slot/Deck_slot.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            slotBaseDiscard = ImageIO.read(new File("JavaApp/resources/Slot/discard_slot.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         importPortraits("JavaApp/resources/Portraits");
         importCosts("JavaApp/resources/Costs");
@@ -523,6 +535,15 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
     }
 
     private void renderField(Graphics2D canvas, Field field) {
+
+        if((HAND_CARDS_DRAW_MODE/4)%2==0){
+            renderAtPos(canvas,slotBaseDeck,4,2);
+            renderAtPos(canvas,slotBaseDeck,5,2);
+            renderAtPos(canvas,slotBaseDiscard,-1,2);
+        }
+
+
+
         for (int i = 0; i < 4; i++) {
             if ((canvas != null) && (field != null) && (field.getEnemyCardsBack() != null) && (field.getEnemyCardsBack().length == 4)) {
                 renderAtPos(canvas, renderCardSlotU(renderCard(field.getEnemyCardsBack()[i]), getAnimation(i, 0)), i, 0);
@@ -994,7 +1015,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
             // opacity = 0.5f;
             // g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
 
-            if((HAND_CARDS_DRAW_MODE/2)%2== 1&&c.isFromHand()){
+            if((HAND_CARDS_DRAW_MODE/2)%2== 0&&c.isFromHand()){
                 // g.drawImage(cardWhite,null,0,0);//draw background
 
                 g.setColor(Color.decode("#EBC4A6"));
@@ -1002,7 +1023,7 @@ public class FieldRendererAnimPanel extends JPanel implements ActionListener {
 
             }
             // if((!OPAQUE_HAND_CARDS)&&c.isFromHand()){
-            if(HAND_CARDS_DRAW_MODE%2==0&&c.isFromHand()){
+            if(HAND_CARDS_DRAW_MODE%2==1&&c.isFromHand()){
                 // BufferedImage cardImage2 = new BufferedImage(cardImage.getWidth(), cardImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
                 BufferedImage cardImage2 = new BufferedImage(cardImage.getWidth(), cardImage.getHeight(), BufferedImage.TYPE_INT_RGB);
                 Graphics2D g2 = (Graphics2D) cardImage2.getGraphics();
