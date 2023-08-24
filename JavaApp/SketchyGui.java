@@ -36,6 +36,8 @@ public class SketchyGui implements ActionListener {
     String selDropIndex;
     private static String bckColor = "#181818";
     private static String butColor = "#710C04";
+    private static String butColor2 = "#295a86";
+    private static String butColor3 = "#009b33";
     private static String txtColor = "#DDDDDD";
 
     public SketchyGui() {
@@ -358,7 +360,7 @@ public class SketchyGui implements ActionListener {
 
         for (int i = 0; i < buttonCount; i++) {
             JButton button = new JButton(buttonLabel + " Column " + i);
-            button.setBackground(Color.decode(butColor));
+            button.setBackground(Color.decode(butColor2));
             button.setForeground(Color.decode(txtColor));
             panel.add(button);
             button.addActionListener(actionListenerDirectSummon);
@@ -395,7 +397,7 @@ public class SketchyGui implements ActionListener {
 
         for (int i = 0; i < buttonCount; i++) {
             JButton button = new JButton(buttonLabel + " " + i);
-            button.setBackground(Color.decode(butColor));
+            button.setBackground(Color.decode(butColor3));
             button.setForeground(Color.decode(txtColor));
             panel.add(button);
             button.addActionListener(actionListenerDirectSummonSquirrel);
