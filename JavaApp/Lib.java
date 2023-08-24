@@ -744,7 +744,7 @@ class Dwayne extends Card {
 class Debile extends Card {
 
     public Debile() {
-        super("Debile", 1, 3, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_Debile.jpg");
+        super("Debil", 1, 3, 0, null, null, null, null, "JavaApp/resources/Portraits/portait_Debile.jpg");
     }
 
 }
