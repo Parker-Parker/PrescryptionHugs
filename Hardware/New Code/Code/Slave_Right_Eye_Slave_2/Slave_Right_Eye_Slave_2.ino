@@ -1,7 +1,8 @@
 #include <Wire.h>
 #include "SPI.h" //Includes library for SPI communication of display
 #include "Adafruit_GFX.h" //Includes core graphics library
-#include "Adafruit_SSD1351.h" //Includes hardware specific library
+// #include "Adafruit_SSD1351.h" //Includes hardware specific library
+#include <Adafruit_SSD1306.h>
 
 byte REyeHoldingRegister[5];
 
@@ -33,7 +34,8 @@ long randNumber;
 
 //screen dimensions
 #define SCREEN_WIDTH 128 //pixel width
-#define SCREEN_HEIGHT 128 //pixel height
+#define SCREEN_HEIGHT 64 //pixel height
+// #define SCREEN_HEIGHT 128 //pixel height
 
 //pin definitions
 #define SCLK_PIN 52 //defines s clock pin
@@ -43,18 +45,31 @@ long randNumber;
 #define CS_PIN    10 //defines chip select pin
 
 // Colour definitions
-#define BLACK           0x0000
-#define BLUE            0x001F
-#define RED             0xF800
-#define GREEN           0x07E0
-#define CYAN            0x07FF
-#define MAGENTA         0xF81F
-#define YELLOW          0xFFE0  
-#define WHITE           0xFFFF
-#define GREY            0x8410
-#define ORANGE          0xE880
+// #define BLACK           0x0000
+// #define BLUE            0x001F
+// #define RED             0xF800
+// #define GREEN           0x07E0
+// #define CYAN            0x07FF
+// #define MAGENTA         0xF81F
+// #define YELLOW          0xFFE0  
+// #define WHITE           0xFFFF
+// #define GREY            0x8410
+// #define ORANGE          0xE880
 
-Adafruit_SSD1351 display = Adafruit_SSD1351(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, CS_PIN, DC_PIN, RST_PIN);
+#define BLACK           SSD1306_BLACK
+#define BLUE            SSD1306_WHITE
+#define RED             SSD1306_WHITE
+#define GREEN           SSD1306_WHITE
+#define CYAN            SSD1306_WHITE
+#define MAGENTA         SSD1306_WHITE
+#define YELLOW          SSD1306_WHITE  
+#define WHITE           SSD1306_WHITE
+#define GREY            SSD1306_WHITE
+#define ORANGE          SSD1306_WHITE
+
+// Adafruit_SSD1351 display = Adafruit_SSD1351(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, CS_PIN, DC_PIN, RST_PIN);
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &SPI, DC_PIN, RST_PIN, CS_PIN);
 
 void setup() {
   Serial.begin(9600);
@@ -93,7 +108,8 @@ if (Eye_State == 0){
   // save the current state as the last state, for next time through the loop
   lastButtonState0 = buttonState0;        
           
-  display.drawRGBBitmap(39,37,RN,54,70);
+  // display.drawRGBBitmap(39,37,RN,54,70);
+  display.drawBitmap((SCREEN_WIDTH-54)/2,(SCREEN_HEIGHT-70)/2,RN,54,70);
 }
 
 if (Eye_State ==1){
@@ -111,11 +127,16 @@ if (Eye_State ==1){
   }
   lastButtonState1 = buttonState1;
 
-  display.drawRGBBitmap(27,27,R1,74,72);
-  display.drawRGBBitmap(27,27,R2,72,74);
-  display.drawRGBBitmap(27,27,R3,74,72);
-  display.drawRGBBitmap(27,27,R4,74,74);
-  display.drawRGBBitmap(27,27,R5,72,74);
+  // display.drawRGBBitmap(27,27,R1,74,72);
+  // display.drawRGBBitmap(27,27,R2,72,74);
+  // display.drawRGBBitmap(27,27,R3,74,72);
+  // display.drawRGBBitmap(27,27,R4,74,74);
+  // display.drawRGBBitmap(27,27,R5,72,74);
+  display.drawBitmap((SCREEN_WIDTH-74)/2,(SCREEN_HEIGHT-72)/2,R1,74,72);
+  display.drawBitmap((SCREEN_WIDTH-73)/2,(SCREEN_HEIGHT-75)/2,R2,73,75);
+  display.drawBitmap((SCREEN_WIDTH-74)/2,(SCREEN_HEIGHT-73)/2,R3,74,73);
+  display.drawBitmap((SCREEN_WIDTH-74)/2,(SCREEN_HEIGHT-74)/2,R4,74,74);
+  display.drawBitmap((SCREEN_WIDTH-73)/2,(SCREEN_HEIGHT-75)/2,R5,73,75);
   }
 
 
